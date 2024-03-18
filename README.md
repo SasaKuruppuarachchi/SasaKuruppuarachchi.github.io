@@ -1,6 +1,6 @@
-# (WIP) Strata - Jekyll Theme
+# This is the repository of my personal portfolio
 
-A Jekyll version of the "Strata" theme by [HTML5 UP](https://html5up.net/).
+Made by using the Jekyll version of the "Strata" theme by [HTML5 UP](https://html5up.net/).
 
 ![Strata Theme](images/strata.jpg "Strata Theme")
 
