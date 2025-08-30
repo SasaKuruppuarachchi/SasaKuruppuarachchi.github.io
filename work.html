@@ -30,14 +30,6 @@
         <li><a href="https://sasakuruppu.wordpress.com/" target="_blank" class="button">Legacy Site</a></li>
       </ul>
     </section>
-    <section>
-      <h2>Blog Posts</h2>
-      <p>Latest articles pulled from my Wordpress blog.</p>
-      <div id="blog-posts" class="row"></div>
-      <ul class="actions">
-        <li><a href="https://sasakuruppu.wordpress.com/" target="_blank" class="button">More on Blog</a></li>
-      </ul>
-    </section>
   </div>
   <footer id="footer">
     <ul class="icons">
@@ -68,78 +60,71 @@
           listEl.appendChild(art);
         });
       }
-      function fetchBlogPosts(){
-        var container = document.getElementById('blog-posts');
-        if(!container) return;
-        container.innerHTML = '<p>Loading blog posts...</p>';
+      function fetchAndMergeBlogPosts(combined, onDone){
         var feedUrl = 'https://sasakuruppu.wordpress.com/feed/';
-        // Try direct fetch first
+        function toWorkItem(post){
+          return {
+            id: 'blog-'+post.date+'-'+post.title.replace(/[^a-z0-9]+/gi,'-').toLowerCase(),
+            title: post.title,
+            date: post.dateISO,
+            displayDate: post.displayDate,
+            url: post.link,
+            category: 'Blog',
+            tags: [],
+            description: post.excerpt,
+            thumb: null
+          };
+        }
+        // Helpers
+        function stripHTML(html){ var tmp=document.createElement('div'); tmp.innerHTML=html; return tmp.textContent||tmp.innerText||''; }
+        function truncate(t,n){ return t.length>n? t.slice(0,n-3)+'...': t; }
+        function parseItems(rawItems){
+          rawItems.slice(0,10).forEach(function(it){
+            var d = new Date(it.pubDate || it.date || it.pubdate || '');
+            var dateISO = isNaN(d)? new Date().toISOString().slice(0,10): d.toISOString().slice(0,10);
+            var displayDate = isNaN(d)? '' : d.toLocaleDateString(undefined,{year:'numeric', month:'short', day:'numeric'});
+            combined.push(toWorkItem({
+              title: it.title,
+              link: it.link,
+              dateISO: dateISO,
+              displayDate: displayDate,
+              excerpt: truncate(stripHTML(it.description||it.content||''),140)
+            }));
+          });
+          onDone();
+        }
+        // Try direct XML first
         fetch(feedUrl).then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.text(); })
-          .then(function(xml){ processXML(xml); })
-          .catch(function(){
+          .then(function(xmlText){
+            var parser=new DOMParser();
+            var doc = parser.parseFromString(xmlText,'application/xml');
+            if(doc.querySelector('parsererror')) throw new Error('Parse error');
+            var xmlItems = Array.prototype.slice.call(doc.getElementsByTagName('item')).map(function(x){
+              return {
+                title: x.getElementsByTagName('title')[0]?.textContent || 'Post',
+                link: x.getElementsByTagName('link')[0]?.textContent || '#',
+                description: x.getElementsByTagName('description')[0]?.textContent || '',
+                pubDate: x.getElementsByTagName('pubDate')[0]?.textContent || ''
+              };
+            });
+            parseItems(xmlItems);
+          }).catch(function(){
             // Fallback to rss2json
-            var proxy = 'https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent(feedUrl);
+            var proxy='https://api.rss2json.com/v1/api.json?rss_url='+encodeURIComponent(feedUrl);
             fetch(proxy).then(function(r){ if(!r.ok) throw new Error('Proxy HTTP '+r.status); return r.json(); })
-              .then(function(json){
-                if(!json.items) throw new Error('No items');
-                var items = json.items.slice(0,6).map(function(it){
-                  return {
-                    title: it.title,
-                    link: it.link,
-                    date: it.pubDate,
-                    desc: truncate(stripHTML(it.description || ''), 140)
-                  };
-                });
-                renderBlog(items);
-              })
-              .catch(function(){
-                container.innerHTML = '<p>Could not load blog posts. <a target="_blank" href="https://sasakuruppu.wordpress.com/">Visit the blog</a>.</p>';
-              });
+              .then(function(json){ if(!json.items) throw new Error('No items'); parseItems(json.items); })
+              .catch(function(){ onDone(); });
           });
-        function processXML(xmlText){
-          var parser = new DOMParser();
-          var doc = parser.parseFromString(xmlText,'application/xml');
-          if(doc.querySelector('parsererror')) throw new Error('Parse error');
-          var items = Array.prototype.slice.call(doc.getElementsByTagName('item')).slice(0,6).map(function(it){
-            var title = it.getElementsByTagName('title')[0]?.textContent || 'Post';
-            var link = it.getElementsByTagName('link')[0]?.textContent || '#';
-            var date = it.getElementsByTagName('pubDate')[0]?.textContent || '';
-            var desc = it.getElementsByTagName('description')[0]?.textContent || '';
-            return { title: title, link: link, date: date, desc: truncate(stripHTML(desc), 140) };
-          });
-          renderBlog(items);
-        }
-        function renderBlog(items){
-          container.innerHTML='';
-          items.forEach(function(item, idx){
-            var art = document.createElement('article');
-            art.className = (idx % 2 === 1 ? '6u$' : '6u') + ' 12u$(xsmall) work-item';
-            var dateStr='';
-            if(item.date){ var d = new Date(item.date); if(!isNaN(d)) dateStr = d.toLocaleDateString(undefined,{year:'numeric', month:'short', day:'numeric'}); }
-            art.innerHTML = '<h3><a target="_blank" href="'+item.link+'">'+item.title+'</a></h3><p><small>'+dateStr+'</small><br>'+item.desc+'</p>';
-            container.appendChild(art);
-          });
-        }
-        function stripHTML(html){
-          var tmp = document.createElement('div');
-          tmp.innerHTML = html; return tmp.textContent || tmp.innerText || '';
-        }
-        function truncate(text, n){
-          return text.length>n ? text.slice(0,n-3)+'...' : text;
-        }
       }
       document.addEventListener('DOMContentLoaded', function(){
         var list = document.getElementById('work-full-list');
         var select = document.getElementById('work-sort-full');
         var current = 'newest';
-        function refresh(){
-          render(list, sortItems(window.LEGACY_WORK_ITEMS, current));
-        }
-        select.addEventListener('change', function(){
-          current = select.value; refresh();
-        });
-        refresh();
-        fetchBlogPosts();
+        var combined = window.LEGACY_WORK_ITEMS.slice();
+        function refresh(){ render(list, sortItems(combined, current)); }
+        select.addEventListener('change', function(){ current = select.value; refresh(); });
+        refresh(); // initial legacy items
+        fetchAndMergeBlogPosts(combined, function(){ refresh(); });
       });
     })();
   </script>
