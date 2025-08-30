@@ -118,3 +118,17 @@
 	});
 
 })(jQuery);
+
+// Inject last updated date into footer span if present.
+(function(){
+	var span = document.getElementById('last-updated');
+	if(!span) return;
+	var meta = document.querySelector('meta[name="last-build"]');
+	var d;
+	if(meta && meta.content){
+		span.textContent = meta.content;
+		return;
+	}
+	d = new Date();
+	span.textContent = d.getFullYear()+ '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+})();
