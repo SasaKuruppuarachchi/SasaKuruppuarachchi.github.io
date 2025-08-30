@@ -15,7 +15,16 @@
     if(!targetOL) return;
     fetch('data/publications.json?cacheBust='+Date.now())
       .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
-      .then(function(json){ if(Array.isArray(json) && json.length){ renderPublications(targetOL, json); } })
+      .then(function(json){
+        if(Array.isArray(json) && json.length){
+          json.sort(function(a,b){
+            var ay = parseInt(a.year,10)||0; var by = parseInt(b.year,10)||0;
+            if(by!==ay) return by-ay; // newest year first
+            return (a.title||'').localeCompare(b.title||'');
+          });
+          renderPublications(targetOL, json);
+        }
+      })
       .catch(function(){ /* leave static fallback */ });
   });
 })();
