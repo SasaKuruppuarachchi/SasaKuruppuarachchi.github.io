@@ -728,6 +728,22 @@
 		tbody {
 			tr {
 				border: solid 1px _palette(border);
+
+		/* DOI badge styling */
+		.doi-badge {
+			display: inline-block;
+			margin-left: 0.35em;
+			padding: 0 0.45em;
+			background: #ff6f3c;
+			color: #fff !important;
+			font-size: 0.65em;
+			font-weight: 600;
+			border-radius: 3px;
+			letter-spacing: 0.05em;
+			text-transform: uppercase;
+			text-decoration: none;
+		}
+		.doi-badge:hover { background:#ff834f; }
 				border-left: 0;
 				border-right: 0;
 

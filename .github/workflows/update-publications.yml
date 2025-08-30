@@ -15,8 +15,11 @@ jobs:
           python-version: '3.x'
       - name: Install deps
         run: pip install requests
-      - name: Fetch Google Scholar publications
-        run: python scripts/fetch_scholar.py
+      - name: Fetch ORCID publications
+        env:
+          ORCID_ID: 0000-0002-4530-8725
+          ORCID_FETCH_DETAILS: 1
+        run: python scripts/fetch_orcid.py || echo "ORCID fetch failed; keeping existing publications.json"
       - name: Commit changes
         run: |
           if git diff --quiet data/publications.json; then

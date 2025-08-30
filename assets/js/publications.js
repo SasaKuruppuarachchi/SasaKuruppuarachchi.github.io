@@ -4,9 +4,15 @@
     pubs.forEach(function(p){
       var li = document.createElement('li');
       var titleHTML = p.url ? '<a href="'+p.url+'" target="_blank" rel="noopener noreferrer">'+p.title+'</a>' : p.title;
+      var yearLabel = p.year ? (' ('+p.year+')') : ' (In press)';
+      var doiBadge = '';
+      if(p.doi){
+        var doiUrl = p.doi.startsWith('http') ? p.doi : ('https://doi.org/'+p.doi.replace(/^https?:\/\/doi.org\//,'').replace(/^doi:\s*/i,''));
+        doiBadge = ' <a class="doi-badge" href="'+doiUrl+'" target="_blank" rel="noopener noreferrer">DOI</a>';
+      }
       li.innerHTML = '<strong>' + titleHTML + '</strong>' +
-        (p.authors ? ', ' + p.authors : '') + (p.year? ' ('+p.year+')' : '') + '<br>' +
-        (p.venue? '<em>'+p.venue+'</em>' : '');
+        (p.authors ? ', ' + p.authors : '') + yearLabel + '<br>' +
+        (p.venue? '<em>'+p.venue+'</em>' : '') + doiBadge;
       listEl.appendChild(li);
     });
   }
