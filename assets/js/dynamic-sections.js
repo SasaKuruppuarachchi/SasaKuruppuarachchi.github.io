@@ -50,6 +50,8 @@
         var iso = isNaN(d)? new Date().toISOString().slice(0,10): d.toISOString().slice(0,10);
         var display = isNaN(d)? '' : d.toLocaleDateString(undefined,{year:'numeric', month:'short', day:'numeric'});
         var excerpt = truncate(stripHTML(it.description || it.content || ''), 140);
+        var img = it.image || extractImageHTML(it.content || it.description || '') || it.thumbnail || placeholderThumb;
+        if(!/^(https?:)?\/\//i.test(img)) img = it.thumbnail || placeholderThumb; // ensure absolute
         return {
           id: 'blog-'+iso+'-'+(it.title||'').replace(/[^a-z0-9]+/gi,'-').toLowerCase(),
           title: it.title || 'Post',
@@ -59,23 +61,35 @@
           category: 'Blog',
           tags: [],
           description: excerpt,
-          thumb: placeholderThumb
+          thumb: img || placeholderThumb
         };
       });
     }
     function stripHTML(html){ var tmp=document.createElement('div'); tmp.innerHTML=html; return tmp.textContent||tmp.innerText||''; }
     function truncate(t,n){ return t.length>n? t.slice(0,n-3)+'...': t; }
+    function extractImageHTML(html){
+      if(!html) return null; var d=document.createElement('div'); d.innerHTML=html; var im=d.querySelector('img');
+      return im? (im.getAttribute('data-src')||im.getAttribute('src')): null;
+    }
     // Try XML
     fetch(feedUrl).then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.text(); })
       .then(function(xmlText){
         var parser=new DOMParser(); var doc=parser.parseFromString(xmlText,'application/xml');
         if(doc.querySelector('parsererror')) throw new Error('Parse error');
         var items = Array.prototype.slice.call(doc.getElementsByTagName('item')).map(function(x){
+          var mediaThumb = x.getElementsByTagName('media:thumbnail')[0];
+          var mediaContent = x.getElementsByTagName('media:content')[0];
+          var enclosure = x.getElementsByTagName('enclosure')[0];
+          var contentEncoded = x.getElementsByTagName('content:encoded')[0]?.textContent || '';
+          var desc = x.getElementsByTagName('description')[0]?.textContent || '';
+          var img = (mediaThumb && mediaThumb.getAttribute('url')) || (mediaContent && mediaContent.getAttribute('url')) || (enclosure && enclosure.getAttribute('url')) || extractImageHTML(contentEncoded) || extractImageHTML(desc);
           return {
             title: x.getElementsByTagName('title')[0]?.textContent,
             link: x.getElementsByTagName('link')[0]?.textContent,
-            description: x.getElementsByTagName('description')[0]?.textContent,
-            pubDate: x.getElementsByTagName('pubDate')[0]?.textContent
+            description: desc,
+            content: contentEncoded,
+            pubDate: x.getElementsByTagName('pubDate')[0]?.textContent,
+            image: img
           };
         });
         addItems(mapToWorkItems(items));

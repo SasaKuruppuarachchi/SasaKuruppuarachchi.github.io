@@ -78,12 +78,16 @@
         // Helpers
         function stripHTML(html){ var tmp=document.createElement('div'); tmp.innerHTML=html; return tmp.textContent||tmp.innerText||''; }
         function truncate(t,n){ return t.length>n? t.slice(0,n-3)+'...': t; }
+        function normalizeUrl(u){ if(!u) return null; if(u.startsWith('//')) return 'https:'+u; if(/^https?:\/\//i.test(u)) return u; return null; }
         function extractFirstImage(html){
           if(!html) return null;
           var div = document.createElement('div');
           div.innerHTML = html;
           var img = div.querySelector('img');
-          if(img && img.getAttribute('src')) return img.getAttribute('src');
+          if(img){
+            var src = img.getAttribute('data-src') || img.getAttribute('src');
+            return normalizeUrl(src);
+          }
           return null;
         }
         var placeholderThumb = 'images/thumbs/01.jpg';
@@ -92,7 +96,7 @@
             var d = new Date(it.pubDate || it.date || it.pubdate || '');
             var dateISO = isNaN(d)? new Date().toISOString().slice(0,10): d.toISOString().slice(0,10);
             var displayDate = isNaN(d)? '' : d.toLocaleDateString(undefined,{year:'numeric', month:'short', day:'numeric'});
-            var img = extractFirstImage(it.description || it.content || '');
+            var img = normalizeUrl(it.thumbnail) || extractFirstImage(it.content || it.description || '');
             combined.push(toWorkItem({
               title: it.title,
               link: it.link,
