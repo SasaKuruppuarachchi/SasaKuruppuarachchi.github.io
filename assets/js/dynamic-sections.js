@@ -36,6 +36,8 @@
     refresh(); // initial
     // Fetch blog posts and merge
     fetchAndMergeBlogPosts(combined, refresh);
+  // Enhance legacy items with featured images from WP REST
+  enhanceLegacyImages(combined, refresh);
   }
 
   function fetchAndMergeBlogPosts(targetArray, onDone){
@@ -104,6 +106,33 @@
 
   function truncate(s,n){ return s.length>n? s.slice(0,n-3)+'...': s; }
   function stripHTML(h){ var d=document.createElement('div'); d.innerHTML=h; return d.textContent||d.innerText||''; }
+
+  function enhanceLegacyImages(items, onDone){
+    var endpoint = 'https://public-api.wordpress.com/wp/v2/sites/sasakuruppu.wordpress.com/posts?per_page=50&_fields=link,slug,jetpack_featured_media_url';
+    fetch(endpoint).then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+      .then(function(posts){
+        var map = {};
+        posts.forEach(function(p){
+          if(p.link){
+            var slugMatch = p.link.match(/\/(\d{4})\/(\d{2})\/(\d{2})\/([^\/]+)\/?$/);
+            var slug = slugMatch? slugMatch[4]: p.slug;
+            map[slug] = p.jetpack_featured_media_url || map[slug];
+          }
+        });
+        var updated = false;
+        items.forEach(function(it){
+          if(it.url && (!it.thumb || it.thumb.indexOf('images/thumbs')===0)){
+            var m = it.url.match(/\/(\d{4})\/(\d{2})\/(\d{2})\/([^\/]+)\/?$/);
+            if(m){
+              var slug = m[4];
+              var img = map[slug];
+              if(img){ it.thumb = img; updated = true; }
+            }
+          }
+        });
+        if(updated && onDone) onDone();
+      }).catch(function(){ /* silent */ });
+  }
 
   // MEDIA (YouTube) - Try to fetch RSS feed (no API key). If blocked by CORS, show fallback note.
   function initMedia(){
