@@ -4,7 +4,8 @@
     items.slice(0, limit).forEach(function(item, idx){
       var art = document.createElement('article');
       art.className = (idx % 2 === 1 ? '6u$' : '6u') + ' 12u$(xsmall) work-item';
-      art.innerHTML = '\n        <a href="'+item.url+'" class="image fit thumb" target="_blank">'+(item.thumb ? '<img src="'+item.thumb+'" alt="" />':'')+'</a>\n        <h3>'+item.title+'</h3>\n        <p><small>'+item.displayDate+'</small><br>'+item.description+'</p>\n      ';
+  var safeThumb = item.thumb && /^(https?:)?\/\//i.test(item.thumb) ? item.thumb : item.thumb; // relative ok
+  art.innerHTML = '\n        <a href="'+item.url+'" class="image fit thumb" target="_blank">'+(safeThumb ? '<img src="'+safeThumb+'" alt="'+(item.title||'')+' thumbnail" />':'')+'</a>\n        <h3>'+item.title+'</h3>\n        <p><small>'+item.displayDate+'</small><br>'+item.description+'</p>\n      ';
       listEl.appendChild(art);
     });
   }
@@ -50,8 +51,9 @@
         var iso = isNaN(d)? new Date().toISOString().slice(0,10): d.toISOString().slice(0,10);
         var display = isNaN(d)? '' : d.toLocaleDateString(undefined,{year:'numeric', month:'short', day:'numeric'});
         var excerpt = truncate(stripHTML(it.description || it.content || ''), 140);
-        var img = it.image || extractImageHTML(it.content || it.description || '') || it.thumbnail || placeholderThumb;
-        if(!/^(https?:)?\/\//i.test(img)) img = it.thumbnail || placeholderThumb; // ensure absolute
+        var imgCandidates = [it.image, it.thumbnail, extractImageHTML(it.content || ''), extractImageHTML(it.description || '')];
+        var img = imgCandidates.find(function(u){ return !!normalizeUrl(u); });
+        img = normalizeUrl(img) || placeholderThumb;
         return {
           id: 'blog-'+iso+'-'+(it.title||'').replace(/[^a-z0-9]+/gi,'-').toLowerCase(),
           title: it.title || 'Post',
@@ -61,16 +63,14 @@
           category: 'Blog',
           tags: [],
           description: excerpt,
-          thumb: img || placeholderThumb
+          thumb: img
         };
       });
     }
     function stripHTML(html){ var tmp=document.createElement('div'); tmp.innerHTML=html; return tmp.textContent||tmp.innerText||''; }
     function truncate(t,n){ return t.length>n? t.slice(0,n-3)+'...': t; }
-    function extractImageHTML(html){
-      if(!html) return null; var d=document.createElement('div'); d.innerHTML=html; var im=d.querySelector('img');
-      return im? (im.getAttribute('data-src')||im.getAttribute('src')): null;
-    }
+    function extractImageHTML(html){ if(!html) return null; var d=document.createElement('div'); d.innerHTML=html; var im=d.querySelector('img'); return im? (im.getAttribute('data-src')||im.getAttribute('src')): null; }
+    function normalizeUrl(u){ if(!u) return null; if(u.startsWith('//')) return 'https:'+u; if(/^https?:\/\//i.test(u)) return u; return u; }
     // Try XML
     fetch(feedUrl).then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.text(); })
       .then(function(xmlText){
