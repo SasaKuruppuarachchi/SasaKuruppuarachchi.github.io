@@ -60,37 +60,63 @@
       return;
     }
     var rssUrl = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + channelId;
+    // Show loading indicator
+    mediaContainer.innerHTML = '<p>Loading latest videos...</p>';
+    // First attempt direct RSS (may fail CORS)
     fetch(rssUrl).then(function(r){
       if(!r.ok) throw new Error('HTTP '+r.status); return r.text();
-    }).then(function(xmlText){
+    }).then(function processXML(xmlText){
       var parser = new DOMParser();
       var doc = parser.parseFromString(xmlText, 'application/xml');
+      if(doc.querySelector('parsererror')) throw new Error('Parse error');
       var entries = Array.prototype.slice.call(doc.getElementsByTagName('entry')).slice(0,6);
       if(!entries.length) throw new Error('No entries');
+      renderVideoEntries(entries.map(function(entry){
+        return {
+          title: entry.getElementsByTagName('title')[0]?.textContent || 'Video',
+            videoId: entry.getElementsByTagName('yt:videoId')[0]?.textContent,
+            published: entry.getElementsByTagName('published')[0]?.textContent
+        };
+      }));
+    }).catch(function(){
+      // Fallback to rss2json proxy (public). Rate limited; acceptable for light personal site use.
+      var proxy = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
+      fetch(proxy).then(function(r){ if(!r.ok) throw new Error('Proxy HTTP '+r.status); return r.json(); })
+        .then(function(json){
+          if(!json.items) throw new Error('No items');
+          var items = json.items.slice(0,6).map(function(it){
+            // Extract video ID from link (watch?v=)
+            var vid = (it.link.match(/v=([^&]+)/)||[])[1];
+            return { title: it.title, videoId: vid, published: it.pubDate};
+          }).filter(function(v){return v.videoId;});
+          if(!items.length) throw new Error('No vids');
+          renderVideoEntries(items);
+        }).catch(function(){
+          mediaContainer.innerHTML='';
+          var note = document.createElement('p');
+          note.innerHTML = 'Could not auto-load videos (CORS). <a href="https://www.youtube.com/@sasakuruppuarachchi/videos" target="_blank">View on YouTube</a>. ' +
+            'Option: add a small serverless proxy later.';
+          mediaContainer.appendChild(note);
+        });
+    });
+
+    function renderVideoEntries(items){
       mediaContainer.innerHTML='';
-      entries.forEach(function(entry, idx){
-        var linkEl = entry.getElementsByTagName('link')[0];
-        var titleEl = entry.getElementsByTagName('title')[0];
-        var publishedEl = entry.getElementsByTagName('published')[0];
-        var videoId = (entry.getElementsByTagName('yt:videoId')[0]||{}).textContent;
-        var url = linkEl ? linkEl.getAttribute('href') : (videoId? 'https://youtu.be/'+videoId : '#');
-        var thumb = videoId? 'https://i.ytimg.com/vi/'+videoId+'/hqdefault.jpg' : '';
+      items.forEach(function(item, idx){
+        var url = 'https://youtu.be/' + item.videoId;
+        var thumb = 'https://i.ytimg.com/vi/'+item.videoId+'/hqdefault.jpg';
         var art = document.createElement('article');
         art.className = (idx % 2 === 1 ? '6u$' : '6u') + ' 12u$(xsmall) work-item';
-        var dateStr = '';
-        if(publishedEl){
-          var d = new Date(publishedEl.textContent);
-            dateStr = d.toLocaleDateString(undefined,{year:'numeric', month:'short', day:'numeric'});
+        var dateStr='';
+        if(item.published){
+          var d = new Date(item.published);
+          if(!isNaN(d)) dateStr = d.toLocaleDateString(undefined,{year:'numeric', month:'short', day:'numeric'});
         }
-        art.innerHTML = '\n<a href="'+url+'" class="image fit thumb" target="_blank">'+(thumb? '<img src="'+thumb+'" alt="" />':'')+'</a>\n<h3>'+ (titleEl? titleEl.textContent : 'Video') +'</h3>\n<p><small>'+dateStr+'</small></p>';
+        art.innerHTML = '\n<a href="'+url+'" class="image fit thumb" target="_blank"><img src="'+thumb+'" alt="" /></a>'+
+          '\n<h3>'+item.title+'</h3>\n<p><small>'+dateStr+'</small></p>';
         mediaContainer.appendChild(art);
       });
-    }).catch(function(err){
-      mediaContainer.innerHTML='';
-      var note = document.createElement('p');
-      note.innerHTML = 'Could not auto-load videos (CORS or ID issue). <a href="https://www.youtube.com/@sasakuruppuarachchi/videos" target="_blank">View on YouTube</a>.';
-      mediaContainer.appendChild(note);
-    });
+    }
   }
 
   document.addEventListener('DOMContentLoaded', function(){
