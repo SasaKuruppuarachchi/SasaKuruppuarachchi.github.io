@@ -72,23 +72,34 @@
             category: 'Blog',
             tags: [],
             description: post.excerpt,
-            thumb: null
+            thumb: post.thumb
           };
         }
         // Helpers
         function stripHTML(html){ var tmp=document.createElement('div'); tmp.innerHTML=html; return tmp.textContent||tmp.innerText||''; }
         function truncate(t,n){ return t.length>n? t.slice(0,n-3)+'...': t; }
+        function extractFirstImage(html){
+          if(!html) return null;
+          var div = document.createElement('div');
+          div.innerHTML = html;
+          var img = div.querySelector('img');
+          if(img && img.getAttribute('src')) return img.getAttribute('src');
+          return null;
+        }
+        var placeholderThumb = 'images/thumbs/01.jpg';
         function parseItems(rawItems){
           rawItems.slice(0,10).forEach(function(it){
             var d = new Date(it.pubDate || it.date || it.pubdate || '');
             var dateISO = isNaN(d)? new Date().toISOString().slice(0,10): d.toISOString().slice(0,10);
             var displayDate = isNaN(d)? '' : d.toLocaleDateString(undefined,{year:'numeric', month:'short', day:'numeric'});
+            var img = extractFirstImage(it.description || it.content || '');
             combined.push(toWorkItem({
               title: it.title,
               link: it.link,
               dateISO: dateISO,
               displayDate: displayDate,
-              excerpt: truncate(stripHTML(it.description||it.content||''),140)
+              excerpt: truncate(stripHTML(it.description||it.content||''),140),
+              thumb: img || placeholderThumb
             }));
           });
           onDone();
