@@ -49,70 +49,37 @@
 				<!-- Two -->
 					<section id="two">
 						<h2>Recent Work</h2>
-						<div class="row">
-							<article class="6u 12u$(xsmall) work-item">
-								<a href="https://youtu.be/IFFKFt26QiU" class="image fit thumb"><img src="images/fulls/rain-demo.gif" alt="" /></a>
-								<h3>Robot Digital Twins for the Nuclear Sector</h3>
-								<p>Robot cyber-physical systems and digital twins empower the nuclear sector for better inspection, maintenance, and repair</p>
-							</article>
-							<article class="6u$ 12u$(xsmall) work-item">
-								<a href="https://youtu.be/dZZQAmC9f_c" class="image fit thumb"><img src="images/fulls/japan-secondment-output.gif" alt="" /></a>
-								<h3>Research Fellowship in Fukushima, Japan</h3>
-								<p>Software interface development to increase the manipulability and operability of a robot arm for nuclear decommissioning</p>
-							</article>
-							<article class="6u 12u$(xsmall) work-item">
-								<a href="images/fulls/nucdesim-full.gif" class="image fit thumb"><img src="images/fulls/nucdesim-full.gif" alt="" /></a>
-								<h3>Nuclear Facility Robot Simulator</h3>
-								<p>An interactive VR simulation of a mobile inspection robot in a nuclear facility undergoing decommissioning</p>
-							</article>
-							<article class="6u$ 12u$(xsmall) work-item">
-								<a href="https://youtu.be/QjwgobOIzso" class="image fit thumb"><img src="images/fulls/haomi-vr.gif" alt="" /></a>
-								<h3>BCI-VR Integration</h3>
-								<p>A VR version of the hand action observation and motor imagery (HAOMI-VR) experiment paradigm for brain-computer interfaces</p>
-							</article>
-							<article class="6u 12u$(xsmall) work-item">
-								<a href="images/fulls/handexos.gif" class="image fit thumb"><img src="images/fulls/handexos.gif" alt="" /></a>
-								<h3>HANDEXOS</h3>
-								<p>Robotic hand exoskeleton to enhance the kinaesthetic stimuli of a user during motor imagery training</p>
-							</article>
-							<article class="6u$ 12u$(xsmall) work-item">
-								<a href="images/fulls/teleops360.gif" class="image fit thumb"><img src="images/fulls/teleops360.gif" alt="" /></a>
-								<h3>Teleops360</h3>
-								<p>Livestreaming 360-degree video in VR for robot teleoperation. A commissioned work with the University of Leeds REAL Robotics</p>
-							</article>
-							<article class="6u 12u$(xsmall) work-item">
-								<a href="https://youtu.be/Z1VKtYsxhn8" class="image fit thumb"><img src="images/thumbs/agapay-full.jpg" alt="" /></a>
-								<h3>Agapay Project</h3>
-								<p>Agapay is a 7-dof cost-effective upper limb robotic exoskeleton for the neurorehabilitation of post-stroke patients</p>
-							</article>
-							<article class="6u$ 12u$(xsmall) work-item">
-								<a href="images/fulls/voolsi-earbud.gif" class="image fit thumb"><img src="images/fulls/voolsi-earbud.gif" alt="" /></a>
-								<h3>Voolsi Earbud Product Design</h3>
-								<p>Voolsi is a wireless earbud device that is designed for smart health monitoring using the latest neural interface technology</p>
-							</article>
+						<div class="row" style="align-items: center; margin-bottom: 1.5em;">
+							<div class="6u 12u$(xsmall)">
+								<p style="margin:0;">A selection of past projects migrated from my legacy Wordpress site.</p>
+							</div>
+							<div class="6u$ 12u$(xsmall)" style="text-align:right;">
+								<label for="work-sort" class="icon fa-sort" style="margin-right:0.5em;"> Sort</label>
+								<select id="work-sort" style="max-width:180px;">
+									<option value="newest" selected>Newest First</option>
+									<option value="oldest">Oldest First</option>
+								</select>
+							</div>
 						</div>
-						<ul class="actions">
-							<li><a href="https://sasakuruppu.wordpress.com/" target="_blank" class="button">Full Portfolio (Wordpress)</a></li>
+						<div id="recent-work-list" class="row"></div>
+						<ul class="actions" id="recent-work-actions">
+							<li><a id="work-toggle" href="#" class="button">View More</a></li>
+							<li><a href="work.html" class="button">All Work (Full Page)</a></li>
+							<li><a href="https://sasakuruppu.wordpress.com/" target="_blank" class="button">Legacy Site</a></li>
 							<li><a href="https://github.com/sasakuruppuarachchi" target="_blank" class="button">Code Base (GitHub)</a></li>
 						</ul>
+
 						<h2>Media</h2>
-						<div class="row">
-							<iframe style="border-radius:12px" src="https://open.spotify.com/embed/episode/4qUW7XPm1086s9riWqt0h5?utm_source=generator&theme=0" width="100%" height="152" 
-							frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+						<div class="row" style="align-items:center; margin-bottom:1em;">
+						<div class="6u 12u$(xsmall)"><p style="margin:0;">Latest public videos (auto-fetched via RSS). Only the most recent 6 are shown.</p></div>
+						<div class="6u$ 12u$(xsmall)" style="text-align:right;">
+							<a href="https://www.youtube.com/@sasakuruppuarachchi/videos" target="_blank" class="button small">Channel</a>
 						</div>
-						<br>
-						<div class="row">
-							<article class="6u 12u$(xsmall) work-item">
-								<a href="https://youtu.be/fnyTpJuaz8U?t=1498" class="image fit thumb"><img src="images/thumbs/pint-of-science.gif" alt="" /></a>
-								<h3>Pint of Science UK 2021</h3>
-								<p>Pint of Science UK #pint21 was LIVE during 17-20 May 2021. I was part of the Leeds live show "Mind, Body, and Tech" (Skip to 25:00)</p>
-							</article>
-							<article class="6u$ 12u$(xsmall) work-item">
-								<a href="https://youtu.be/pBH-MZXZt1Q" class="image fit thumb"><img src="images/thumbs/sarese.jpg" alt="" /></a>
-								<h3>SARESE x RNE Research Sprint 2022</h3>
-								<p>A group of robotics engineers meet together for a 5-day research sprint towards a symbiotic multi-robot fleet for the nuclear sector</p>
-							</article>
-						</div>
+					</div>
+						<div id="media-videos" class="row" data-channel-id="UCWAFJEwX8tbk-QnDfpqJPag"></div>
+						<ul class="actions" id="media-actions">
+							<li><a id="media-view-more" href="https://www.youtube.com/@sasakuruppuarachchi/videos" target="_blank" class="button">View More on YouTube</a></li>
+						</ul>
 					</section>
 
 
@@ -498,6 +465,8 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
+			<script src="assets/js/work-data.js"></script>
+			<script src="assets/js/dynamic-sections.js"></script>
 
 	</body>
 </html>

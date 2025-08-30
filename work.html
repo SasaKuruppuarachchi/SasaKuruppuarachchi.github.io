@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>All Work - Sasanka Kuruppu Arachchige</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<body>
+  <header id="header">
+    <a href="index.html" class="image avatar"><img src="images/avatar.jpg" alt="" /></a>
+    <h1><strong>All Work</strong><br />Legacy & recent projects (full list)</h1>
+  </header>
+  <div id="main">
+    <section>
+      <h2>Projects & Events</h2>
+      <div class="row" style="align-items:center; margin-bottom:1.5em;">
+        <div class="6u 12u$(xsmall)"><p>Sortable list of migrated legacy items.</p></div>
+        <div class="6u$ 12u$(xsmall)" style="text-align:right;">
+          <label for="work-sort-full" class="icon fa-sort" style="margin-right:0.5em;"> Sort</label>
+          <select id="work-sort-full" style="max-width:180px;">
+            <option value="newest" selected>Newest First</option>
+            <option value="oldest">Oldest First</option>
+          </select>
+        </div>
+      </div>
+      <div id="work-full-list" class="row"></div>
+      <ul class="actions">
+        <li><a href="index.html" class="button">Back Home</a></li>
+        <li><a href="https://sasakuruppu.wordpress.com/" target="_blank" class="button">Legacy Site</a></li>
+      </ul>
+    </section>
+  </div>
+  <footer id="footer">
+    <ul class="icons">
+      <li><a href="https://github.com/sasakuruppuarachchi" class="icon fa-github"><span class="label">Github</span></a></li>
+      <li><a href="https://www.linkedin.com/in/sasanka-kuruppuarachchi/" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+      <li><a href="mailto:sasa.kuruppuarachchi@gmail.com" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+    </ul>
+    <ul class="copyright">
+      <li>&copy; SasaKuruppuarachchi 2024</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+    </ul>
+  </footer>
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/work-data.js"></script>
+  <script>
+    (function(){
+      function sortItems(items, mode){
+        return items.slice().sort(function(a,b){
+          if(mode==='oldest') return new Date(a.date)-new Date(b.date);
+          return new Date(b.date)-new Date(a.date);
+        });
+      }
+      function render(listEl, items){
+        listEl.innerHTML = '';
+        items.forEach(function(item, idx){
+          var art = document.createElement('article');
+          art.className = (idx % 2 === 1 ? '6u$' : '6u') + ' 12u$(xsmall) work-item';
+          art.innerHTML = '\n<a href="'+item.url+'" class="image fit thumb" target="_blank">'+(item.thumb? '<img src="'+item.thumb+'" alt="" />':'')+'</a>\n<h3>'+item.title+'</h3>\n<p><small>'+item.displayDate+'</small><br>'+item.description+'</p>';
+          listEl.appendChild(art);
+        });
+      }
+      document.addEventListener('DOMContentLoaded', function(){
+        var list = document.getElementById('work-full-list');
+        var select = document.getElementById('work-sort-full');
+        var current = 'newest';
+        function refresh(){
+          render(list, sortItems(window.LEGACY_WORK_ITEMS, current));
+        }
+        select.addEventListener('change', function(){
+          current = select.value; refresh();
+        });
+        refresh();
+      });
+    })();
+  </script>
+</body>
+</html>
