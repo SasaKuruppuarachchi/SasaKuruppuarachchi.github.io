@@ -1,3 +1,32 @@
+/* Respect system dark mode */
+:root { color-scheme: light dark; }
+
+@media (prefers-color-scheme: dark) {
+  /* Base background & text */
+  html, body { background:#0b0d0f; color:#e5e7eb; }
+  #main { background:#0b0d0f; color:#e5e7eb; }
+  #header { background:#0b0d0f; }
+
+  /* Links */
+  a { color:#8ab4f8; }
+  a:hover { color:#b3d4ff; }
+
+  /* Buttons */
+  .button { background:#1f6feb; border-color:#1f6feb; color:#ffffff !important; }
+  .button:hover { background:#2a7ff0; border-color:#2a7ff0; }
+
+  /* Cards / text accents */
+  .post-card { background:transparent; }
+  .post-card h3 a { color:#e5e7eb; }
+  .post-card p.small { color:#9aa0a6; }
+
+  /* Borders and placeholders */
+  .thumb-placeholder { background:#171a1f; border-color:#2a2f36; }
+  hr, .table-wrapper table, .table-wrapper table td, .table-wrapper table th { border-color:#2a2f36; }
+
+  /* Forms */
+  input, select, textarea { background:#111418; color:#e5e7eb; border-color:#2a2f36; }
+}
 /* Image sizing fixes and post card styles */
 
 /* Ensure content images never overflow the text width */
