@@ -1,0 +1,36 @@
+---
+layout: post
+title: "DI-MORA P2 - Data Acquisition System"
+date: 2018-05-17 12:15:22
+categories: ["Electronic Projects", "Other projects", "TeamSHARK"]
+tags: ["CAN", "DAQ", "Data acquisition System", "Department of Mechanical Engineering", "Sasanka Kuruppuarachchi", "Team Shark Racing", "University of Moratuwa"]
+original_url: "https://sasakuruppu.wordpress.com/?p=297"
+---
+
+<div class="wp-block-image"><figure ><img src="/assets/media/2019/06/picture9.png" alt="" class="wp-image-298" /></figure></div>
+
+<p>Lack of a custom electrical
+system and a Data acquisition system in the previous iterations of TSR cars
+made the designing team lean on results and data to verify their mathematical
+models and simulation results. Not only that but also suspension tuning of the
+car was made very difficult as there was no way to obtain certain important
+dynamic parameters of the vehicle.</p>
+
+<div class="tiled-gallery__gallery"><div class="tiled-gallery__row"><div class="tiled-gallery__col"><figure class="tiled-gallery__item"><img alt="" data-height="822" data-id="300" data-link="https://sasakuruppu.wordpress.com/picture13/" data-url="/assets/media/2019/06/picture13.png" data-width="641" src="/assets/media/2019/06/picture13.png" /></figure></div><div class="tiled-gallery__col"><figure class="tiled-gallery__item"><img alt="" data-height="555" data-id="301" data-link="https://sasakuruppu.wordpress.com/picture14/" data-url="/assets/media/2019/06/picture14.jpg" data-width="740" src="/assets/media/2019/06/picture14.jpg" /></figure></div>
+
+<p>Data Acquisition
+system does the job of sensing all the data related to Engine, suspension,
+breaks and chassis; Logging them onboard and transmitting them real time to a
+remote computer for further analysis.</p>
+
+<p>These data will help
+to accurately measure and tune engine and suspension variables. The
+optimization procedure will be much faster and accurate. Further these data
+will help in designing future iterations and will validate simulation results
+to reduce error. </p>
+
+<p>Firstly the functions of the system were finalized. Then after considering different topologies the decentralized system design was chosen to improve redundancy and simplify the wire harness design. After considering protocols such as Local Interconnect Network (LIN) and CAN (Controller Area Network), MOST (Media Oriented Systems Transport), FlexRay, and Ethernet; for the communication protocol of the system CAN was chosen as it has the highest redundancy, Highest compatibility and it is the most widely used automotive communication protocol with a sufficient bandwidth. There are two separate can networks. One for critical engine management which is paired with ECU and other one for the DAQ and auxiliary electrical systems. The system was designed with different independent nodes with different tasks connected by CAN bus. As an example suspension data such as damper displacement, tyre patch temperature, break temperature and wheel speed are obtained from a node attached to each upright. Further the system has a custom dashboard and a main node with IMU, GPS and data logging functionality. All the other systems are interconnected and communicate through CAN bus.</p>
+
+<p>I was able to achieve 5-8 cm accuracy in localization from GPS, IMU and wheel speed sorsor data by using Kalman Sensor fusion.</p>
+
+<div class="tiled-gallery__gallery"><div class="tiled-gallery__row"><div class="tiled-gallery__col"><figure class="tiled-gallery__item"><img alt="" data-height="666" data-id="302" data-link="https://sasakuruppu.wordpress.com/31478667_1004577726360978_2498690874078171669_n-1/" data-url="/assets/media/2019/06/31478667_1004577726360978_2498690874078171669_n-1.jpg" data-width="960" src="/assets/media/2019/06/31478667_1004577726360978_2498690874078171669_n-1.jpg" /></figure></div><div class="tiled-gallery__col"><figure class="tiled-gallery__item"><img alt="" data-height="289" data-id="303" data-link="https://sasakuruppu.wordpress.com/picture10/" data-url="/assets/media/2019/06/picture10.jpg" data-width="465" src="/assets/media/2019/06/picture10.jpg" /></figure><figure class="tiled-gallery__item"><img alt="" data-height="296" data-id="304" data-link="https://sasakuruppu.wordpress.com/picture11/" data-url="/assets/media/2019/06/picture11.jpg" data-width="312" src="/assets/media/2019/06/picture11.jpg" /></figure></div></div><div class="tiled-gallery__row"><div class="tiled-gallery__col"><figure class="tiled-gallery__item"><img alt="" data-height="389" data-id="305" data-link="https://sasakuruppu.wordpress.com/picture12/" data-url="/assets/media/2019/06/picture12.jpg" data-width="458" src="/assets/media/2019/06/picture12.jpg" /></figure></div>

@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+	{% include head.html %}
+	<body id="top">
+
+		<!-- Header -->
+		<header id="header">
+			<a href="https://www.linkedin.com/in/sasanka-kuruppuarachchi/" class="image avatar"><img src="{{ site.baseurl }}/images/avatar.jpg" alt="" /></a>
+			<h1><strong>Hello, my name is <br />Sasanka Kuruppu Arachchige.</strong><br />
+			I am an Engineer and a researcher in <br />Aerial robotics, Agile robot navigation, Edge computing and Robust odometry.</h1>
+		</header>
+
+		<!-- Main -->
+		<div id="main">
+			{{ content }}
+		</div>
+
+		{% include footer.html %}
+
+		<!-- Scripts (optional for theme behavior) -->
+		<script src="{{ site.baseurl }}/assets/js/jquery.min.js"></script>
+		<script src="{{ site.baseurl }}/assets/js/jquery.poptrox.min.js"></script>
+		<script src="{{ site.baseurl }}/assets/js/skel.min.js"></script>
+		<script src="{{ site.baseurl }}/assets/js/util.js"></script>
+		<script src="{{ site.baseurl }}/assets/js/main.js"></script>
+	</body>
+</html>

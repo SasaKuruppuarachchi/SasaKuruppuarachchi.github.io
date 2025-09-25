@@ -1,0 +1,26 @@
+---
+layout: default
+---
+<section class="post">
+  <header class="major">
+    <h2>{{ page.title }}</h2>
+    {% if page.date %}
+    <p>{{ page.date | date: "%B %e, %Y" }}</p>
+    {% endif %}
+    {% if page.tags %}
+    <p>
+      {% for tag in page.tags %}
+        <span class="label">#{{ tag }}</span>
+      {% endfor %}
+    </p>
+    {% endif %}
+  </header>
+
+  <div class="content">
+    {{ content }}
+  </div>
+
+  <ul class="actions">
+    <li><a href="{{ site.baseurl }}/" class="button">← Back to Home</a></li>
+  </ul>
+</section>

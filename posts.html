@@ -1,0 +1,24 @@
+---
+layout: default
+title: Posts
+permalink: /posts/
+---
+<section id="posts">
+  <header class="major">
+    <h2>All Posts</h2>
+    <p>Imported from the legacy WordPress site</p>
+  </header>
+  <div class="row">
+    {% assign sorted = site.posts | sort: 'date' | reverse %}
+    {% for post in sorted %}
+      <article class="6u 12u$(xsmall)">
+        <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+        <p class="small">{{ post.date | date: "%B %e, %Y" }}{% if post.categories %} · {{ post.categories | join: ", " }}{% endif %}</p>
+        {% if post.excerpt %}<p>{{ post.excerpt | strip_html | truncate: 140 }}</p>{% endif %}
+        <ul class="actions">
+          <li><a href="{{ post.url }}" class="button small">Read</a></li>
+        </ul>
+      </article>
+    {% endfor %}
+  </div>
+</section>

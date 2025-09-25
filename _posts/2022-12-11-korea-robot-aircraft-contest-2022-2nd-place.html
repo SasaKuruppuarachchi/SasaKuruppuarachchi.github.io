@@ -1,0 +1,43 @@
+---
+layout: post
+title: "Korea Robot Aircraft Contest 2022 - 2nd place"
+date: 2022-12-11 12:07:44
+categories: ["Uncategorized"]
+original_url: "https://sasakuruppu.wordpress.com/?p=429"
+---
+
+<p>KUAM 2022 runners-up</p>
+
+<figure class="wp-block-gallery has-nested-images columns-default is-cropped"><figure class="wp-block-image size-large"><img src="/assets/media/2022/12/1662584816133.jpg?w=1024" alt="" class="wp-image-463" /></figure>
+
+<figure class="wp-block-image size-large"><img src="/assets/media/2022/12/1662584816168-1.jpg?w=1024" alt="" class="wp-image-462" /></figure>
+</figure>
+
+<p>Famously known as Korea's most prestigious UAV contest, the '20th Korea Robot Aircraft Contest KUAM 2022 was held on the 20th of September. As a part of the ARRF (Aerial Robotics Research Facility) team from Kyungpook National University, I took part in the finals of class 1 of the contest. We won 2nd place in our first entry to the contest.</p>
+
+<p>The task was a last-mile-delivery mission to deliver an object to an apartment verandah in an urban environment and return back safely.  The UAV is required to have the following capabilities,</p>
+
+<ul><li>Fully autonomous Navigation</li>
+
+<li>Obstacle avoidance</li>
+
+<li>Reach the GPS pin of the drop-off location</li>
+
+<li>Find the precise drop-off location by using the visual clue</li>
+
+<li>Autonomously deliver the object (A Pizza box)</li>
+
+<li>Precision landing</li>
+</ul>
+
+<p>I was in charge of the overall design of the drone platform and the delivery mechanism. I designed and developed a novel lightweight rotary locking mechanism that is actuated by lightweight servos.  For further details please refer to the dedicated post on the design of this mechanism.</p>
+
+<figure class="wp-block-image size-large"><img src="/assets/media/2022/12/image-5.png?w=768" alt="" class="wp-image-469" /></figure>
+
+<p>I was also in charge of the detection of the drop-off point. According to the competition rules we had to detect a cross-like visual clue and enter the apartment verandah in order to deliver the object.  I devised a method to find this marker's location and orientation in relation to the drone using the input of a depth camera and a lightweight neural network 'Movilenet SSD V2'. Details of this are already published in KSAS 2022 conference. </p>
+
+<figure class="wp-block-image alignleft size-large is-resized"><img src="/assets/media/2022/12/image-2.png?w=877" alt="" class="wp-image-465" width="439" height="255" /></figure>
+
+<figure class="wp-block-image size-large is-resized"><img src="/assets/media/2022/12/image-3.png?w=973" alt="" class="wp-image-466" width="487" height="135" /></figure>
+
+<figure class="wp-block-image size-large"><img src="/assets/media/2022/12/image-4.png?w=872" alt="" class="wp-image-468" /></figure>
