@@ -11,7 +11,19 @@ permalink: /posts.html
   <div class="row">
     {% assign sorted = site.posts | sort: 'date' | reverse %}
     {% for post in sorted %}
-      <article class="6u 12u$(xsmall)">
+      {% assign cover = post.cover %}
+      {% if cover == nil or cover == '' %}
+        {% assign parts = post.content | split: 'src="' %}
+        {% if parts.size > 1 %}
+          {% assign cover = parts[1] | split: '"' | first %}
+        {% endif %}
+      {% endif %}
+      <article class="6u 12u$(xsmall) post-card">
+        {% if cover %}
+          <a class="image fit" href="{{ post.url }}">
+            <img src="{{ cover }}" alt="{{ post.title }} cover" />
+          </a>
+        {% endif %}
         <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
         <p class="small">{{ post.date | date: "%B %e, %Y" }}{% if post.categories %} · {{ post.categories | join: ", " }}{% endif %}</p>
         {% if post.excerpt %}<p>{{ post.excerpt | strip_html | truncate: 140 }}</p>{% endif %}

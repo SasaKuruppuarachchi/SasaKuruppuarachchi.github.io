@@ -110,7 +110,7 @@ def import_wordpress(xml_path: Path) -> int:
         # categories and tags
         cats = []
         tags = []
-        for cat in item.findall('category'):
+    for cat in item.findall('category'):
             domain = cat.get('domain', '')
             name = (cat.text or '').strip()
             if not name:
@@ -120,14 +120,18 @@ def import_wordpress(xml_path: Path) -> int:
             elif domain == 'post_tag':
                 tags.append(name)
 
-        content_html = extract_text(item, 'encoded', ns['content'])
-        content_html = html.unescape(content_html)
-        content_html = clean_wp_blocks(content_html)
-        content_html = rewrite_media_urls(content_html)
+    content_html = extract_text(item, 'encoded', ns['content'])
+    content_html = html.unescape(content_html)
+    content_html = clean_wp_blocks(content_html)
+    content_html = rewrite_media_urls(content_html)
 
-        # Build front matter
-        safe_title = (title or "").replace('"', '\\"')
-        front_matter = [
+    # Determine cover image from first <img src="...">
+    m = re.search(r'<img[^>]+src="([^"]+)"', content_html, re.IGNORECASE)
+    cover = m.group(1) if m else ""
+
+    # Build front matter
+    safe_title = (title or "").replace('"', '\\"')
+    front_matter = [
             '---',
             'layout: post',
             f'title: "{safe_title}"',
@@ -139,6 +143,8 @@ def import_wordpress(xml_path: Path) -> int:
             front_matter.append('tags: [' + ', '.join(f'"{t}"' for t in tags) + ']')
         if guid:
             front_matter.append(f'original_url: "{guid}"')
+        if cover:
+            front_matter.append(f'cover: "{cover}"')
         front_matter.append('---')
 
         body = "\n".join(front_matter) + "\n\n" + content_html.strip() + "\n"
@@ -156,11 +162,7 @@ def main():
     if len(sys.argv) > 1:
         xml_arg = Path(sys.argv[1])
     else:
-        # pick first XML in lagacy folder
-        leg_dir = ROOT / 'lagacy'
-        candidates = sorted(leg_dir.glob('*.xml'))
-        if candidates:
-            xml_arg = candidates[0]
+        xml_arg = None
     if not xml_arg or not xml_arg.exists():
         print("WordPress export XML not found. Provide path as argument.")
         sys.exit(1)

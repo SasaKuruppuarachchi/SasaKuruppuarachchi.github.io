@@ -1,0 +1,19 @@
+/* Image sizing fixes and post card styles */
+
+/* Ensure content images never overflow the text width */
+#main img,
+.content img,
+.post img,
+.post .content img,
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Optional: nicer figure spacing */
+.post .content figure { margin: 0 0 1.25em; }
+
+/* Post listing cards */
+.post-card .image.fit img { display:block; width:100%; height:200px; object-fit:cover; }
+.post-card h3 { margin-top: 0.6em; }
+.post-card p.small { opacity: 0.8; margin-bottom: 0.5em; }
