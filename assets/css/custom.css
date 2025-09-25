@@ -5,7 +5,7 @@
   /* Base background & text */
   html, body { background:#0b0d0f; color:#e5e7eb; }
   #main { background:#0b0d0f; color:#e5e7eb; }
-  #header { background:#0b0d0f; }
+  /* Keep theme's header gradient/background intact */
 
   /* Links */
   a { color:#8ab4f8; }
