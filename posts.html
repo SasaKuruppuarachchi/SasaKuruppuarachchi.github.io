@@ -23,6 +23,10 @@ permalink: /posts.html
           <a class="image fit" href="{{ post.url }}">
             <img src="{{ cover }}" alt="{{ post.title }} cover" />
           </a>
+        {% else %}
+          <a class="image fit" href="{{ post.url }}">
+            <span class="thumb-placeholder" aria-hidden="true"></span>
+          </a>
         {% endif %}
         <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
         <p class="small">{{ post.date | date: "%B %e, %Y" }}{% if post.categories %} · {{ post.categories | join: ", " }}{% endif %}</p>
