@@ -8,9 +8,14 @@ permalink: /posts.html
     <h2>All Posts</h2>
     <p>Imported from the legacy WordPress site</p>
   </header>
-  <div class="row">
+  <div class="row uniform">
     {% assign sorted = site.posts | sort: 'date' | reverse %}
     {% for post in sorted %}
+      {% assign idx_mod = forloop.index | modulo: 2 %}
+      {% assign col_class = '6u 12u$(xsmall) post-card' %}
+      {% if idx_mod == 0 %}
+        {% assign col_class = '6u$ 12u$(xsmall) post-card' %}
+      {% endif %}
       {% assign cover = post.cover %}
       {% if cover == nil or cover == '' %}
         {% assign parts = post.content | split: 'src="' %}
@@ -18,7 +23,7 @@ permalink: /posts.html
           {% assign cover = parts[1] | split: '"' | first %}
         {% endif %}
       {% endif %}
-      <article class="6u 12u$(xsmall) post-card">
+      <article class="{{ col_class }}">
         {% if cover %}
           <a class="image fit" href="{{ post.url }}">
             <img src="{{ cover }}" alt="{{ post.title }} cover" />
