@@ -8,6 +8,25 @@ permalink: /posts.html
     <h2>All Posts</h2>
     <p>Projects and events chronologically</p>
   </header>
+  <div class="row uniform" style="margin-bottom: 1em;">
+    <div class="6u 12u$(xsmall)">
+      <label for="post-category" class="small">Category</label>
+      <select id="post-category">
+        <option value="__all">All</option>
+        {% assign cats = site.categories | sort %}
+        {% for c in cats %}
+          <option value="{{ c[0] | escape }}">{{ c[0] }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="6u$ 12u$(xsmall)">
+      <label for="post-sort" class="small">Sort</label>
+      <select id="post-sort">
+        <option value="newest">Newest first</option>
+        <option value="oldest">Oldest first</option>
+      </select>
+    </div>
+  </div>
   <div class="row uniform">
     {% assign sorted = site.posts | sort: 'date' | reverse %}
     {% for post in sorted %}
@@ -47,7 +66,7 @@ permalink: /posts.html
           {% assign cover = parts[1] | split: '"' | first %}
         {% endif %}
       {% endif %}
-      <article class="{{ col_class }}">
+  <article class="{{ col_class }}" data-date="{{ post.date | date: '%s' }}" data-categories="{% if post.categories %}{{ post.categories | join: '|' | downcase }}{% endif %}">
         {% if cover %}
           <a class="image fit" href="{{ post.url }}">
             <img src="{{ cover }}" alt="{{ post.title }} cover" />
@@ -71,3 +90,48 @@ permalink: /posts.html
     {% endfor %}
   </div>
 </section>
+<script>
+(function(){
+  function parseCats(el){
+    var v=(el.getAttribute('data-categories')||'').toLowerCase();
+    return v? v.split('|'): [];
+  }
+  function apply(){
+    var catSel=document.getElementById('post-category');
+    var sortSel=document.getElementById('post-sort');
+    var cat=catSel?catSel.value:'__all';
+    var sort=sortSel?sortSel.value:'newest';
+    var row=document.querySelector('#posts .row.uniform:last-of-type');
+    if(!row) return;
+    var cards=[].slice.call(row.querySelectorAll('article.post-card'));
+    // filter
+    cards.forEach(function(card){
+      var cats=parseCats(card);
+      var show=(cat==='__all') || (cats.indexOf(cat.toLowerCase())!==-1);
+      card.style.display= show? '':'none';
+    });
+    // collect visible for sorting
+    var visible=cards.filter(function(card){return card.style.display!== 'none';});
+    // sort by data-date (epoch seconds)
+    visible.sort(function(a,b){
+      var da=+(a.getAttribute('data-date')||0);
+      var db=+(b.getAttribute('data-date')||0);
+      return sort==='oldest' ? da-db : db-da;
+    });
+    // re-append in order and fix 6u/6u$ classes for wrapping
+    visible.forEach(function(card,i){
+      // adjust wrapping class
+      card.classList.remove('6u$');
+      card.classList.add('6u');
+      if((i%2)===1) { card.classList.add('6u$'); card.classList.remove('6u'); }
+      row.appendChild(card);
+    });
+  }
+  var catSel=document.getElementById('post-category');
+  var sortSel=document.getElementById('post-sort');
+  if(catSel) catSel.addEventListener('change', apply);
+  if(sortSel) sortSel.addEventListener('change', apply);
+  // initial apply (noop ordering since server already newest)
+  apply();
+})();
+</script>
