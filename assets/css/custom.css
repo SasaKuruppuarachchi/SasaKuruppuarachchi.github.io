@@ -106,11 +106,17 @@ img {
 /* Sidebar title/date styling on post pages */
 #header .post-title {
   font-size: 2.2em;
+  display: block; /* ensure line break before date on all screens */
 }
 #header .post-date {
-  display: inline-block;
+  display: block; /* prevent inline flow with title when <br> is hidden on mobile */
   margin-top: 0.25em;
   font-size: 0.95em;
   font-weight: 400;
   opacity: 0.85;
+}
+
+/* In post header, hide the <br> elements we used previously to force breaks */
+#header h1 .post-title ~ br {
+  display: none !important;
 }
