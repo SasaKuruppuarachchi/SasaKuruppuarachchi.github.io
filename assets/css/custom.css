@@ -3,8 +3,8 @@
 
 @media (prefers-color-scheme: dark) {
   /* Base background & text */
-  html, body { background:#0b0d0f; color:#e5e7ebaf; }
-  #main { background:#0b0d0f; color:#e5e7ebbf; }
+  html, body { background:#0b0d0f; color:#e5e7eb87; }
+  #main { background:#0b0d0f; color:#e5e7eb85; }
   /* Keep theme's header gradient/background intact */
 
   /* Links */
@@ -17,8 +17,8 @@
 
   /* Cards / text accents */
   .post-card { background:transparent; }
-  .post-card h3 a { color:#e5e7ebc9; }
-  .post-card p.small { color:#9aa0a6; }
+  .post-card h3 a { color:#e5e7ebb0; }
+  .post-card p.small { color:#9aa0a6dd; }
 
   /* Borders and placeholders */
   .thumb-placeholder { background:#171a1f; border-color:#2a2f36; }
