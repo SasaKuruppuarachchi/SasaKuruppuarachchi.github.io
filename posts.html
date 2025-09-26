@@ -17,6 +17,30 @@ permalink: /posts.html
         {% assign col_class = '6u$ 12u$(xsmall) post-card' %}
       {% endif %}
       {% assign cover = post.cover %}
+      {%- comment -%}
+        Prefer an explicitly marked image in the post body:
+        <img src="..." data-cover> or <img src="..." data-thumb>
+      {%- endcomment -%}
+      {% if cover == nil or cover == '' %}
+        {% assign mark_parts = post.content | split: 'data-cover' %}
+        {% if mark_parts.size > 1 %}
+          {% assign after_mark = mark_parts[1] %}
+          {% assign src_parts = after_mark | split: 'src="' %}
+          {% if src_parts.size > 1 %}
+            {% assign cover = src_parts[1] | split: '"' | first %}
+          {% endif %}
+        {% endif %}
+      {% endif %}
+      {% if cover == nil or cover == '' %}
+        {% assign mark_parts = post.content | split: 'data-thumb' %}
+        {% if mark_parts.size > 1 %}
+          {% assign after_mark = mark_parts[1] %}
+          {% assign src_parts = after_mark | split: 'src="' %}
+          {% if src_parts.size > 1 %}
+            {% assign cover = src_parts[1] | split: '"' | first %}
+          {% endif %}
+        {% endif %}
+      {% endif %}
       {% if cover == nil or cover == '' %}
         {% assign parts = post.content | split: 'src="' %}
         {% if parts.size > 1 %}
