@@ -127,3 +127,27 @@ img {
 @media screen and (max-width: 736px) {
   #header .post-title { line-height: 1.3; }
 }
+
+/* Compact UI for Recent Work controls */
+.recent-controls {
+  margin-bottom: 0.5em !important;
+}
+.recent-controls label.small {
+  font-size: 0.8em;
+  color: rgba(120,120,120,0.95);
+  margin-right: 0.25em;
+}
+.recent-controls select {
+  font-size: 0.9em;
+  padding: 0.3em 0.6em;
+  height: 2.2em;
+  min-width: 9.5em;
+}
+.recent-controls .small { opacity: 0.85; }
+@media screen and (max-width: 980px) {
+  .recent-controls label.small { display: none; }
+  .recent-controls select { min-width: 9em; }
+}
+@media (prefers-color-scheme: dark) {
+  .recent-controls label.small { color: #9aa0a6; }
+}
