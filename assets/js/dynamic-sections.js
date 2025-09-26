@@ -206,7 +206,9 @@
   }
 
   document.addEventListener('DOMContentLoaded', function(){
-    initWork();
+  // If the recent work list is server-rendered (Liquid), skip client merge
+  var serverRendered = document.querySelector('#recent-work-list[data-server="true"]');
+  if(!serverRendered) initWork();
     initMedia();
   });
 })();

@@ -1,3 +1,6 @@
+---
+layout: null
+---
 <!DOCTYPE HTML>
 <!--
 	Strata by HTML5 UP
@@ -50,22 +53,67 @@
 				<!-- Two -->
 					<section id="two">
 						<h2>Recent Work</h2>
-						<div class="row" style="align-items: center; margin-bottom: 1.5em;">
-							<div class="6u 12u$(xsmall)">
-								<p style="margin:0;">A selection of past projects migrated from my legacy Wordpress site.</p>
-							</div>
-							<div class="6u$ 12u$(xsmall)" style="text-align:right;">
-								<label for="work-sort" class="icon fa-sort" style="margin-right:0.5em;"> Sort</label>
-								<select id="work-sort" style="max-width:180px;">
-									<option value="newest" selected>Newest First</option>
-									<option value="oldest">Oldest First</option>
-								</select>
+						<div class="row" style="align-items: center; margin-bottom: 1.0em;">
+							<div class="12u$ 12u$(xsmall)">
+								<p style="margin:0;">Latest posts from my blog.</p>
 							</div>
 						</div>
-						<div id="recent-work-list" class="row"></div>
+						<div id="recent-work-list" data-server="true" class="row uniform">
+							{% assign sorted = site.posts | sort: 'date' | reverse %}
+							{% for post in sorted limit:6 %}
+							  {% assign idx_mod = forloop.index | modulo: 2 %}
+							  {% assign col_class = '6u 12u$(xsmall) post-card' %}
+							  {% if idx_mod == 0 %}
+							    {% assign col_class = '6u$ 12u$(xsmall) post-card' %}
+							  {% endif %}
+							  {% assign cover = post.cover %}
+							  {% if cover == nil or cover == '' %}
+							    {% assign mark_parts = post.content | split: 'data-cover' %}
+							    {% if mark_parts.size > 1 %}
+							      {% assign after_mark = mark_parts[1] %}
+							      {% assign src_parts = after_mark | split: 'src="' %}
+							      {% if src_parts.size > 1 %}
+							        {% assign cover = src_parts[1] | split: '"' | first %}
+							      {% endif %}
+							    {% endif %}
+							  {% endif %}
+							  {% if cover == nil or cover == '' %}
+							    {% assign mark_parts = post.content | split: 'data-thumb' %}
+							    {% if mark_parts.size > 1 %}
+							      {% assign after_mark = mark_parts[1] %}
+							      {% assign src_parts = after_mark | split: 'src="' %}
+							      {% if src_parts.size > 1 %}
+							        {% assign cover = src_parts[1] | split: '"' | first %}
+							      {% endif %}
+							    {% endif %}
+							  {% endif %}
+							  {% if cover == nil or cover == '' %}
+							    {% assign parts = post.content | split: 'src="' %}
+							    {% if parts.size > 1 %}
+							      {% assign cover = parts[1] | split: '"' | first %}
+							    {% endif %}
+							  {% endif %}
+							  <article class="{{ col_class }}">
+							    {% if cover %}
+							      <a class="image fit" href="{{ post.url }}">
+							        <img src="{{ cover }}" alt="{{ post.title }} cover" />
+							      </a>
+							    {% else %}
+							      <a class="image fit" href="{{ post.url }}">
+							        <span class="thumb-placeholder" aria-hidden="true"></span>
+							      </a>
+							    {% endif %}
+							    <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+							    <p class="small">{{ post.date | date: "%B %e, %Y" }}{% if post.categories %} · {{ post.categories | join: ", " }}{% endif %}</p>
+							    {% if post.abstract %}
+							      <p>{{ post.abstract | truncate: 140 }}</p>
+							    {% elsif post.excerpt %}
+							      <p>{{ post.excerpt | strip_html | truncate: 140 }}</p>
+							    {% endif %}
+							  </article>
+							{% endfor %}
+						</div>
 						<ul class="actions" id="recent-work-actions">
-							<li><a id="work-toggle" href="#" class="button">View More</a></li>
-							<li><a href="work.html" class="button">All Work (Full Page)</a></li>
 							<li><a href="posts.html" class="button primary">All Posts</a></li>
 							<li><a href="https://sasakuruppu.wordpress.com/" target="_blank" class="button">Legacy Site</a></li>
 							<li><a href="https://github.com/sasakuruppuarachchi" target="_blank" class="button">Code Base (GitHub)</a></li>
