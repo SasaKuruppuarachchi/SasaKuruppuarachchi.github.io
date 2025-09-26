@@ -53,9 +53,24 @@ layout: null
 				<!-- Two -->
 					<section id="two">
 						<h2>Recent Work</h2>
-						<div class="row" style="align-items: center; margin-bottom: 1.0em;">
-							<div class="12u$ 12u$(xsmall)">
+						<div class="row uniform" style="align-items: center; margin-bottom: 1.0em;">
+							<div class="6u 12u$(xsmall)">
 								<p style="margin:0;">Latest posts from my blog.</p>
+							</div>
+							<div class="6u$ 12u$(xsmall)" style="text-align:right;">
+								<label for="rw-category" class="small" style="margin-right:0.5em;">Category</label>
+								<select id="rw-category" style="max-width:180px; margin-right:0.75em;">
+									<option value="__all">All</option>
+									{% assign cats = site.categories | sort %}
+									{% for c in cats %}
+									  <option value="{{ c[0] | escape }}">{{ c[0] }}</option>
+									{% endfor %}
+								</select>
+								<label for="rw-sort" class="small" style="margin:0 0.5em;">Sort</label>
+								<select id="rw-sort" style="max-width:180px;">
+									<option value="newest" selected>Newest first</option>
+									<option value="oldest">Oldest first</option>
+								</select>
 							</div>
 						</div>
 						<div id="recent-work-list" data-server="true" class="row uniform">
@@ -93,7 +108,7 @@ layout: null
 							      {% assign cover = parts[1] | split: '"' | first %}
 							    {% endif %}
 							  {% endif %}
-							  <article class="{{ col_class }}">
+							  <article class="{{ col_class }}" data-date="{{ post.date | date: '%s' }}" data-categories="{% if post.categories %}{{ post.categories | join: '|' | downcase }}{% endif %}">
 							    {% if cover %}
 							      <a class="image fit" href="{{ post.url }}">
 							        <img src="{{ cover }}" alt="{{ post.title }} cover" />
@@ -118,6 +133,50 @@ layout: null
 							<li><a href="https://sasakuruppu.wordpress.com/" target="_blank" class="button">Legacy Site</a></li>
 							<li><a href="https://github.com/sasakuruppuarachchi" target="_blank" class="button">Code Base (GitHub)</a></li>
 						</ul>
+
+						<script>
+						(function(){
+						  function parseCats(el){
+						    var v=(el.getAttribute('data-categories')||'').toLowerCase();
+						    return v? v.split('|'): [];
+						  }
+						  function applyRW(){
+						    var catSel=document.getElementById('rw-category');
+						    var sortSel=document.getElementById('rw-sort');
+						    var cat=catSel?catSel.value:'__all';
+						    var sort=sortSel?sortSel.value:'newest';
+						    var row=document.querySelector('#recent-work-list');
+						    if(!row) return;
+						    var cards=[].slice.call(row.querySelectorAll('article.post-card'));
+						    // filter
+						    cards.forEach(function(card){
+						      var cats=parseCats(card);
+						      var show=(cat==='__all') || (cats.indexOf(cat.toLowerCase())!==-1);
+						      card.style.display= show? '':'none';
+						    });
+						    // visible only
+						    var visible=cards.filter(function(card){return card.style.display!== 'none';});
+						    // sort
+						    visible.sort(function(a,b){
+						      var da=+(a.getAttribute('data-date')||0);
+						      var db=+(b.getAttribute('data-date')||0);
+						      return sort==='oldest' ? da-db : db-da;
+						    });
+						    // re-append & wrap classes
+						    visible.forEach(function(card,i){
+						      card.classList.remove('6u$');
+						      card.classList.add('6u');
+						      if((i%2)===1) { card.classList.add('6u$'); card.classList.remove('6u'); }
+						      row.appendChild(card);
+						    });
+						  }
+						  var catSel=document.getElementById('rw-category');
+						  var sortSel=document.getElementById('rw-sort');
+						  if(catSel) catSel.addEventListener('change', applyRW);
+						  if(sortSel) sortSel.addEventListener('change', applyRW);
+						  applyRW();
+						})();
+						</script>
 
 						<h2>Media</h2>
 						<div class="row" style="align-items:center; margin-bottom:1em;">
