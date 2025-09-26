@@ -107,10 +107,12 @@ img {
 #header .post-title {
   font-size: 2.2em;
   display: block; /* ensure line break before date on all screens */
+  line-height: 1.25; /* loosen multi-line title spacing */
+  margin: 0 0 0.35em 0; /* add space before date */
 }
 #header .post-date {
   display: block; /* prevent inline flow with title when <br> is hidden on mobile */
-  margin-top: 0.25em;
+  margin-top: 0.35em;
   font-size: 0.95em;
   font-weight: 400;
   opacity: 0.85;
@@ -119,4 +121,9 @@ img {
 /* In post header, hide the <br> elements we used previously to force breaks */
 #header h1 .post-title ~ br {
   display: none !important;
+}
+
+/* Slightly more relaxed line-height on smaller screens */
+@media screen and (max-width: 736px) {
+  #header .post-title { line-height: 1.3; }
 }
