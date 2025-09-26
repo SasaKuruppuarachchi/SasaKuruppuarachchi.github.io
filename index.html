@@ -52,26 +52,21 @@ layout: null
 
 				<!-- Two -->
 					<section id="two">
-						<h2>Recent Work</h2>
-						<div class="row uniform recent-controls" style="align-items: center; margin-bottom: 1.0em;">
-							<div class="6u 12u$(xsmall)">
-								<p style="margin:0;">Latest posts from my blog.</p>
-							</div>
-							<div class="6u$ 12u$(xsmall) controls-inline" style="text-align:right;">
-								<label for="rw-category" class="small" style="margin-right:0.5em;">Category</label>
-								<select id="rw-category" aria-label="Filter by category" style="max-width:180px; margin-right:0.75em;">
-									<option value="__all">All</option>
-									{% assign cats = site.categories | sort %}
-									{% for c in cats %}
-									  <option value="{{ c[0] | escape }}">{{ c[0] }}</option>
-									{% endfor %}
-								</select>
-								<label for="rw-sort" class="small" style="margin:0 0.5em;">Sort</label>
-								<select id="rw-sort" aria-label="Sort posts" style="max-width:180px;">
-									<option value="newest" selected>Newest first</option>
-									<option value="oldest">Oldest first</option>
-								</select>
-							</div>
+						<div class="recent-header">
+						  <h2 style="margin:0;">Recent Work</h2>
+						  <div class="controls-inline">
+						    <select id="rw-category" aria-label="Filter by category">
+						      <option value="__all">All</option>
+						      {% assign cats = site.categories | sort %}
+						      {% for c in cats %}
+						        <option value="{{ c[0] | escape }}">{{ c[0] }}</option>
+						      {% endfor %}
+						    </select>
+						    <select id="rw-sort" aria-label="Sort posts">
+						      <option value="newest" selected>Newest first</option>
+						      <option value="oldest">Oldest first</option>
+						    </select>
+						  </div>
 						</div>
 						<div id="recent-work-list" data-server="true" class="row uniform">
 							{% assign sorted = site.posts | sort: 'date' | reverse %}

@@ -160,6 +160,30 @@ img {
   gap: 0.5em;
   white-space: nowrap;
 }
+.recent-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75em;
+  margin-bottom: 0.5em;
+}
+.recent-header .controls-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  white-space: nowrap;
+}
+.recent-header select {
+  font-size: 0.9em;
+  padding: 0.3em 0.6em;
+  height: 2.2em;
+  min-width: 9em;
+}
+@media screen and (max-width: 736px) {
+  .recent-header { gap: 0.5em; }
+  .recent-header h2 { font-size: 1.35em; }
+  .recent-header select { min-width: 8em; }
+}
 .recent-controls .controls-inline select {
   min-width: 8.5em !important;
   max-width: 12em;
