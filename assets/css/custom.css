@@ -3,8 +3,8 @@
 
 @media (prefers-color-scheme: dark) {
   /* Base background & text */
-  html, body { background:#0b0d0f; color:#e5e7eb87; }
-  #main { background:#0b0d0f; color:#e5e7eb85; }
+  html, body { background:#0b0d0f; color:#e5e7eb99; }
+  #main { background:#0b0d0f; color:#e5e7eb99; }
   /* Keep theme's header gradient/background intact */
 
   /* Links */
