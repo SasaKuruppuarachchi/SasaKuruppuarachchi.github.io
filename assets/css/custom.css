@@ -12,8 +12,8 @@
   a:hover { color:#b3d4ff; }
 
   /* Buttons */
-  .button { background:#0b0d0f; border-color:#e5e7eb; color:#ffffff !important; }
-  .button:hover { background:#e5e7eb37; border-color:#e5e7eb; }
+  .button { background:#0b0d0f; border-color:#e5e7eb67; color:#ffffff73 !important; }
+  .button:hover { background:#e5e7eb37; border-color:#e5e7eb67; }
 
   /* Cards / text accents */
   .post-card { background:transparent; }
