@@ -98,3 +98,7 @@ img {
 }
 .post-card h3 { margin-top: 0.6em; }
 .post-card p.small { opacity: 0.8; margin-bottom: 0.5em; }
+
+/* Match work-item typography for post cards */
+.post-card h3 { font-size: 1em; margin: 0 0 0.5em 0; }
+.post-card p { font-size: 0.8em; line-height: 1.5em; margin: 0; }
