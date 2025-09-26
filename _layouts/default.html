@@ -9,7 +9,7 @@
 			{% if page.layout == 'post' or page.collection == 'posts' %}
 			  <h1>
 			    <strong class="post-title">{{ page.title }}</strong><br />
-			    {% if page.date %}<span class="post-date">{{ page.date | date: "%B %e, %Y" }}</span>{% endif %}
+			    {% if page.date %}<br /><span class="post-date">{{ page.date | date: "%B %e, %Y" }}</span>{% endif %}
 			  </h1>
 			{% else %}
 			  <h1><strong>Hello, my name is <br />Sasanka Kuruppu Arachchige.</strong><br />
