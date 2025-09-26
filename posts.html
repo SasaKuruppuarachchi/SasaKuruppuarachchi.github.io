@@ -60,7 +60,7 @@ permalink: /posts.html
         <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
         <p class="small">{{ post.date | date: "%B %e, %Y" }}{% if post.categories %} · {{ post.categories | join: ", " }}{% endif %}</p>
         {% if post.abstract %}
-          <p>{{ post.abstract }}</p>
+          <p>{{ post.abstract | truncate: 140 }}</p>
         {% elsif post.excerpt %}
           <p>{{ post.excerpt | strip_html | truncate: 140 }}</p>
         {% endif %}
