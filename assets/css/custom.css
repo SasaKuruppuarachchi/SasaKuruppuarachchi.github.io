@@ -151,3 +151,19 @@ img {
 @media (prefers-color-scheme: dark) {
   .recent-controls label.small { color: #9aa0a6; }
 }
+
+/* Keep Recent Work selects on one line */
+.recent-controls .controls-inline {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5em;
+  white-space: nowrap;
+}
+.recent-controls .controls-inline select {
+  min-width: 8.5em !important;
+  max-width: 12em;
+}
+@media screen and (max-width: 736px) {
+  .recent-controls .controls-inline select { min-width: 7.5em !important; }
+}
