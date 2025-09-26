@@ -26,6 +26,9 @@
 
   /* Forms */
   input, select, textarea { background:#111418; color:#e5e7eb; border-color:#2a2f36; }
+
+  /* Headings */
+  h1, h2 { color:#ffffff; }
 }
 /* Image sizing fixes and post card styles */
 
