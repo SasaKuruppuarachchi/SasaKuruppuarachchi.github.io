@@ -102,3 +102,15 @@ img {
 /* Match work-item typography for post cards */
 .post-card h3 { font-size: 1em; margin: 0 0 0.5em 0; }
 .post-card p { font-size: 0.8em; line-height: 1.5em; margin: 0; }
+
+/* Sidebar title/date styling on post pages */
+#header .post-title {
+  font-size: 1.6em;
+}
+#header .post-date {
+  display: inline-block;
+  margin-top: 0.25em;
+  font-size: 0.95em;
+  font-weight: 400;
+  opacity: 0.85;
+}

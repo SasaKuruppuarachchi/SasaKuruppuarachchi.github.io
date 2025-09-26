@@ -2,19 +2,15 @@
 layout: default
 ---
 <section class="post">
+  {% if page.tags %}
   <header class="major">
-    <h2>{{ page.title }}</h2>
-    {% if page.date %}
-    <p>{{ page.date | date: "%B %e, %Y" }}</p>
-    {% endif %}
-    {% if page.tags %}
     <p>
       {% for tag in page.tags %}
         <span class="label">#{{ tag }}</span>
       {% endfor %}
     </p>
-    {% endif %}
   </header>
+  {% endif %}
 
   <div class="content">
     {{ content }}

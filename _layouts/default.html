@@ -6,8 +6,15 @@
 		<!-- Header -->
 		<header id="header">
 			<a href="https://www.linkedin.com/in/sasanka-kuruppuarachchi/" class="image avatar"><img src="{{ site.baseurl }}/images/avatar.jpg" alt="" /></a>
-			<h1><strong>Hello, my name is <br />Sasanka Kuruppu Arachchige.</strong><br />
-			I am an Engineer and a researcher in <br />Aerial robotics, <br />Agile robot navigation, <br />Edge computing <br />and Robust odometry.</h1>
+			{% if page.layout == 'post' or page.collection == 'posts' %}
+			  <h1>
+			    <strong class="post-title">{{ page.title }}</strong><br />
+			    {% if page.date %}<span class="post-date">{{ page.date | date: "%B %e, %Y" }}</span>{% endif %}
+			  </h1>
+			{% else %}
+			  <h1><strong>Hello, my name is <br />Sasanka Kuruppu Arachchige.</strong><br />
+			  I am an Engineer and a researcher in <br />Aerial robotics, <br />Agile robot navigation, <br />Edge computing <br />and Robust odometry.</h1>
+			{% endif %}
 		</header>
 
 		<!-- Main -->
