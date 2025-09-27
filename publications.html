@@ -21,9 +21,13 @@
 <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<style>
 			.orcid-link { margin-top: 1.25em; }
+			.orcid-link a { margin-right: .5em; }
 			.orcid-badge { display:inline-flex; align-items:center; gap:.5em; text-decoration:none; background:#f4f4f4; border-radius:4px; padding:.4em .6em; font-size:.9em; font-weight:600; }
 			.orcid-badge svg { width:24px; height:24px; }
 			.orcid-badge:hover { background:#e8e8e8; }
+			.scholar-badge { display:inline-flex; align-items:center; gap:.5em; text-decoration:none; background:#f4f4f4; border-radius:4px; padding:.4em .6em; font-size:.9em; font-weight:600; }
+			.scholar-badge svg { width:22px; height:22px; }
+			.scholar-badge:hover { background:#e8e8e8; }
 		</style>
 	</head>
 	<body class="is-preload">
@@ -112,6 +116,15 @@
 								</g>
 							</svg>
 							<span>ORCID Profile</span>
+						</a>
+						<a class="scholar-badge" href="https://scholar.google.com/citations?user=4hBNIx8AAAAJ&hl=en" target="_blank" rel="noopener noreferrer" aria-label="View Google Scholar profile">
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-hidden="true">
+								<title>Google Scholar</title>
+								<path fill="#4285F4" d="M12 10.2 3.4 4 12 0l8.6 4z"/>
+								<path fill="#34A853" d="M12 10.2 3.4 16 12 20l8.6-4z"/>
+								<circle cx="12" cy="10.2" r="3.2" fill="#EA4335"/>
+							</svg>
+							<span>Google Scholar</span>
 						</a>
 					</div>
 				</section>
