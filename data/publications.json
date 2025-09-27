@@ -3,14 +3,14 @@
     "title": "Lessons Learned from the RAICAM Doctoral Network Research Sprints",
     "url": "https://doi.org/10.1007/978-3-032-01486-3_40",
     "doi": "https://doi.org/10.1007/978-3-032-01486-3_40",
-    "authors": "Sasanka Kuruppu Arachchige",
+    "authors": "Alperen Kenan, Sahar Sadeghi Kordkheili, Juan Jose Garcia Cardenas, Alessandro Melone, Changda Tian, Haichuan Li, Hamidreza Raei, Sasanka Kuruppu Arachchige, Yifeng Tang, Adriana Tapus, Anibal Ollero, Arash Ajudani, Begoña C. Arrue, Dimitrios Papageorgiou, Joni-Kristian Kämäräinen, Jukka Heikkonen, Luis Figueredo, Manuel Giuliani, Panos Trahanias, Paul Bremner, Saeed Rafee Nekoo, Simon Watson, Tomi Westerlund",
     "venue": "Lecture Notes in Computer Science",
     "year": "2026"
   },
   {
     "title": "Synthetic vs. Real Training Data for Visual Navigation",
     "url": "https://orcid.org/0000-0002-4530-8725/work/192870641",
-    "authors": "Sasanka Kuruppu Arachchige",
+    "authors": "Suomela, Lauri, Arachchige, Sasanka Kuruppu, Torres, German F, Edelman, Harry, Kämäräinen, Joni-Kristian",
     "venue": "arXiv preprint arXiv:2509.11791",
     "year": "2025"
   },
@@ -18,7 +18,7 @@
     "title": "Search Operations With Geolocation Estimation of Missing Persons Based on Real-time Drone Images",
     "url": "https://doi.org/10.5302/j.icros.2024.24.0087",
     "doi": "https://doi.org/10.5302/j.icros.2024.24.0087",
-    "authors": "Sasanka Kuruppu Arachchige",
+    "authors": "Joohyuk Lee, Ho-Jun Lee, Sasanka Kuruppu Arachchige, Namyoung Kim, Hyeonjeong Heo, Kyuman Lee",
     "venue": "Journal of Institute of Control, Robotics and Systems",
     "year": "2024"
   },
@@ -26,21 +26,21 @@
     "title": "Robust Navigation Based on an Interacting Multiple-Model Filtering Framework Using Multiple Tracking Cameras",
     "url": "https://doi.org/10.2514/6.2024-1175",
     "doi": "https://doi.org/10.2514/6.2024-1175",
-    "authors": "Sasanka Kuruppu Arachchige",
+    "authors": "Sasanka Kuruppu Arachchige, Kyuman Lee",
     "venue": "AIAA SciTech 2024 Forum",
     "year": "2024"
   },
   {
     "title": "Robust Integration of Multiple Visual-Inertial Navigation Systems",
     "url": "https://orcid.org/0000-0002-4530-8725/work/124452702",
-    "authors": "Sasanka Kuruppu Arachchige",
+    "authors": "Sasanka, Kuruppu Arachchige",
     "venue": "제어로봇시스템학회 국내학술대회 논문집",
     "year": "2022"
   },
   {
     "title": "Custom Marker Detection and Pose Estimation for Last-Mile Delivery Problems",
     "url": "https://orcid.org/0000-0002-4530-8725/work/134826619",
-    "authors": "Sasanka Kuruppu Arachchige",
+    "authors": "Arachchige, Sasanka Kuruppu, Lee, Kyuman",
     "venue": "한국항공우주학회 학술발표회 초록집",
     "year": "2022"
   }
