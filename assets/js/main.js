@@ -130,5 +130,7 @@
 		return;
 	}
 	d = new Date();
-	span.textContent = d.getFullYear()+ '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+	var m = ('0' + (d.getMonth() + 1)).slice(-2);
+	var day = ('0' + d.getDate()).slice(-2);
+	span.textContent = d.getFullYear() + '-' + m + '-' + day;
 })();
