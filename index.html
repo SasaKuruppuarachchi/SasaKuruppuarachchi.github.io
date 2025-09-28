@@ -690,6 +690,21 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			      link.style.opacity = on ? '1' : '0.4';
 			    });
 			  }
+
+			  // Ensure the last (small) section highlights at page bottom
+			  function checkBottom(){
+			    var doc = document.documentElement;
+			    var body = document.body;
+			    var scrollY = window.pageYOffset || doc.scrollTop || 0;
+			    var viewport = window.innerHeight || doc.clientHeight || 0;
+			    var full = Math.max(doc.scrollHeight, body.scrollHeight, doc.offsetHeight, body.offsetHeight);
+			    if (scrollY + viewport >= full - 2) {
+			      setActive('get-in-touch');
+			    }
+			  }
+			  checkBottom();
+			  window.addEventListener('scroll', checkBottom, { passive: true });
+			  window.addEventListener('resize', checkBottom);
 			})();
 			</script>
 
