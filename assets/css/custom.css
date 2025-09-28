@@ -298,8 +298,18 @@ img {
   #sidebar-sections { font-size: 1.25em; }
 }
 @media screen and (max-width: 980px) {
-  /* Medium/mobile: #header h1 is 1.75em */
-  #header .sidebar-tagline { font-size: 1.75em; }
+  /* Mobile: make tagline smaller for readability */
+  #header .sidebar-tagline {
+    font-size: 1.15em;
+    line-height: 1.4;
+  }
+}
+
+/* Extra small phones: nudge a bit smaller */
+@media screen and (max-width: 736px) {
+  #header .sidebar-tagline {
+    font-size: 1.05em;
+  }
 }
 
 /* Optional hard-hide class when fully collapsed */
