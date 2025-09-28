@@ -307,3 +307,10 @@ img {
 @media screen and (max-width: 980px) {
   #sidebar-sections { display: none !important; }
 }
+
+/* Invisible year anchors for posts timeline (y-offset ensures correct trigger) */
+.year-anchor {
+  position: relative;
+  height: 1px; /* minimal height */
+  margin-top: -48px; /* adjust to taste; approximate header spacing */
+}

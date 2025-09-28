@@ -10,156 +10,170 @@ permalink: /posts.html
     <ul class="actions" style="margin-top:0.25em;">
       <li><a href="{{ site.baseurl }}/" class="button small">← Back Home</a></li>
     </ul>
-  </header>
-  <div class="row uniform" style="margin-bottom: 1em;">
-    <div class="6u 12u$(xsmall)">
-      <label for="post-category" class="small">Category</label>
-      <select id="post-category">
-        <option value="__all">All</option>
-        {% assign cats = site.categories | sort %}
-        {% for c in cats %}
-          <option value="{{ c[0] | escape }}">{{ c[0] }}</option>
-        {% endfor %}
-      </select>
+  ---
+  layout: default
+  title: Posts
+  permalink: /posts.html
+  ---
+  <section id="posts">
+    <header class="major">
+      <ul class="actions" style="margin-top:0.25em;">
+        <li><a href="{{ site.baseurl }}/" class="button small">← Back Home</a></li>
+      </ul>
+    </header>
+    <div class="row uniform" style="margin-bottom: 1em;">
+      <div class="6u 12u$(xsmall)">
+        <label for="post-category" class="small">Category</label>
+        <select id="post-category">
+          <option value="__all">All</option>
+          {% assign cats = site.categories | sort %}
+          {% for c in cats %}
+            <option value="{{ c[0] | escape }}">{{ c[0] }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="6u$ 12u$(xsmall)">
+        <label for="post-sort" class="small">Sort</label>
+        <select id="post-sort">
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+        </select>
+      </div>
     </div>
-    <div class="6u$ 12u$(xsmall)">
-      <label for="post-sort" class="small">Sort</label>
-      <select id="post-sort">
-        <option value="newest">Newest first</option>
-        <option value="oldest">Oldest first</option>
-      </select>
-    </div>
-  </div>
-  <div class="row uniform">
-    {% assign visible_posts = site.posts | where: 'visibility', 'Published' %}
-    {% assign sorted = visible_posts | sort: 'date' | reverse %}
-    {% assign current_year = nil %}
-    {% for post in sorted %}
-      {% assign year = post.date | date: '%Y' %}
-      {% if year != current_year %}
-        {% unless forloop.first %}</div>{% endunless %}
-        <h2 id="year-{{ year }}">{{ year }}</h2>
-        <div class="row uniform year-block" data-year="{{ year }}">
-        {% assign current_year = year %}
-      {% endif %}
-      {% assign idx_mod = forloop.index | modulo: 2 %}
-      {% assign col_class = '6u 12u$(xsmall) post-card' %}
-      {% if idx_mod == 0 %}
-        {% assign col_class = '6u$ 12u$(xsmall) post-card' %}
-      {% endif %}
-      {% assign cover = post.cover %}
-      {%- comment -%}
-        Prefer an explicitly marked image in the post body:
-        <img src="..." data-cover> or <img src="..." data-thumb>
-      {%- endcomment -%}
-      {% if cover == nil or cover == '' %}
-        {% assign mark_parts = post.content | split: 'data-cover' %}
-        {% if mark_parts.size > 1 %}
-          {% assign after_mark = mark_parts[1] %}
-          {% assign src_parts = after_mark | split: 'src="' %}
-          {% if src_parts.size > 1 %}
-            {% assign cover = src_parts[1] | split: '"' | first %}
+    <div class="row uniform" id="posts-grid">
+      {% assign visible_posts = site.posts | where: 'visibility', 'Published' %}
+      {% assign sorted = visible_posts | sort: 'date' | reverse %}
+      {% for post in sorted %}
+        {% assign idx_mod = forloop.index | modulo: 2 %}
+        {% assign col_class = '6u 12u$(xsmall) post-card' %}
+        {% if idx_mod == 0 %}
+          {% assign col_class = '6u$ 12u$(xsmall) post-card' %}
+        {% endif %}
+        {% assign cover = post.cover %}
+        {%- comment -%}
+          Prefer an explicitly marked image in the post body:
+          <img src="..." data-cover> or <img src="..." data-thumb>
+        {%- endcomment -%}
+        {% if cover == nil or cover == '' %}
+          {% assign mark_parts = post.content | split: 'data-cover' %}
+          {% if mark_parts.size > 1 %}
+            {% assign after_mark = mark_parts[1] %}
+            {% assign src_parts = after_mark | split: 'src="' %}
+            {% if src_parts.size > 1 %}
+              {% assign cover = src_parts[1] | split: '"' | first %}
+            {% endif %}
           {% endif %}
         {% endif %}
-      {% endif %}
-      {% if cover == nil or cover == '' %}
-        {% assign mark_parts = post.content | split: 'data-thumb' %}
-        {% if mark_parts.size > 1 %}
-          {% assign after_mark = mark_parts[1] %}
-          {% assign src_parts = after_mark | split: 'src="' %}
-          {% if src_parts.size > 1 %}
-            {% assign cover = src_parts[1] | split: '"' | first %}
+        {% if cover == nil or cover == '' %}
+          {% assign mark_parts = post.content | split: 'data-thumb' %}
+          {% if mark_parts.size > 1 %}
+            {% assign after_mark = mark_parts[1] %}
+            {% assign src_parts = after_mark | split: 'src="' %}
+            {% if src_parts.size > 1 %}
+              {% assign cover = src_parts[1] | split: '"' | first %}
+            {% endif %}
           {% endif %}
         {% endif %}
-      {% endif %}
-      {% if cover == nil or cover == '' %}
-        {% assign parts = post.content | split: 'src="' %}
-        {% if parts.size > 1 %}
-          {% assign cover = parts[1] | split: '"' | first %}
+        {% if cover == nil or cover == '' %}
+          {% assign parts = post.content | split: 'src="' %}
+          {% if parts.size > 1 %}
+            {% assign cover = parts[1] | split: '"' | first %}
+          {% endif %}
         {% endif %}
-      {% endif %}
-  <article class="{{ col_class }}" data-date="{{ post.date | date: '%s' }}" data-categories="{% if post.categories %}{{ post.categories | join: '|' | downcase }}{% endif %}">
-        {% if cover %}
-          <a class="image fit" href="{{ post.url }}">
-            {% if post.status == 'Ongoing' %}<span class="status-badge">Ongoing</span>{% endif %}
-            <img src="{{ cover }}" alt="{{ post.title }} cover" />
-          </a>
-        {% else %}
-          <a class="image fit" href="{{ post.url }}">
-            {% if post.status == 'Ongoing' %}<span class="status-badge">Ongoing</span>{% endif %}
-            <span class="thumb-placeholder" aria-hidden="true"></span>
-          </a>
-        {% endif %}
-        <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
-        <p class="small">{{ post.date | date: "%B %e, %Y" }}{% if post.categories %} · {{ post.categories | join: ", " }}{% endif %}</p>
-        {% if post.abstract %}
-          <p>{{ post.abstract | truncate: 140 }}</p>
-        {% elsif post.excerpt %}
-          <p>{{ post.excerpt | strip_html | truncate: 140 }}</p>
-        {% endif %}
-        <!-- <ul class="actions">
-          <li><a href="{{ post.url }}" class="button small">Read</a></li>
-        </ul> -->
-      </article>
-      {% if forloop.last %}</div>{% endif %}
-    {% endfor %}
-  </div>
-</section>
-<script>
-(function(){
-  // Build year sidebar on desktop
-  var mq = window.matchMedia('(min-width: 981px)');
-  var sidebar = document.getElementById('sidebar-sections');
-  if(mq.matches && sidebar){
-    var years = [].slice.call(document.querySelectorAll('h2[id^="year-"]'));
-    if(years.length){
-      var ul = document.createElement('ul');
-      years.forEach(function(h){
-        var y = h.id.replace('year-','');
-        var li = document.createElement('li');
-        var a = document.createElement('a');
-        a.href = '#'+h.id; a.textContent = y;
-        li.appendChild(a); ul.appendChild(li);
-      });
-      sidebar.innerHTML=''; sidebar.appendChild(ul);
-      sidebar.style.display='';
-    }
-  }
+        <article class="{{ col_class }}" data-date="{{ post.date | date: '%s' }}" data-categories="{% if post.categories %}{{ post.categories | join: '|' | downcase }}{% endif %}">
+          {% if cover %}
+            <a class="image fit" href="{{ post.url }}">
+              {% if post.status == 'Ongoing' %}<span class="status-badge">Ongoing</span>{% endif %}
+              <img src="{{ cover }}" alt="{{ post.title }} cover" />
+            </a>
+          {% else %}
+            <a class="image fit" href="{{ post.url }}">
+              {% if post.status == 'Ongoing' %}<span class="status-badge">Ongoing</span>{% endif %}
+              <span class="thumb-placeholder" aria-hidden="true"></span>
+            </a>
+          {% endif %}
+          <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+          <p class="small">{{ post.date | date: "%B %e, %Y" }}{% if post.categories %} · {{ post.categories | join: ", " }}{% endif %}</p>
+          {% if post.abstract %}
+            <p>{{ post.abstract | truncate: 140 }}</p>
+          {% elsif post.excerpt %}
+            <p>{{ post.excerpt | strip_html | truncate: 140 }}</p>
+          {% endif %}
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+  <script>
+  (function(){
+    var mq = window.matchMedia('(min-width: 981px)');
+    var sidebar = document.getElementById('sidebar-sections');
+    var grid = document.getElementById('posts-grid');
+    var spyObserver = null;
+    var headerMotionInit = false;
 
-  function parseCats(el){
-    var v=(el.getAttribute('data-categories')||'').toLowerCase();
-    return v? v.split('|'): [];
-  }
-  function apply(){
+    function setupHeaderMotion(){
+      if(headerMotionInit) return;
+      if(!(mq.matches && sidebar)) return;
+      var header=document.getElementById('header');
+      var tagline=header && header.querySelector('.sidebar-tagline');
+      var toc=sidebar; var start=60, end=240;
+      function onScroll(){ if(!tagline) return; var y=pageYOffset||document.documentElement.scrollTop||0; var t=y<=start?0:y>=end?1:(y-start)/(end-start); tagline.style.transform='translateY(' + (-12*t) + 'px)'; tagline.style.opacity=String(1-t); tagline.classList.toggle('is-hidden', t>=0.999); if(toc){ var tt=16*(1-t), to=0.2+0.8*t; toc.style.transform='translateY(' + tt + 'px)'; toc.style.opacity=String(to);} }
+      onScroll(); addEventListener('scroll', onScroll, {passive:true}); headerMotionInit=true;
+    }
+
+    function setActive(id){ if(!sidebar) return; [].slice.call(sidebar.querySelectorAll('a')).forEach(function(a){ var on=a.getAttribute('href')==='#'+id; a.classList.toggle('active', on); a.style.opacity=on?'1':'0.4'; }); }
+
+    function rebuildTimeline(){
+      if(!(mq.matches && sidebar && grid)) return;
+      // clear old anchors and observer
+      [].slice.call(document.querySelectorAll('.year-anchor')).forEach(function(n){ n.parentNode.removeChild(n); });
+      if(spyObserver){ try{ spyObserver.disconnect(); }catch(e){} spyObserver=null; }
+      // collect visible cards in order
+      var cards=[].slice.call(grid.querySelectorAll('article.post-card')).filter(function(c){ return c.style.display !== 'none'; });
+      var seen={}; var years=[];
+      cards.forEach(function(card){ var epoch=+(card.getAttribute('data-date')||0); if(!epoch) return; var y=new Date(epoch*1000).getFullYear(); if(!seen[y]){ seen[y]=true; years.push(String(y)); var anchor=document.createElement('div'); anchor.className='year-anchor'; anchor.id='year-'+y; anchor.setAttribute('aria-hidden','true'); card.parentNode.insertBefore(anchor, card); }});
+      // populate sidebar
+      var ul=document.createElement('ul'); years.forEach(function(y){ var li=document.createElement('li'); var a=document.createElement('a'); a.href='#year-'+y; a.textContent=y; li.appendChild(a); ul.appendChild(li); });
+      sidebar.innerHTML=''; sidebar.appendChild(ul); sidebar.style.display='';
+      // smooth scroll
+      sidebar.onclick=function(ev){ var a=ev.target.closest('a[href^=\"#year-\"]'); if(!a) return; ev.preventDefault(); var t=document.querySelector(a.getAttribute('href')); if(t) t.scrollIntoView({behavior:'smooth', block:'start'}); };
+      // scrollspy
+      var ids=years.map(function(y){return 'year-'+y;});
+      if('IntersectionObserver' in window){ spyObserver=new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting){ setActive(e.target.id); }}); }, {rootMargin:'0px 0px -85% 0px', threshold:[0,0.01,0.1]}); ids.forEach(function(id){ var el=document.getElementById(id); if(el) spyObserver.observe(el); }); }
+      else { function compute(){ var vh=innerHeight||document.documentElement.clientHeight; var trigger=vh*0.85; var best=null, d0=1e9; ids.forEach(function(id){ var el=document.getElementById(id); if(!el) return; var r=el.getBoundingClientRect(); var d=Math.abs(r.top-trigger); if(d<d0){ d0=d; best=id; }}); if(best) setActive(best);} compute(); addEventListener('scroll', compute, {passive:true}); addEventListener('resize', compute); }
+      function checkBottom(){ var doc=document.documentElement, body=document.body; var y=pageYOffset||doc.scrollTop||0; var vh=innerHeight||doc.clientHeight||0; var full=Math.max(doc.scrollHeight, body.scrollHeight, doc.offsetHeight, body.offsetHeight); if(y+vh>=full-2){ if(ids.length) setActive(ids[ids.length-1]); } } checkBottom(); addEventListener('scroll', checkBottom, {passive:true}); addEventListener('resize', checkBottom);
+    }
+
+    function parseCats(el){ var v=(el.getAttribute('data-categories')||'').toLowerCase(); return v? v.split('|'): []; }
+    function apply(){
+      var catSel=document.getElementById('post-category');
+      var sortSel=document.getElementById('post-sort');
+      var cat=catSel?catSel.value:'__all';
+      var sort=sortSel?sortSel.value:'newest';
+      var row=grid; if(!row) return;
+      var cards=[].slice.call(row.querySelectorAll('article.post-card'));
+      cards.forEach(function(card){ var cats=parseCats(card); var show=(cat==='__all')||(cats.indexOf(cat.toLowerCase())!==-1); card.style.display= show? '':'none'; });
+      var visible=cards.filter(function(card){return card.style.display!== 'none';});
+      visible.sort(function(a,b){ var da=+(a.getAttribute('data-date')||0); var db=+(b.getAttribute('data-date')||0); return sort==='oldest' ? da-db : db-da; });
+      visible.forEach(function(card,i){ card.classList.remove('6u$'); card.classList.add('6u'); if((i%2)===1){ card.classList.add('6u$'); card.classList.remove('6u'); } row.appendChild(card); });
+      rebuildTimeline();
+    }
+
     var catSel=document.getElementById('post-category');
     var sortSel=document.getElementById('post-sort');
-    var cat=catSel?catSel.value:'__all';
-    var sort=sortSel?sortSel.value:'newest';
-    var row=document.querySelector('#posts .row.uniform:last-of-type');
-    if(!row) return;
-    var cards=[].slice.call(row.querySelectorAll('article.post-card'));
-    // filter
-    cards.forEach(function(card){
-      var cats=parseCats(card);
-      var show=(cat==='__all') || (cats.indexOf(cat.toLowerCase())!==-1);
-      card.style.display= show? '':'none';
-    });
-    // collect visible for sorting
-    var visible=cards.filter(function(card){return card.style.display!== 'none';});
-    // sort by data-date (epoch seconds)
-    visible.sort(function(a,b){
-      var da=+(a.getAttribute('data-date')||0);
-      var db=+(b.getAttribute('data-date')||0);
-      return sort==='oldest' ? da-db : db-da;
-    });
-    // re-append in order and fix 6u/6u$ classes for wrapping
-    visible.forEach(function(card,i){
-      // adjust wrapping class
-      card.classList.remove('6u$');
-      card.classList.add('6u');
-      if((i%2)===1) { card.classList.add('6u$'); card.classList.remove('6u'); }
-      row.appendChild(card);
-    });
+    if(catSel) catSel.addEventListener('change', apply);
+    if(sortSel) sortSel.addEventListener('change', apply);
+    setupHeaderMotion();
+    apply();
+  })();
+  </script>
+          }
+        }
+        onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+      })();
+
+      // initial build of timeline (after initial apply)
+      buildTimeline();
   }
   var catSel=document.getElementById('post-category');
   var sortSel=document.getElementById('post-sort');
