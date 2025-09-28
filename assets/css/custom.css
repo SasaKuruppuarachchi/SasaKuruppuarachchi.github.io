@@ -80,7 +80,11 @@ img {
   text-decoration: none;
   top: 50%;
   white-space: nowrap;
+  pointer-events: none; /* don't block clicks outside the image */
 }
+
+/* Also ensure the before overlay never intercepts clicks */
+.post-card .image.fit:before { pointer-events: none; }
 
 .post-card .image.fit:hover:after { opacity: 1.0; }
 .post-card .image.fit:hover:before {
@@ -206,18 +210,23 @@ img {
   justify-content: space-between;
   gap: 0.75em;
   margin-bottom: 0.5em;
+  position: relative; /* ensure it establishes a stacking context */
+  z-index: 5; /* keep controls above any thumbnail overlays */
 }
 .recent-header .controls-inline {
   display: flex;
   align-items: center;
   gap: 0.5em;
   white-space: nowrap;
+  position: relative;
+  z-index: 5;
 }
 .recent-header select {
   font-size: 0.9em;
   padding: 0.3em 0.6em;
   height: 2.2em;
   min-width: 9em;
+  pointer-events: auto; /* be explicit */
 }
 @media screen and (max-width: 736px) {
   .recent-header { gap: 0.5em; }
