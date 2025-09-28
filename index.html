@@ -27,8 +27,23 @@ layout: null
 		<!-- Header -->
 			<header id="header">
 				<a href="https://www.linkedin.com/in/sasanka-kuruppuarachchi/" class="image avatar"><img src="images/avatar.jpg" alt="" /></a>
-				<h1><strong>Hello, my name is <br />Sasanka Kuruppu Arachchige.</strong><br />
-				I am an Engineer and a researcher in <br />Aerial robotics, <br />Agile robot navigation, <br />Edge computing <br />and Robust odometry.</a></h1>
+				<h1>
+					<strong>Hello, my name is <br />Sasanka Kuruppu Arachchige.</strong>
+				</h1>
+				<p class="sidebar-tagline">
+					I am an Engineer and a researcher in<br />
+					Aerial robotics,<br />
+					Agile robot navigation,<br />
+					Edge computing<br />
+					and Robust odometry.
+				</p>
+				<nav id="sidebar-sections" aria-label="Page sections">
+					<ul>
+						<li><a href="#recent-work">Recent Work</a></li>
+						<li><a href="#media">Media</a></li>
+						<li><a href="#get-in-touch">Get In Touch</a></li>
+					</ul>
+				</nav>
 			</header>
 
 		<!-- Main -->
@@ -57,7 +72,7 @@ layout: null
 				<!-- Two -->
 					<section id="two">
 						<div class="recent-header">
-						  <h2 style="margin:0;">Recent Work</h2>
+						  <h2 id="recent-work" style="margin:0;">Recent Work</h2>
 						  <div class="controls-inline">
 						    <select id="rw-category" aria-label="Filter by category">
 						      <option value="__all">All</option>
@@ -180,8 +195,53 @@ layout: null
 						})();
 						</script>
 
+						<script>
+						// Sidebar section highlighting on large screens
+						(function(){
+						  var mq = window.matchMedia('(min-width: 981px)');
+						  if (!mq.matches) return; // desktop only
+
+						  var ids = ['recent-work','media','get-in-touch'];
+						  var links = ids.reduce(function(acc, id){
+						    var a = document.querySelector('#sidebar-sections a[href="#'+id+'"]');
+						    if (a) acc[id] = a;
+						    return acc;
+						  }, {});
+
+						  // Smooth scroll for sidebar links
+						  Object.values(links).forEach(function(a){
+						    a.addEventListener('click', function(ev){
+						      ev.preventDefault();
+						      var target = document.querySelector(this.getAttribute('href'));
+						      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+						    });
+						  });
+
+						  var activeId = null;
+						  var io = new IntersectionObserver(function(entries){
+						    var best = null;
+						    entries.forEach(function(e){
+						      if (!e.isIntersecting) return;
+						      if (!best || e.intersectionRatio > best.intersectionRatio) best = e;
+						    });
+						    if (!best) return;
+						    var id = best.target.id;
+						    if (id === activeId) return;
+						    activeId = id;
+						    ids.forEach(function(k){
+						      var link = links[k];
+						      if (!link) return;
+						      link.classList.toggle('active', k === id);
+						      link.style.opacity = (k === id) ? '1' : '0.4';
+						    });
+						  }, { threshold: [0.5] });
+
+						  ids.forEach(function(id){ var el = document.getElementById(id); if (el) io.observe(el); });
+						})();
+						</script>
+
 						<div class="section-header">
-						  <h2 style="margin:0;">Media</h2>
+						  <h2 id="media" style="margin:0;">Media</h2>
 						  <div class="controls-inline">
 						    <a href="https://www.youtube.com/@sasakuruppuarachchi/videos" target="_blank" class="button small">Channel</a>
 						  </div>
@@ -196,7 +256,7 @@ layout: null
 
 				<!-- Three -->
 					<section id="three">
-						<h2>Get In Touch!</h2>
+						<h2 id="get-in-touch">Get In Touch!</h2>
 						<p>Oh hello. Want to get in touch for some chit-chat over coffee? (coffee optional) <br />Send me a message on Twitter, GitHub, or LinkedIn (icons on your left). Thanks for visiting!</p>
 						<!--
 						<div class="row">

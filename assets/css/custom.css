@@ -253,3 +253,12 @@ img {
 @media screen and (max-width: 736px) {
   .section-header h2 { font-size: 1.35em; }
 }
+
+/* Sidebar enhancements on desktop */
+@media screen and (min-width: 981px) {
+  #header .sidebar-tagline { margin: 0.35em 0 0.75em 0; opacity: 0.9; }
+  #sidebar-sections { margin-top: 0.5em; }
+  #sidebar-sections ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35em; }
+  #sidebar-sections a { text-decoration: none; font-size: 0.95em; opacity: 0.4; transition: opacity .2s ease; }
+  #sidebar-sections a.active { opacity: 1; font-weight: 600; }
+}
