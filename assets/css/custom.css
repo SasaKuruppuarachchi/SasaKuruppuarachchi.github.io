@@ -268,13 +268,29 @@ img {
   #sidebar-sections ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35em; }
   #sidebar-sections a {
     text-decoration: none;
-    font-size: 0.95em;
+    font-size: inherit; /* match container (same as h1) */
     color: rgba(255,255,255,0.6);
     opacity: 0.6;
     transition: opacity .2s ease, color .2s ease;
   }
   #sidebar-sections a:hover { text-decoration: none; opacity: 0.8; }
   #sidebar-sections a.active { opacity: 1; font-weight: 600; color: rgba(255,255,255,1); }
+}
+
+/* Match tagline & TOC font-size to #header h1 across breakpoints */
+@media screen and (min-width: 1281px) {
+  /* Default desktop: #header h1 is 1.35em in theme */
+  #header .sidebar-tagline,
+  #sidebar-sections { font-size: 1.35em; }
+}
+@media screen and (min-width: 981px) and (max-width: 1280px) {
+  /* Large breakpoint: #header h1 is 1.25em */
+  #header .sidebar-tagline,
+  #sidebar-sections { font-size: 1.25em; }
+}
+@media screen and (max-width: 980px) {
+  /* Medium/mobile: #header h1 is 1.75em */
+  #header .sidebar-tagline { font-size: 1.75em; }
 }
 
 /* Optional hard-hide class when fully collapsed */
