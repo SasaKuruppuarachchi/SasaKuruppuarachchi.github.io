@@ -308,9 +308,7 @@ img {
   #sidebar-sections { display: none !important; }
 }
 
-/* Invisible year anchors for posts timeline (y-offset ensures correct trigger) */
-.year-anchor {
-  position: relative;
-  height: 1px; /* minimal height */
-  margin-top: -48px; /* adjust to taste; approximate header spacing */
+/* Anchor offset for year-tagged post cards (used in Edge-friendly timeline) */
+article.post-card[id^="year-"] {
+  scroll-margin-top: 56px; /* space below fixed header when using smooth scroll */
 }
