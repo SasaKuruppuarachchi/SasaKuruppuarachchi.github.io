@@ -1,7 +1,25 @@
----
-layout: default
----
-<style>
+
+<!DOCTYPE HTML>
+<!--
+	Strata by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+
+<html>
+	<head>
+		<title>Sasanka Kuruppu Arachchige</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/custom.css" />
+		<!-- Site icon / favicon -->
+		<link rel="icon" href="images/avatar.jpg" type="image/jpeg" />
+		<link rel="shortcut icon" href="images/avatar.jpg" type="image/jpeg" />
+		<link rel="apple-touch-icon" href="images/avatar.jpg" />
+<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<style>
 			.orcid-link { margin-top: 1.25em; }
 			.orcid-link a { margin-right: .5em; }
 			.orcid-badge { display:inline-flex; align-items:center; gap:.5em; text-decoration:none; background:#f4f4f4; border-radius:4px; padding:.4em .6em; font-size:.9em; font-weight:600; }
@@ -11,7 +29,27 @@ layout: default
 			.scholar-badge svg { width:22px; height:22px; }
 			.scholar-badge:hover { background:#e8e8e8; }
 		</style>
+	</head>
+	<body class="is-preload" id="top">
 
+		<!-- Header -->
+			<header id="header">
+				<a href="https://www.linkedin.com/in/sasanka-kuruppuarachchi/" class="image avatar"><img src="images/avatar.jpg" alt="" /></a>
+				<h1>
+					<strong>Hello, my name is <br />Sasanka Kuruppu Arachchige.</strong>
+				</h1>
+				<p class="sidebar-tagline">I am an Engineer and a researcher in <br />Agile Aerial robotics, Edge computing,<br />Robust odometry and navigation.</p>
+				<nav id="sidebar-sections" aria-label="Page sections">
+					<ul>
+						<li><a href="#publications">Publications</a></li>
+						<li><a href="#under-review">Under Peer-review</a></li>
+						<li><a href="#ongoing-research">Ongoing Research</a></li>
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Main -->
+			<div id="main">
 
 				<!-- One -->
 					<section id="one">
@@ -232,7 +270,13 @@ layout: default
 
 				
 
-<script>
+				<!-- Four -->
+				<!--
+					<section id="four">
+						<h2>Elements</h2>
+
+		<!-- Scripts -->
+		<script>
 		// Desktop-only sidebar motion + scrollspy, mirrored from homepage
 		(function(){
 		  var mq = window.matchMedia('(min-width: 981px)');
@@ -241,15 +285,6 @@ layout: default
 		  var tagline = header && header.querySelector('.sidebar-tagline');
 		  var toc = document.getElementById('sidebar-sections');
 		  var start = 60, end = 240;
-
-		  // Build sidebar nav links for this page
-		  var ids = ['publications','under-review','ongoing-research'];
-		  if (toc) {
-		    var ul = document.createElement('ul');
-		    var labels = { 'publications':'Publications', 'under-review':'Under review', 'ongoing-research':'Ongoing' };
-		    ids.forEach(function(id){ var li=document.createElement('li'); var a=document.createElement('a'); a.href='#'+id; a.textContent=labels[id]||id; li.appendChild(a); ul.appendChild(li); });
-		    toc.innerHTML=''; toc.appendChild(ul); toc.style.display='';
-		  }
 		  function onScroll(){
 		    if(!tagline) return;
 		    var y = window.pageYOffset || document.documentElement.scrollTop || 0;
@@ -267,6 +302,7 @@ layout: default
 		  onScroll();
 		  window.addEventListener('scroll', onScroll, {passive:true});
 
+		  var ids = ['publications','under-review','ongoing-research'];
 		  var links = ids.reduce(function(acc,id){
 		    var a = document.querySelector('#sidebar-sections a[href="#'+id+'"]');
 		    if(a) acc[id]=a; return acc;
@@ -311,7 +347,34 @@ layout: default
 		  window.addEventListener('scroll', checkBottom, {passive:true});
 		  window.addEventListener('resize', checkBottom);
 		})();
+		</script>
+						
 
-// Include dynamic publications renderer
-</script>
-<script src="{{ site.baseurl }}/assets/js/publications.js"></script>
+			</div>
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer">
+									<ul class="icons">
+						<!--li><a href="https://twitter.com/paulobaniqued" class="icon fa-twitter"><span class="label">Twitter</span></a></li-->
+						<li><a href="https://github.com/sasakuruppuarachchi" class="icon fa-github"><span class="label">Github</span></a></li>
+						<li><a href="https://www.linkedin.com/in/sasanka-kuruppuarachchi/" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+						<li><a href="mailto:sasa.kuruppuarachchi@gmail.com" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; SasaKuruppuarachchi 2024</li><li>Last update on: <span id="last-updated"></span></li>
+					</ul>
+							</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+			<script src="assets/js/publications.js"></script>
+
+	</body>
+</html>

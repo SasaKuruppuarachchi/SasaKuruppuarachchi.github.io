@@ -41,91 +41,100 @@
 		<!-- Main -->
 			<div id="main">
 
-				---
-				layout: default
-				---
-
 				<!-- One -->
-				<section id="one">
-					<header class="major">
-						<h2 id="contact">Contact<br /><br /></h2>
-					</header>
+					<section id="one">
+						<header class="major">
+							<h2 id="contact">Contact<br /><br /></h2>
+						</header>
 
-					<ul class="actions">
-						<li><a href="index.html" class="button">Home</a></li>
-						<li><a href="publications.html" class="button">Publications</a></li>
-						<li><a href="contact.html" class="button primary">Contact</a></li>
-						<li><a href="https://sasakuruppuarachchi.github.io/curriculum-vitae" target="_blank" class="button">CV</a></li>
-					</ul>
-				</section>
+						<ul class="actions">
+							<li><a href="index.html" class="button">Home</a></li>
+							<li><a href="publications.html" class="button">Publications</a></li>
+							<li><a href="contact.html" class="button primary">Contact</a></li>
+                            <li><a href="https://sasakuruppuarachchi.github.io/curriculum-vitae" target="_blank" class="button">CV</a></li>
+						</ul>
+					</section>
 
-				<p>I'd be very happy to discuss my work, or anything else, with anyone that's interested. I am most responsive via email, but I can also be reached by post or via LinkedIn.</p>
+                <p>I'd be very happy to discuss my work, or anything else, with anyone that's interested. I am most responsive via email, but I can also be reached by post or via LinkedIn.</p>
 
 				<h2 id="email">Email</h2>
-				<p>
-					Email Address: <a href="mailto:sasanka.kuruppuarachchige@tuni.fi">sasanka.kuruppuarachchige@tuni.fi</a><br />
-					Gmail Address: <a href="mailto:sasa.kuruppuarachchi@gmail.com">sasa.kuruppuarachchi@gmail.com</a>
-				</p>
-
+                <p>Email Address: <a href="mailto:sasanka.kuruppuarachchige@tuni.fi">sasanka.kuruppuarachchige@tuni.fi</a>><br />
+				Gmail Address: <a href="mailto:sasa.kuruppuarachchi@gmail.com">sasa.kuruppuarachchi@gmail.com</a></p>
+                
 				<h2 id="profiles">Professional Profiles</h2>
-				<ul class="social-icons">
-					<li><a href="https://www.linkedin.com/in/sasanka-kuruppuarachchi/" class="icon brands fa-linkedin "><span class="label">Linkedin</span> LinkedIn Profile</a></li>
-					<li><a href="https://github.com/sasakuruppuarachchi?tab=repositories" class="icon brands fa-github"><span class="label">Github</span> GitHub Repositories</a></li>
-				</ul>
+                <ul class="social-icons">
+                    <li><a href="https://www.linkedin.com/in/sasanka-kuruppuarachchi/" class="icon brands fa-linkedin "><span class="label">Linkedin</span> LinkedIn Profile</a></li>
+                    <li><a href="https://github.com/sasakuruppuarachchi?tab=repositories" class="icon brands fa-github"><span class="label">Github</span> GitHub Repositories</a></li>
+                </ul>
 
 				<h2 id="address">Postal Address</h2>
-				<p>
-					Sasanka Kuruppu Arachchige<br>
-					Room 412, 4th floor<br>
-					Tiatalo<br>
-					University of Tampere<br>
-					Korkeakoulunkatu 7 Kampusareena,<br>
-					33720<br>
-					Tampere, Finland
-				</p>
+                    Sasanka Kuruppu Arachchige<br>
+                    Room 412, 4th floor<br>
+                    Tiatalo<br>
+                    University of Tampere<br>
+                    Korkeakoulunkatu 7 Kampusareena, <br>
+                    33720<br>
+                    Tampere, Finland</p>
 
-				<script>
-				// Desktop-only sidebar motion + scrollspy and sidebar nav build
-				(function(){
-					var mq = window.matchMedia('(min-width: 981px)');
-					if (!mq.matches) return;
-					var header = document.getElementById('header');
-					var tagline = header && header.querySelector('.sidebar-tagline');
-					var toc = document.getElementById('sidebar-sections');
-					var start = 60, end = 240;
+            </div>
+        </div>
+		<!-- Footer -->
+			<footer id="footer">
+									<ul class="icons">
+						<!--li><a href="https://twitter.com/paulobaniqued" class="icon fa-twitter"><span class="label">Twitter</span></a></li-->
+						<li><a href="https://github.com/sasakuruppuarachchi" class="icon fa-github"><span class="label">Github</span></a></li>
+						<li><a href="https://www.linkedin.com/in/sasanka-kuruppuarachchi/" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+						<li><a href="mailto:sasa.kuruppuarachchi@gmail.com" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; SasaKuruppuarachchi 2024</li><li>Last update on: <span id="last-updated"></span></li>
+					</ul>
+							</footer>
 
-					// IDs and labels for this page
-					var ids = ['contact','email','profiles','address'];
-					if (toc) {
-						var ul = document.createElement('ul');
-						var labels = { contact:'Contact', email:'Email', profiles:'Profiles', address:'Address' };
-						ids.forEach(function(id){ var li=document.createElement('li'); var a=document.createElement('a'); a.href='#'+id; a.textContent=labels[id]||id; li.appendChild(a); ul.appendChild(li); });
-						toc.innerHTML=''; toc.appendChild(ul); toc.style.display='';
-					}
+		<!-- Scripts -->
+						<script src="assets/js/jquery.min.js"></script>
+						<script src="assets/js/jquery.poptrox.min.js"></script>
+						<script src="assets/js/browser.min.js"></script>
+						<script src="assets/js/breakpoints.min.js"></script>
+						<script src="assets/js/util.js"></script>
+<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+						<script src="assets/js/main.js"></script>
+						<script>
+						// Desktop-only sidebar motion + scrollspy
+						(function(){
+							var mq = window.matchMedia('(min-width: 981px)');
+							if (!mq.matches) return;
+							var header=document.getElementById('header');
+							var tagline=header && header.querySelector('.sidebar-tagline');
+							var toc=document.getElementById('sidebar-sections');
+							var start=60, end=240;
+							function onScroll(){
+								if(!tagline) return;
+								var y=window.pageYOffset||document.documentElement.scrollTop||0;
+								var t=y<=start?0:y>=end?1:(y-start)/(end-start);
+								tagline.style.transform='translateY(' + (-12*t) + 'px)';
+								tagline.style.opacity=String(1-t);
+								tagline.classList.toggle('is-hidden', t>=0.999);
+								if(toc){ var tocTranslate=16*(1-t); var tocOpacity=0.2+0.8*t; toc.style.transform='translateY(' + tocTranslate + 'px)'; toc.style.opacity=String(tocOpacity); }
+							}
+							onScroll();
+							window.addEventListener('scroll', onScroll, {passive:true});
 
-					function onScroll(){
-						if(!tagline) return;
-						var y=window.pageYOffset||document.documentElement.scrollTop||0;
-						var t=y<=start?0:y>=end?1:(y-start)/(end-start);
-						tagline.style.transform='translateY(' + (-12*t) + 'px)';
-						tagline.style.opacity=String(1-t);
-						tagline.classList.toggle('is-hidden', t>=0.999);
-						if(toc){ var tocTranslate=16*(1-t); var tocOpacity=0.2+0.8*t; toc.style.transform='translateY(' + tocTranslate + 'px)'; toc.style.opacity=String(tocOpacity); }
-					}
-					onScroll();
-					window.addEventListener('scroll', onScroll, {passive:true});
+							var ids=['contact','email','profiles','address'];
+							var links=ids.reduce(function(acc,id){ var a=document.querySelector('#sidebar-sections a[href="#'+id+'"]'); if(a) acc[id]=a; return acc; },{});
+							Object.values(links).forEach(function(a){ a.addEventListener('click', function(ev){ ev.preventDefault(); var target=document.querySelector(this.getAttribute('href')); if(target) target.scrollIntoView({behavior:'smooth', block:'start'}); }); });
+							function setActive(id){ ids.forEach(function(k){ var link=links[k]; if(!link) return; var on=(k===id); link.classList.toggle('active', on); link.style.opacity=on?'1':'0.4'; }); }
+							if('IntersectionObserver' in window){
+								var obs=new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting){ var id=e.target.id; if(id) setActive(id); }}); },{ rootMargin:'0px 0px -85% 0px', threshold:[0,0.01,0.1]});
+								ids.forEach(function(id){ var el=document.getElementById(id); if(el) obs.observe(el); });
+							} else {
+								function compute(){ var vh=window.innerHeight||document.documentElement.clientHeight; var trigger=vh*0.85; var best=null, bestDist=1e9; ids.forEach(function(id){ var el=document.getElementById(id); if(!el) return; var r=el.getBoundingClientRect(); var d=Math.abs(r.top-trigger); if(d<bestDist){ bestDist=d; best=id; } }); if(best) setActive(best); }
+								compute(); window.addEventListener('scroll', compute, {passive:true}); window.addEventListener('resize', compute);
+							}
+							function checkBottom(){ var doc=document.documentElement, body=document.body; var y=window.pageYOffset||doc.scrollTop||0; var vh=window.innerHeight||doc.clientHeight||0; var full=Math.max(doc.scrollHeight, body.scrollHeight, doc.offsetHeight, body.offsetHeight); if(y+vh>=full-2){ setActive('address'); } }
+							checkBottom(); window.addEventListener('scroll', checkBottom, {passive:true}); window.addEventListener('resize', checkBottom);
+						})();
+						</script>
 
-					var links = ids.reduce(function(acc,id){ var a=document.querySelector('#sidebar-sections a[href="#'+id+'"]'); if(a) acc[id]=a; return acc; },{});
-					Object.values(links).forEach(function(a){ a.addEventListener('click', function(ev){ ev.preventDefault(); var target=document.querySelector(this.getAttribute('href')); if(target) target.scrollIntoView({behavior:'smooth', block:'start'}); }); });
-					function setActive(id){ ids.forEach(function(k){ var link=links[k]; if(!link) return; var on=(k===id); link.classList.toggle('active', on); link.style.opacity=on?'1':'0.4'; }); }
-					if('IntersectionObserver' in window){
-						var obs=new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting){ var id=e.target.id; if(id) setActive(id); }}); },{ rootMargin:'0px 0px -85% 0px', threshold:[0,0.01,0.1]});
-						ids.forEach(function(id){ var el=document.getElementById(id); if(el) obs.observe(el); });
-					} else {
-						function compute(){ var vh=window.innerHeight||document.documentElement.clientHeight; var trigger=vh*0.85; var best=null, bestDist=1e9; ids.forEach(function(id){ var el=document.getElementById(id); if(!el) return; var r=el.getBoundingClientRect(); var d=Math.abs(r.top-trigger); if(d<bestDist){ bestDist=d; best=id; } }); if(best) setActive(best); }
-						compute(); window.addEventListener('scroll', compute, {passive:true}); window.addEventListener('resize', compute);
-					}
-					function checkBottom(){ var doc=document.documentElement, body=document.body; var y=window.pageYOffset||doc.scrollTop||0; var vh=window.innerHeight||doc.clientHeight||0; var full=Math.max(doc.scrollHeight, body.scrollHeight, doc.offsetHeight, body.offsetHeight); if(y+vh>=full-2){ setActive('address'); } }
-					checkBottom(); window.addEventListener('scroll', checkBottom, {passive:true}); window.addEventListener('resize', checkBottom);
-				})();
-				</script>
+	</body>
+</html>
