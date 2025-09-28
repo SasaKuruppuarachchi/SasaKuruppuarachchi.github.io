@@ -604,6 +604,7 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
 			  var header = document.getElementById('header');
 			  var tagline = header && header.querySelector('.sidebar-tagline');
+			  var toc = document.getElementById('sidebar-sections');
 			  // Scroll threshold: start fading after the top hero text (~200px)
 			  var start = 60, end = 240; // px range to interpolate hide
 
@@ -620,6 +621,13 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			    tagline.style.transform = 'translateY(' + translate + 'px)';
 			    tagline.style.opacity = String(opacity);
 			    tagline.classList.toggle('is-hidden', t >= 0.999);
+			    // Move TOC up into tagline space and fade in as tagline fades out
+			    if (toc) {
+			      var tocTranslate = 8 * (1 - t); // start slightly lower, settle at 0
+			      var tocOpacity = 0.2 + 0.8 * t; // fade in from 0.2 to 1
+			      toc.style.transform = 'translateY(' + tocTranslate + 'px)';
+			      toc.style.opacity = String(tocOpacity);
+			    }
 			  }
 
 			  // run once and on scroll
@@ -647,27 +655,27 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 
 			  var observer;
 			  if ('IntersectionObserver' in window) {
+			    // Trigger highlight when titles enter from bottom: watch the heading elements
 			    observer = new IntersectionObserver(function(entries){
-			      var best = null;
 			      entries.forEach(function(e){
 			        if (!e.isIntersecting) return;
-			        if (!best || e.intersectionRatio > best.intersectionRatio) best = e;
+			        var id = e.target.id;
+			        if (id) setActive(id);
 			      });
-			      if (!best) return;
-			      setActive(best.target.id);
-			    }, { rootMargin: '-10% 0px -70% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] });
+			    }, { rootMargin: '0px 0px -85% 0px', threshold: [0, 0.01, 0.1] });
+			    // Observe the actual section titles (h2#recent-work, h2#media, h2#get-in-touch)
 			    ids.forEach(function(id){ var el = document.getElementById(id); if (el) observer.observe(el); });
 			  } else {
 			    // Fallback: compute active by viewport position
 			    function computeActive(){
 			      var vh = window.innerHeight || document.documentElement.clientHeight;
-			      var mid = vh * 0.33; // one-third down the screen
+			      var trigger = vh * 0.85; // near the bottom
 			      var bestId = null, bestDist = Infinity;
 			      ids.forEach(function(id){
 			        var el = document.getElementById(id);
 			        if (!el) return;
 			        var rect = el.getBoundingClientRect();
-			        var dist = Math.abs(rect.top - mid);
+			        var dist = Math.abs(rect.top - trigger);
 			        if (dist < bestDist) { bestDist = dist; bestId = id; }
 			      });
 			      if (bestId) setActive(bestId);
