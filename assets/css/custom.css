@@ -48,7 +48,7 @@ img {
 /* Post listing cards */
 .post-card .image.fit,
 .post-card .image.fit img { height:220px !important; }
-.post-card .image.fit { display:block; }
+.post-card .image.fit { display:block; position: relative; }
 .post-card { position: relative; }
 .post-card .image.fit img {
   display:block;

@@ -108,19 +108,18 @@ layout: null
 							      {% assign cover = parts[1] | split: '"' | first %}
 							    {% endif %}
 							  {% endif %}
-							  <article class="{{ col_class }}" data-date="{{ post.date | date: '%s' }}" data-categories="{% if post.categories %}{{ post.categories | join: '|' | downcase }}{% endif %}">
-							  {% if post.status == 'Ongoing' %}
-							    <span class="status-badge">Ongoing</span>
-							  {% endif %}
-							    {% if cover %}
-							      <a class="image fit" href="{{ post.url }}">
-							        <img src="{{ cover }}" alt="{{ post.title }} cover" />
-							      </a>
-							    {% else %}
-							      <a class="image fit" href="{{ post.url }}">
-							        <span class="thumb-placeholder" aria-hidden="true"></span>
-							      </a>
-							    {% endif %}
+												  <article class="{{ col_class }}" data-date="{{ post.date | date: '%s' }}" data-categories="{% if post.categories %}{{ post.categories | join: '|' | downcase }}{% endif %}">
+												    {% if cover %}
+												      <a class="image fit" href="{{ post.url }}">
+												        {% if post.status == 'Ongoing' %}<span class="status-badge">Ongoing</span>{% endif %}
+												        <img src="{{ cover }}" alt="{{ post.title }} cover" />
+												      </a>
+												    {% else %}
+												      <a class="image fit" href="{{ post.url }}">
+												        {% if post.status == 'Ongoing' %}<span class="status-badge">Ongoing</span>{% endif %}
+												        <span class="thumb-placeholder" aria-hidden="true"></span>
+												      </a>
+												    {% endif %}
 							    <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
 							    <p class="small">{{ post.date | date: "%B %e, %Y" }}{% if post.categories %} · {{ post.categories | join: ", " }}{% endif %}</p>
 							    {% if post.abstract %}

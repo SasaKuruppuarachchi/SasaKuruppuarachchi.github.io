@@ -71,15 +71,14 @@ permalink: /posts.html
         {% endif %}
       {% endif %}
   <article class="{{ col_class }}" data-date="{{ post.date | date: '%s' }}" data-categories="{% if post.categories %}{{ post.categories | join: '|' | downcase }}{% endif %}">
-        {% if post.status == 'Ongoing' %}
-          <span class="status-badge">Ongoing</span>
-        {% endif %}
         {% if cover %}
           <a class="image fit" href="{{ post.url }}">
+            {% if post.status == 'Ongoing' %}<span class="status-badge">Ongoing</span>{% endif %}
             <img src="{{ cover }}" alt="{{ post.title }} cover" />
           </a>
         {% else %}
           <a class="image fit" href="{{ post.url }}">
+            {% if post.status == 'Ongoing' %}<span class="status-badge">Ongoing</span>{% endif %}
             <span class="thumb-placeholder" aria-hidden="true"></span>
           </a>
         {% endif %}
