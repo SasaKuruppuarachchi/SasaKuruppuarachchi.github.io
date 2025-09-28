@@ -33,7 +33,15 @@ permalink: /posts.html
   <div class="row uniform">
     {% assign visible_posts = site.posts | where: 'visibility', 'Published' %}
     {% assign sorted = visible_posts | sort: 'date' | reverse %}
+    {% assign current_year = nil %}
     {% for post in sorted %}
+      {% assign year = post.date | date: '%Y' %}
+      {% if year != current_year %}
+        {% unless forloop.first %}</div>{% endunless %}
+        <h2 id="year-{{ year }}">{{ year }}</h2>
+        <div class="row uniform year-block" data-year="{{ year }}">
+        {% assign current_year = year %}
+      {% endif %}
       {% assign idx_mod = forloop.index | modulo: 2 %}
       {% assign col_class = '6u 12u$(xsmall) post-card' %}
       {% if idx_mod == 0 %}
@@ -93,11 +101,31 @@ permalink: /posts.html
           <li><a href="{{ post.url }}" class="button small">Read</a></li>
         </ul> -->
       </article>
+      {% if forloop.last %}</div>{% endif %}
     {% endfor %}
   </div>
 </section>
 <script>
 (function(){
+  // Build year sidebar on desktop
+  var mq = window.matchMedia('(min-width: 981px)');
+  var sidebar = document.getElementById('sidebar-sections');
+  if(mq.matches && sidebar){
+    var years = [].slice.call(document.querySelectorAll('h2[id^="year-"]'));
+    if(years.length){
+      var ul = document.createElement('ul');
+      years.forEach(function(h){
+        var y = h.id.replace('year-','');
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.href = '#'+h.id; a.textContent = y;
+        li.appendChild(a); ul.appendChild(li);
+      });
+      sidebar.innerHTML=''; sidebar.appendChild(ul);
+      sidebar.style.display='';
+    }
+  }
+
   function parseCats(el){
     var v=(el.getAttribute('data-categories')||'').toLowerCase();
     return v? v.split('|'): [];
@@ -139,5 +167,42 @@ permalink: /posts.html
   if(sortSel) sortSel.addEventListener('change', apply);
   // initial apply (noop ordering since server already newest)
   apply();
+
+  // Smooth scroll for sidebar links
+  if(sidebar){
+    sidebar.addEventListener('click', function(ev){
+      var a = ev.target.closest('a[href^="#year-"]'); if(!a) return;
+      ev.preventDefault(); var target = document.querySelector(a.getAttribute('href'));
+      if(target) target.scrollIntoView({ behavior:'smooth', block:'start' });
+    });
+  }
+
+  // Scrollspy for year headings
+  function setActive(id){
+    var links = sidebar ? [].slice.call(sidebar.querySelectorAll('a')) : [];
+    links.forEach(function(a){ var on = a.getAttribute('href') === '#'+id; a.classList.toggle('active', on); a.style.opacity = on ? '1':'0.4'; });
+  }
+  var ids = [].slice.call(document.querySelectorAll('h2[id^="year-"]')).map(function(h){return h.id;});
+  if(mq.matches && sidebar && ids.length){
+    // Move tagline/TOC like other pages
+    (function(){
+      var header=document.getElementById('header');
+      var tagline=header && header.querySelector('.sidebar-tagline');
+      var start=60, end=240;
+      function onScroll(){ if(!tagline) return; var y=window.pageYOffset||document.documentElement.scrollTop||0; var t=y<=start?0:y>=end?1:(y-start)/(end-start); tagline.style.transform='translateY(' + (-12*t) + 'px)'; tagline.style.opacity=String(1-t); tagline.classList.toggle('is-hidden', t>=0.999); } onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+    })();
+
+    if('IntersectionObserver' in window){
+      var obs = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if(e.isIntersecting){ setActive(e.target.id); }});
+      },{ rootMargin:'0px 0px -85% 0px', threshold:[0,0.01,0.1]});
+      ids.forEach(function(id){ var el=document.getElementById(id); if(el) obs.observe(el); });
+    } else {
+      function compute(){ var vh=window.innerHeight||document.documentElement.clientHeight; var trigger=vh*0.85; var best=null, bestDist=1e9; ids.forEach(function(id){ var el=document.getElementById(id); if(!el) return; var r=el.getBoundingClientRect(); var d=Math.abs(r.top-trigger); if(d<bestDist){ bestDist=d; best=id; } }); if(best) setActive(best); }
+      compute(); window.addEventListener('scroll', compute, {passive:true}); window.addEventListener('resize', compute);
+    }
+    function checkBottom(){ var doc=document.documentElement, body=document.body; var y=window.pageYOffset||doc.scrollTop||0; var vh=window.innerHeight||doc.clientHeight||0; var full=Math.max(doc.scrollHeight, body.scrollHeight, doc.offsetHeight, body.offsetHeight); if(y+vh>=full-2){ if(ids.length) setActive(ids[ids.length-1]); } }
+    checkBottom(); window.addEventListener('scroll', checkBottom, {passive:true}); window.addEventListener('resize', checkBottom);
+  }
 })();
 </script>

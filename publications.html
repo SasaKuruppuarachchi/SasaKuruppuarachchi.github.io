@@ -30,14 +30,23 @@
 			.scholar-badge:hover { background:#e8e8e8; }
 		</style>
 	</head>
-	<body class="is-preload">
+	<body class="is-preload" id="top">
 
 		<!-- Header -->
 			<header id="header">
 				<a href="https://www.linkedin.com/in/sasanka-kuruppuarachchi/" class="image avatar"><img src="images/avatar.jpg" alt="" /></a>
-					<h1><strong>Hello, my name is <br />Sasanka Kuruppu Arachchige.</strong><br />
-					I am an Engineer and a researcher in <br />Agile Aerial robotics, Edge computing,<br />Robust odometry and navigation.</a></h1>
-							</header>
+				<h1>
+					<strong>Hello, my name is <br />Sasanka Kuruppu Arachchige.</strong>
+				</h1>
+				<p class="sidebar-tagline">I am an Engineer and a researcher in <br />Agile Aerial robotics, Edge computing,<br />Robust odometry and navigation.</p>
+				<nav id="sidebar-sections" aria-label="Page sections">
+					<ul>
+						<li><a href="#publications">Publications</a></li>
+						<li><a href="#under-review">Under Peer-review</a></li>
+						<li><a href="#ongoing-research">Ongoing Research</a></li>
+					</ul>
+				</nav>
+			</header>
 
 		<!-- Main -->
 			<div id="main">
@@ -45,7 +54,7 @@
 				<!-- One -->
 					<section id="one">
 						<header class="major">
-							<h2>Publications<br /><br /></h2>
+							<h2 id="publications">Publications<br /><br /></h2>
 						</header>
 						
 						<ul class="actions">
@@ -130,7 +139,7 @@
 				</section>
 
 				<section id="three">
-					<h2>Under Peer-review</h2>
+					<h2 id="under-review">Under Peer-review</h2>
 					<ol>
 						<li>
 							<strong><u>Sasanka Kuruppu Arachchige</u></strong>, Joni-Kristian Kämäräinen.
@@ -185,7 +194,7 @@
 				</section>
 
 				<section id="three">
-					<h2>Ongoing Research</h2>
+					<h2 id="ongoing-research">Ongoing Research</h2>
 					<ol>
 						
 						<li>
@@ -266,6 +275,79 @@
 					<section id="four">
 						<h2>Elements</h2>
 
+		<!-- Scripts -->
+		<script>
+		// Desktop-only sidebar motion + scrollspy, mirrored from homepage
+		(function(){
+		  var mq = window.matchMedia('(min-width: 981px)');
+		  if (!mq.matches) return;
+		  var header = document.getElementById('header');
+		  var tagline = header && header.querySelector('.sidebar-tagline');
+		  var toc = document.getElementById('sidebar-sections');
+		  var start = 60, end = 240;
+		  function onScroll(){
+		    if(!tagline) return;
+		    var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+		    var t = y <= start? 0 : y >= end? 1 : (y-start)/(end-start);
+		    tagline.style.transform = 'translateY(' + (-12*t) + 'px)';
+		    tagline.style.opacity = String(1 - t);
+		    tagline.classList.toggle('is-hidden', t>=0.999);
+		    if (toc){
+		      var tocTranslate = 16 * (1 - t);
+		      var tocOpacity = 0.2 + 0.8 * t;
+		      toc.style.transform = 'translateY(' + tocTranslate + 'px)';
+		      toc.style.opacity = String(tocOpacity);
+		    }
+		  }
+		  onScroll();
+		  window.addEventListener('scroll', onScroll, {passive:true});
+
+		  var ids = ['publications','under-review','ongoing-research'];
+		  var links = ids.reduce(function(acc,id){
+		    var a = document.querySelector('#sidebar-sections a[href="#'+id+'"]');
+		    if(a) acc[id]=a; return acc;
+		  },{});
+		  Object.values(links).forEach(function(a){
+		    a.addEventListener('click', function(ev){
+		      ev.preventDefault();
+		      var target = document.querySelector(this.getAttribute('href'));
+		      if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+		    });
+		  });
+
+		  function setActive(id){
+		    ids.forEach(function(k){ var link=links[k]; if(!link) return; var on=(k===id); link.classList.toggle('active', on); link.style.opacity = on? '1':'0.4'; });
+		  }
+
+		  if('IntersectionObserver' in window){
+		    var obs = new IntersectionObserver(function(entries){
+		      entries.forEach(function(e){ if(e.isIntersecting){ var id=e.target.id; if(id) setActive(id); }});
+		    },{ rootMargin:'0px 0px -85% 0px', threshold:[0,0.01,0.1]});
+		    ids.forEach(function(id){ var el=document.getElementById(id); if(el) obs.observe(el); });
+		  } else {
+		    function compute(){
+		      var vh = window.innerHeight || document.documentElement.clientHeight;
+		      var trigger = vh*0.85; var best=null, bestDist=1e9;
+		      ids.forEach(function(id){ var el=document.getElementById(id); if(!el) return; var r=el.getBoundingClientRect(); var d=Math.abs(r.top-trigger); if(d<bestDist){bestDist=d; best=id;} });
+		      if(best) setActive(best);
+		    }
+		    compute();
+		    window.addEventListener('scroll', compute, {passive:true});
+		    window.addEventListener('resize', compute);
+		  }
+
+		  function checkBottom(){
+		    var doc=document.documentElement, body=document.body;
+		    var y=window.pageYOffset||doc.scrollTop||0;
+		    var vh=window.innerHeight||doc.clientHeight||0;
+		    var full=Math.max(doc.scrollHeight, body.scrollHeight, doc.offsetHeight, body.offsetHeight);
+		    if(y+vh>=full-2){ setActive('ongoing-research'); }
+		  }
+		  checkBottom();
+		  window.addEventListener('scroll', checkBottom, {passive:true});
+		  window.addEventListener('resize', checkBottom);
+		})();
+		</script>
 						<section>
 							<h4>Text</h4>
 							<p>This is <b>bold</b> and this is <strong>strong</strong>. This is <i>italic</i> and this is <em>emphasized</em>.
