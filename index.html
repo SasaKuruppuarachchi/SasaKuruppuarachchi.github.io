@@ -86,7 +86,7 @@ layout: null
 						<div id="recent-work-list" data-server="true" class="row uniform">
 							{% assign visible_posts = site.posts | where: 'visibility', 'Published' %}
 							{% assign sorted = visible_posts | sort: 'date' | reverse %}
-							{% for post in sorted limit:6 %}
+							{% for post in sorted %}
 							  {% assign idx_mod = forloop.index | modulo: 2 %}
 							  {% assign col_class = '6u 12u$(xsmall) post-card' %}
 							  {% if idx_mod == 0 %}
@@ -148,7 +148,7 @@ layout: null
 						</ul>
 
 						<script>
-						(function(){
+												(function(){
 						  function parseCats(el){
 						    var v=(el.getAttribute('data-categories')||'').toLowerCase();
 						    return v? v.split('|'): [];
@@ -165,23 +165,28 @@ layout: null
 						    cards.forEach(function(card){
 						      var cats=parseCats(card);
 						      var show=(cat==='__all') || (cats.indexOf(cat.toLowerCase())!==-1);
-						      card.style.display= show? '':'none';
+															card.style.display= show? '':'none';
 						    });
 						    // visible only
-						    var visible=cards.filter(function(card){return card.style.display!== 'none';});
+														var visible=cards.filter(function(card){return card.style.display!== 'none';});
 						    // sort
 						    visible.sort(function(a,b){
 						      var da=+(a.getAttribute('data-date')||0);
 						      var db=+(b.getAttribute('data-date')||0);
 						      return sort==='oldest' ? da-db : db-da;
 						    });
-						    // re-append & wrap classes
-						    visible.forEach(function(card,i){
-						      card.classList.remove('6u$');
-						      card.classList.add('6u');
-						      if((i%2)===1) { card.classList.add('6u$'); card.classList.remove('6u'); }
-						      row.appendChild(card);
-						    });
+														// Show only top N after sort/filter (mini list of 6)
+														var maxCount = 6;
+														// hide all first (ensures stale items are hidden)
+														cards.forEach(function(card){ card.style.display = 'none'; });
+														var shown = visible.slice(0, maxCount);
+														shown.forEach(function(card,i){
+															card.style.display = '';
+															card.classList.remove('6u$');
+															card.classList.add('6u');
+															if((i%2)===1) { card.classList.add('6u$'); card.classList.remove('6u'); }
+															row.appendChild(card);
+														});
 						  }
 						  var catSel=document.getElementById('rw-category');
 						  var sortSel=document.getElementById('rw-sort');
