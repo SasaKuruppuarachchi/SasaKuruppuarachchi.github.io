@@ -259,10 +259,11 @@ img {
   #header .sidebar-tagline {
     margin: 0.35em 0 0.75em 0;
     opacity: 0.9;
-    transition: opacity .25s ease, transform .25s ease;
-    will-change: opacity, transform;
+    overflow: hidden; /* allow height collapse */
+    transition: opacity .25s ease, transform .25s ease, max-height .25s ease, margin-bottom .25s ease;
+    will-change: opacity, transform, max-height, margin-bottom;
   }
-  #sidebar-sections { margin-top: 0.5em; }
+  #sidebar-sections { margin-top: 0.2em; }
   #sidebar-sections { transition: opacity .25s ease, transform .25s ease; will-change: opacity, transform; }
   #sidebar-sections ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35em; }
   #sidebar-sections a {
@@ -278,7 +279,12 @@ img {
 
 /* Optional hard-hide class when fully collapsed */
 @media screen and (min-width: 981px) {
-  #header .sidebar-tagline.is-hidden { opacity: 0; pointer-events: none; }
+  #header .sidebar-tagline.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+    max-height: 0;
+    margin-bottom: 0;
+  }
 }
 
 /* Hide TOC on mobile/top-header layout */
