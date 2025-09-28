@@ -31,7 +31,8 @@ permalink: /posts.html
     </div>
   </div>
   <div class="row uniform">
-    {% assign sorted = site.posts | sort: 'date' | reverse %}
+    {% assign visible_posts = site.posts | where: 'visibility', 'Published' %}
+    {% assign sorted = visible_posts | sort: 'date' | reverse %}
     {% for post in sorted %}
       {% assign idx_mod = forloop.index | modulo: 2 %}
       {% assign col_class = '6u 12u$(xsmall) post-card' %}
@@ -70,6 +71,9 @@ permalink: /posts.html
         {% endif %}
       {% endif %}
   <article class="{{ col_class }}" data-date="{{ post.date | date: '%s' }}" data-categories="{% if post.categories %}{{ post.categories | join: '|' | downcase }}{% endif %}">
+        {% if post.status == 'Ongoing' %}
+          <span class="status-badge">Ongoing</span>
+        {% endif %}
         {% if cover %}
           <a class="image fit" href="{{ post.url }}">
             <img src="{{ cover }}" alt="{{ post.title }} cover" />

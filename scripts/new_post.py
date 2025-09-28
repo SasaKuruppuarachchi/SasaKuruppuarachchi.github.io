@@ -71,7 +71,8 @@ def next_available_filename(base_path: Path) -> Path:
             return candidate
 
 
-def build_front_matter(title: str, d: dt.datetime, categories: List[str], tags: List[str], cover: str | None, abstract: str | None) -> str:
+def build_front_matter(title: str, d: dt.datetime, categories: List[str], tags: List[str], cover: str | None, abstract: str | None,
+                       status: str = "Finished", visibility: str = "Published") -> str:
     def dq(s: str) -> str:
         # wrap in double quotes and escape internal quotes for YAML inline list
         return '"' + s.replace('"', '\\"') + '"'
@@ -86,6 +87,8 @@ def build_front_matter(title: str, d: dt.datetime, categories: List[str], tags: 
         f"date: {d.strftime('%Y-%m-%d %H:%M:%S')}",
         f"categories: [{cats_str}]",
         f"tags: [{tags_str}]",
+        f"status: {status}",
+        f"visibility: {visibility}",
     ]
     if cover:
         lines.append(f"cover: \"{cover}\"")
@@ -113,6 +116,8 @@ def main():
     parser.add_argument("--cover", help="Cover image URL (optional)", default=None)
     parser.add_argument("--abstract", help="Short abstract (optional)", default=None)
     parser.add_argument("--force", action="store_true", help="Overwrite if file exists by adding a numeric suffix")
+    parser.add_argument("--status", default="Finished", choices=["Finished", "Ongoing"], help="Post status")
+    parser.add_argument("--visibility", default="Published", choices=["Published", "Unlisted"], help="Post visibility")
     args = parser.parse_args()
 
     try:
@@ -139,6 +144,8 @@ def main():
         tags=as_yaml_list(args.tags),
         cover=args.cover,
         abstract=args.abstract,
+        status=args.status,
+        visibility=args.visibility,
     )
     body = build_body_stub()
 
