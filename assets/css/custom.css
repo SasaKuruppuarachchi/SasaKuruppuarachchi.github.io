@@ -264,7 +264,7 @@ img {
 }
 
 /* Subtle count text beside section titles */
-#recent-work + .controls-inline, #rw-count {
+#rw-count {
   font-size: 0.5em;
   font-weight: 400;
   opacity: 0.4;
