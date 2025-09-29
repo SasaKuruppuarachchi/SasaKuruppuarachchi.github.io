@@ -68,7 +68,7 @@ layout: null
 				<!-- Two -->
 					<section id="two">
 						<div class="recent-header">
-						  <h2 id="recent-work" style="margin:0;">Recent Work</h2>
+						  <h2 id="recent-work" style="margin:0;">Recent Work <span id="rw-count" class="small subtle"></span></h2>
 						  <div class="controls-inline">
 						    <select id="rw-category" aria-label="Filter by category">
 						      <option value="__all">All</option>
@@ -148,19 +148,19 @@ layout: null
 						</ul>
 
 						<script>
-												(function(){
+																				(function(){
 						  function parseCats(el){
 						    var v=(el.getAttribute('data-categories')||'').toLowerCase();
 						    return v? v.split('|'): [];
 						  }
-						  function applyRW(){
+														  function applyRW(){
 						    var catSel=document.getElementById('rw-category');
 						    var sortSel=document.getElementById('rw-sort');
 						    var cat=catSel?catSel.value:'__all';
 						    var sort=sortSel?sortSel.value:'newest';
 						    var row=document.querySelector('#recent-work-list');
 						    if(!row) return;
-						    var cards=[].slice.call(row.querySelectorAll('article.post-card'));
+															    var cards=[].slice.call(row.querySelectorAll('article.post-card'));
 						    // filter
 						    cards.forEach(function(card){
 						      var cats=parseCats(card);
@@ -170,13 +170,13 @@ layout: null
 						    // visible only
 														var visible=cards.filter(function(card){return card.style.display!== 'none';});
 						    // sort
-						    visible.sort(function(a,b){
+															    visible.sort(function(a,b){
 						      var da=+(a.getAttribute('data-date')||0);
 						      var db=+(b.getAttribute('data-date')||0);
 						      return sort==='oldest' ? da-db : db-da;
 						    });
-														// Show only top N after sort/filter (mini list of 6)
-														var maxCount = 6;
+																			// Show only top N after sort/filter (mini list of 9)
+																			var maxCount = 9;
 														// hide all first (ensures stale items are hidden)
 														cards.forEach(function(card){ card.style.display = 'none'; });
 														var shown = visible.slice(0, maxCount);
@@ -187,6 +187,15 @@ layout: null
 															if((i%2)===1) { card.classList.add('6u$'); card.classList.remove('6u'); }
 															row.appendChild(card);
 														});
+
+															    // Update the header count text
+															    var countEl = document.getElementById('rw-count');
+															    if (countEl) {
+															      var total = visible.length;
+															      var shownCount = Math.min(total, maxCount);
+															      var more = total > shownCount ? ' <a href="posts.html">See more…</a>' : '';
+															      countEl.innerHTML = '· ' + shownCount + ' out of ' + total + ' shown.' + more;
+															    }
 						  }
 						  var catSel=document.getElementById('rw-category');
 						  var sortSel=document.getElementById('rw-sort');

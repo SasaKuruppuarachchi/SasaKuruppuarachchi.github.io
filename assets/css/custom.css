@@ -263,6 +263,17 @@ img {
   .section-header h2 { font-size: 1.35em; }
 }
 
+/* Subtle count text beside section titles */
+#recent-work + .controls-inline, #rw-count {
+  font-size: 0.6em;
+  font-weight: 400;
+  opacity: 0.6;
+}
+#rw-count a { color: inherit; text-decoration: underline; }
+@media (prefers-color-scheme: dark) {
+  #rw-count { opacity: 0.7; }
+}
+
 /* Sidebar enhancements on desktop */
 @media screen and (min-width: 981px) {
   #header .sidebar-tagline {
