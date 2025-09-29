@@ -222,10 +222,10 @@ img {
   z-index: 5;
 }
 .recent-header select {
-  font-size: 0.9em;
+  font-size: 0.8em;
   padding: 0.3em 0.6em;
-  height: 2.2em;
-  min-width: 9em;
+  height: 2.0em;
+  min-width: 7em;
   pointer-events: auto; /* be explicit */
 }
 @media screen and (max-width: 736px) {
