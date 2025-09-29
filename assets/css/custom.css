@@ -224,8 +224,8 @@ img {
 .recent-header select {
   font-size: 0.8em;
   padding: 0.3em 0.6em;
-  height: 2.0em;
-  min-width: 7em;
+  height: 2.1em;
+  min-width: 6em;
   pointer-events: auto; /* be explicit */
 }
 @media screen and (max-width: 736px) {
