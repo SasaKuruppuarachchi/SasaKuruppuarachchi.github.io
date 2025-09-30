@@ -1,0 +1,23 @@
+---
+layout: nil
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content="0;url={{ page.redirect_to }}" />
+    <link rel="canonical" href="{{ page.redirect_to }}" />
+    <meta name="robots" content="noindex" />
+    <title>Redirecting…</title>
+    <style>
+      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; padding: 2rem; }
+      a { color: #2563eb; }
+    </style>
+  </head>
+  <body>
+    <p>Redirecting to <a href="{{ page.redirect_to }}">{{ page.redirect_to }}</a>…</p>
+    <noscript>
+      <meta http-equiv="refresh" content="0;url={{ page.redirect_to }}" />
+    </noscript>
+  </body>
+  </html>
