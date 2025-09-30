@@ -20,6 +20,23 @@ abstract: " This project addresses the construction industry's shift toward auto
 
   <figure class="wp-block-image aligncenter size-large"><img src="/assets/media/2022/08/gantry_cover.jpg?w=1024" alt="" class="wp-image-443" /></figure>
 
+  <h2>Publication</h2>
+  <p>
+    Paper: <a href="https://scienceon.kisti.re.kr/commons/util/originalView.do?cn=JAKO202322246824761&oCn=JAKO202322246824761&dbt=JAKO&journal=NJOU00291654" target="_blank" rel="noopener">Method and device for estimating non-uniform spreading volume of powder material</a>
+  </p>
+  <h3>Citation</h3>
+  <pre><code>@article{kuruppu2023분말,
+  title={Method and device for estimating non-uniform spreading volume of powder material},
+  author={Kuruppu Arachchige, Sasanka and Kim, Manyong and Lee, Kyuman},
+  journal={Construction Engineering and Management},
+  volume={24},
+  number={3},
+  pages={29--31},
+  year={2023},
+  url={https://scienceon.kisti.re.kr/commons/util/originalView.do?cn=JAKO202322246824761&oCn=JAKO202322246824761&dbt=JAKO&journal=NJOU00291654},
+  publisher={Korea Institute of Construction Engineering and Management}
+}</code></pre>
+
   <h2>Industry Context</h2>
   <p>
     The construction industry is experiencing rapid growth through close collaboration with the core technologies of the Fourth Industrial Revolution, including robotics. This shift aims to dramatically reduce costs by transforming existing labor-intensive production methods into automated systems through construction automation and intelligence. Uneven areas of powdered materials placed within formwork can lead to accumulated errors during installation. Ensuring even installation requires preemptive detection of uneven or compacted areas and accurate estimation of their volume. This research introduces a method and device for estimating the location and volume of non-uniform laying more quickly and accurately by acquiring data through 3D scanning techniques and applying computer vision-based techniques to the acquired 3D data.
@@ -37,9 +54,14 @@ abstract: " This project addresses the construction industry's shift toward auto
     <li><strong>Ball Pivoting (BP) Surface Mesh:</strong> Clusters point clouds using DBSCAN, estimates inlier planes with RANSAC, and reconstructs surfaces using the BP algorithm. Pros: High accuracy, consistent for both cylindrical and spherical anomalies, fast (0.3–1s). Error: 0.6–2.1 cm³.</li>
   </ul>
 
+  <figure class="wp-block-image aligncenter size-large"><img src="/assets/media/2022/08/gantry_cluster1.png?w=1024" alt="" class="wp-image-443" /></figure>
+  <figure class="wp-block-image aligncenter size-large"><img src="/assets/media/2022/08/gantry_cluster2.png?w=1024" alt="" class="wp-image-443" /></figure>
+
   <h2>Results</h2>
   <p><strong>Cylinder Volume Estimation:</strong> Actual: 25,132.74 mm³, Estimated (BP): 25,755.81 mm³, Error: 2.47%</p>
   <p><strong>Half-Sphere Volume Estimation:</strong> Actual: 16,755.16 mm³, Estimated (BP): 14,681.07 mm³, Error: 12.37%</p>
+
+  <figure class="wp-block-image aligncenter size-large"><img src="/assets/media/2022/08/gantry_results.png?w=1024" alt="" class="wp-image-443" /></figure>
 
   <table border="1">
     <tr><th>Method</th><th>Cylindrical Error</th><th>Spherical Error</th></tr>
