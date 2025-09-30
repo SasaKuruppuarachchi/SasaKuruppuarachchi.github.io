@@ -13,8 +13,6 @@ visibility: Published
 <!-- Cover image (optional) -->
 <!-- <div class="wp-block-image"><figure><img src="/assets/media/YYYY/MM/cover.jpg" alt="" data-cover class="wp-image-xxx" /></figure></div> -->
 
-<p>Write your post content here.</p>
-
 <h2>Event Highlights</h2>
 <div class="video-container text-width">
 	<iframe
@@ -28,3 +26,54 @@ visibility: Published
 	<!-- To change the video, replace EMFauA1CU8M with the new YouTube ID. -->
 	<!-- If you prefer privacy-enhanced mode, use: https://www.youtube-nocookie.com/embed/VIDEO_ID -->
 </div>
+
+ <strong>Abstract:</strong>
+      <p>
+        Entry to KUAM 2023 focused on autonomous last-mile delivery to apartment verandahs using a lightweight UAV platform. Key innovations included <strong>lidar + depth fusion</strong> for verandah drop-off localisation, <strong>lidar-SLAM</strong> for robust navigation, and a novel <strong>lightweight rotary locking delivery mechanism</strong> actuated by micro-servos to minimize payload weight and improve endurance.
+      </p>
+    </section>
+
+    <article>
+      <h2>Introduction</h2>
+      <p>
+        The 21st Korea Robot Aircraft Contest (KUAM 2023) presented a demanding urban last-mile delivery task: autonomously navigate to an apartment verandah, detect the precise drop-off point, deliver the package, and return safely. Our ARRF team from Kyungpook National University reached the finals of Class 1 with a system designed for reliability, precision, and low weight.
+      </p>
+
+      <h2>Mission Objectives</h2>
+      <p>The UAV was required to perform:</p>
+      <ul>
+        <li>Fully autonomous navigation in urban / GPS-challenged settings</li>
+        <li>Real-time obstacle avoidance</li>
+        <li>Precise drop-off point localisation on verandahs</li>
+        <li>Autonomous payload delivery and secure release</li>
+        <li>Safe return and landing</li>
+      </ul>
+
+      <h2>My Contributions</h2>
+
+      <h3>Verandah Drop-off Localisation — Lidar + Depth Fusion</h3>
+      <p>
+        I developed a sensor fusion pipeline that combines <strong>lidar-SLAM</strong> for global mapping and localisation with a <strong>depth-camera</strong> based localiser to detect verandah geometry and the visual drop marker. Fusing geometric lidar data with depth images improved robustness against lighting changes and visual clutter, enabling consistent alignment for the final delivery approach.
+      </p>
+
+      <h3>Lightweight Delivery Mechanism</h3>
+      <p>
+        I designed and built a <strong>novel rotary locking mechanism</strong> actuated by micro-servos. Design goals were minimal mass, mechanical simplicity, and reliable release. The mechanism reduced carried weight and mechanical complexity compared to heavier servo-actuated gimbals, contributing directly to improved flight time and maneuverability.
+      </p>
+
+      <h2>Key Results</h2>
+      <ul>
+        <li>Reliable urban navigation using lidar-SLAM in competition scenarios.</li>
+        <li>Accurate verandah localisation via lidar + depth fusion, improving drop precision.</li>
+        <li>Lightweight rotary locking mechanism enabled efficient payload carriage and precise release while preserving endurance.</li>
+      </ul>
+
+      <h2>Conclusion</h2>
+      <p>
+        KUAM 2023 showcased how targeted sensor fusion and lightweight mechanical design enable effective last-mile UAV delivery in real urban environments. The combined approach—robust localisation with lidar + depth data and a low-mass delivery mechanism—produced an efficient, practical platform for autonomous verandah delivery tasks.
+      </p>
+
+      <footer>
+        <p>
+          For technical details on the delivery mechanism or localisation pipeline, I can publish a dedicated post with schematics, ROS topics, and sample datasets — just say the word.
+        </p>
