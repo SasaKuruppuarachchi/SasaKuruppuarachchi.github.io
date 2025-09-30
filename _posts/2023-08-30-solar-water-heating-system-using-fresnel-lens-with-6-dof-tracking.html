@@ -1,0 +1,60 @@
+---
+layout: post
+title: "Solar Water Heating System Using Fresnel Lens with 6-DOF Tracking"
+date: 2023-08-30 12:00:00
+categories: ["Projects: Robotic", "ARRF"]
+tags: ["Solar", "Renewable Energy", "Fresnel Lens", "6-DOF Robot", "Robotic Arm", "Embedded Systems", "Control Systems"]
+status: Finished
+visibility: Published
+cover: "assets\media\2023\04\rebar_cover.png"
+abstract: "abssss"
+---
+
+
+<h2>Overview</h2>
+  <p>
+    This project demonstrates an integrated solar water-heating prototype that combines a PMMA Fresnel lens with a 6-DOF robotic manipulator for precise solar tracking. The system uses the Solar Position Algorithm (SPA) for coarse alignment and a novel low-cost sun-angle sensor for fine adjustments.
+  </p>
+
+  <h2>Key Features</h2>
+  <ul>
+    <li><strong>6-DOF Robotic Arm:</strong> Enables precise orientation and translation for optimal focus.</li>
+    <li><strong>Fresnel Lens Concentrator:</strong> Lightweight, cost-effective optical concentration.</li>
+    <li><strong>Low-Cost Sun Sensor:</strong> 4×4 LDR array with polarizer shroud and calibration logic.</li>
+    <li><strong>Thermal Feedback:</strong> Safety mechanism to prevent overheating.</li>
+    <li><strong>Energy Autonomy:</strong> Powered by a 40 Wp solar panel with Li-ion storage.</li>
+  </ul>
+
+  <h2>System Architecture</h2>
+  <p>
+    The control pipeline integrates SPA-based solar position calculation, inverse kinematics for the robotic arm, and fine steering using the sun sensor. Temperature feedback ensures safe operation.
+  </p>
+
+  <h2>Hardware Setup</h2>
+  <img src="figures/hardware_overview.jpg" alt="Hardware Overview" />
+  <p>
+    The hardware setup includes the Fresnel lens mounted on the robotic arm, a compact heat exchanger at the focal point, and an embedded controller (Raspberry Pi + Arduino).
+  </p>
+
+  <h2>Novel Sun Sensor Design</h2>
+  <img src="figures/sunsensor.png" alt="Sun Sensor Design" />
+  <p>
+    The sun sensor uses a 4×4 LDR array with a polarizer shroud and ultra-black coating to minimize glare. Calibration equalizes sensor response, and a threshold-based algorithm estimates tilt direction.
+  </p>
+  <img src="figures/calibration_plots.png" alt="Calibration Plots" />
+  <img src="figures/threshold_flow.png" alt="Threshold Flow" />
+
+  <div class="highlight">
+    <strong>Algorithm Highlight:</strong> The sensor logic runs at 100 Hz, applying dynamic thresholding and redundancy checks to compute (X,Y) tilt corrections for the robotic arm.
+  </div>
+
+  <h2>Thermal Safety</h2>
+  <img src="figures/temperature_feedback.png" alt="Temperature Feedback" />
+  <p>
+    A temperature feedback loop monitors the receiver and triggers defocus/reset when thresholds are exceeded, ensuring safe operation in construction environments.
+  </p>
+
+  <h2>Applications in Construction</h2>
+  <p>
+    This system is ideal for temporary hot-water supply on construction sites, off-grid commissioning, and façade testing. Its modular design and low-cost sensor make it practical for field deployment.
+  </p>
