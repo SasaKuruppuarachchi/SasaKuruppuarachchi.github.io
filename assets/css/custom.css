@@ -52,6 +52,13 @@ img {
   height: auto;
 }
 
+/* Utility: constrain to main text width and center */
+.text-width {
+  max-width: 54em; /* match #main max-width in theme */
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Responsive 16:9 video embeds */
 .video-container {
   position: relative;
