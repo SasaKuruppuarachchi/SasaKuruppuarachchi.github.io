@@ -6,7 +6,7 @@ categories: ["Projects: Robotic", "ARRF"]
 tags: ["Solar", "Renewable Energy", "Fresnel Lens", "6-DOF Robot", "Robotic Arm", "Embedded Systems", "Control Systems"]
 status: Finished
 visibility: Published
-cover: "assets\media\2023\04\rebar_cover.png"
+cover: "assets/media/2023/08/xarm_cover.png"
 abstract: "abssss"
 ---
 
@@ -31,25 +31,25 @@ abstract: "abssss"
   </p>
 
   <h2>Hardware Setup</h2>
-  <img src="figures/hardware_overview.jpg" alt="Hardware Overview" />
+  <img src="/assets/media/2023/08/hardware_overview.jpg" alt="Hardware Overview" />
   <p>
     The hardware setup includes the Fresnel lens mounted on the robotic arm, a compact heat exchanger at the focal point, and an embedded controller (Raspberry Pi + Arduino).
   </p>
 
   <h2>Novel Sun Sensor Design</h2>
-  <img src="figures/sunsensor.png" alt="Sun Sensor Design" />
+  <img src="/assets/media/2023/08/sunsensor.png" alt="Sun Sensor Design" />
   <p>
     The sun sensor uses a 4×4 LDR array with a polarizer shroud and ultra-black coating to minimize glare. Calibration equalizes sensor response, and a threshold-based algorithm estimates tilt direction.
   </p>
-  <img src="figures/calibration_plots.png" alt="Calibration Plots" />
-  <img src="figures/threshold_flow.png" alt="Threshold Flow" />
+  <img src="/assets/media/2023/08/calibration_plots.png" alt="Calibration Plots" />
+  <img src="/assets/media/2023/08/threshold_flow.png" alt="Threshold Flow" />
 
   <div class="highlight">
     <strong>Algorithm Highlight:</strong> The sensor logic runs at 100 Hz, applying dynamic thresholding and redundancy checks to compute (X,Y) tilt corrections for the robotic arm.
   </div>
 
   <h2>Thermal Safety</h2>
-  <img src="figures/temperature_feedback.png" alt="Temperature Feedback" />
+  <img src="/assets/media/2023/08/temperature_feedback.png" alt="Temperature Feedback" />
   <p>
     A temperature feedback loop monitors the receiver and triggers defocus/reset when thresholds are exceeded, ensuring safe operation in construction environments.
   </p>
