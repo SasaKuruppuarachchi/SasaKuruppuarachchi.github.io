@@ -27,6 +27,16 @@
   /* Forms */
   input, select, textarea { background:#111418; color:#e5e7eb; border-color:#2a2f36; }
 
+  /* Code: inline and blocks */
+  code { background:#111418; border-color:#2a2f36; color:#e5e7eb; }
+  pre { background:#0d1117; color:#e5e7eb; border-radius:0.35em; }
+  pre code {
+    background:#0d1117;
+    border:1px solid #1f2937;
+    color:#e5e7eb;
+    line-height:1.7;
+  }
+
   /* Headings */
   h1, h2 { color:#ffffff; }
 }
