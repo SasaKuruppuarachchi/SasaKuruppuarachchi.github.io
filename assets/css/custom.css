@@ -384,3 +384,37 @@ img {
 article.post-card[id^="year-"] {
   scroll-margin-top: 56px; /* space below fixed header when using smooth scroll */
 }
+
+/* Simple responsive gallery grid for posts */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+.gallery-grid a {
+  display: block;
+  position: relative;
+  border-radius: 0.35em;
+  overflow: hidden;
+  background: #f3f4f6; /* subtle light bg */
+  border: 1px solid rgba(0,0,0,0.05);
+}
+/* Maintain consistent 3:2 tiles */
+.gallery-grid a::before {
+  content: "";
+  display: block;
+  padding-top: 66.666%;
+}
+.gallery-grid img {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .25s ease;
+}
+.gallery-grid a:hover img { transform: scale(1.03); }
+
+@media (prefers-color-scheme: dark) {
+  .gallery-grid a { background: #0f172a; border-color: #1f2937; }
+}
