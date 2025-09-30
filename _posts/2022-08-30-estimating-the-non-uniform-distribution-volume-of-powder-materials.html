@@ -1,0 +1,61 @@
+---
+layout: post
+title: "Estimating the non-uniform distribution volume of powder materials"
+date: 2022-08-30 12:00:00
+categories: ["Projects: Robotic"]
+tags: []
+status: Finished
+visibility: Published
+cover: "assets\media\2022\08\gantry_cover.jpg"
+abstract: " This project addresses the construction industry's shift toward automation by introducing a computer vision-based method for detecting and quantifying uneven material layers using 3D point cloud data. Uneven surfaces in applications like concrete, asphalt, and coatings can lead to cumulative installation errors. Traditionally, detection was manual, time-consuming, and inconsistent. Our approach automates this process through 3D scanning and advanced algorithms, comparing three methods—Octree, Voxel-aided triangulation, and Ball Pivoting (BP) surface mesh. The BP method achieved the highest accuracy and speed, enabling real-time anomaly detection and volume estimation for construction automation."
+---
+
+<!-- Cover image (optional) -->
+<!-- <div class="wp-block-image"><figure><img src="/assets/media/YYYY/MM/cover.jpg" alt="" data-cover class="wp-image-xxx" /></figure></div> -->
+
+<h2>Abstract</h2>
+  <p>
+    This project addresses the construction industry's shift toward automation by introducing a computer vision-based method for detecting and quantifying uneven material layers using 3D point cloud data. Uneven surfaces in applications like concrete, asphalt, and coatings can lead to cumulative installation errors. Traditionally, detection was manual, time-consuming, and inconsistent. Our approach automates this process through 3D scanning and advanced algorithms, comparing three methods—Octree, Voxel-aided triangulation, and Ball Pivoting (BP) surface mesh. The BP method achieved the highest accuracy and speed, enabling real-time anomaly detection and volume estimation for construction automation.
+  </p>
+
+  <h2>Industry Context</h2>
+  <p>
+    The construction industry is experiencing rapid growth through close collaboration with the core technologies of the Fourth Industrial Revolution, including robotics. This shift aims to dramatically reduce costs by transforming existing labor-intensive production methods into automated systems through construction automation and intelligence. Uneven areas of powdered materials placed within formwork can lead to accumulated errors during installation. Ensuring even installation requires preemptive detection of uneven or compacted areas and accurate estimation of their volume. This research introduces a method and device for estimating the location and volume of non-uniform laying more quickly and accurately by acquiring data through 3D scanning techniques and applying computer vision-based techniques to the acquired 3D data.
+  </p>
+
+  <h2>Overview</h2>
+  <p>
+    The construction sector is embracing robotics and digitalization to replace labor-intensive processes with intelligent automation. One critical challenge is ensuring surface uniformity during material placement, as uneven layers can cause costly errors. Historically, this required manual inspection, which was slow and skill-dependent. Our research proposes an automated pipeline leveraging 3D scanning and point cloud processing to detect anomalies and estimate their volume accurately. This work forms part of the ERC Gantry initiative, aiming to integrate anomaly detection into real-time, automated construction workflows.
+  </p>
+
+  <h2>Methodology</h2>
+  <ul>
+    <li><strong>Octree Method:</strong> Divides the point cloud into an octree grid and sums the occupied grid volumes. Pros: Simple concept. Cons: Sensitive to grid size, inconsistent results, and slow computation. Error: 1.5–8.2 cm³.</li>
+    <li><strong>Voxel-Aided Triangulation:</strong> Voxelizes the anomaly cloud, triangulates points for rough surface reconstruction, and calculates volume under triangles. Pros: Faster (0.3–1s). Cons: Inconsistent for spherical anomalies. Error: 1.2–6.5 cm³.</li>
+    <li><strong>Ball Pivoting (BP) Surface Mesh:</strong> Clusters point clouds using DBSCAN, estimates inlier planes with RANSAC, and reconstructs surfaces using the BP algorithm. Pros: High accuracy, consistent for both cylindrical and spherical anomalies, fast (0.3–1s). Error: 0.6–2.1 cm³.</li>
+  </ul>
+
+  <h2>Results</h2>
+  <p><strong>Cylinder Volume Estimation:</strong> Actual: 25,132.74 mm³, Estimated (BP): 25,755.81 mm³, Error: 2.47%</p>
+  <p><strong>Half-Sphere Volume Estimation:</strong> Actual: 16,755.16 mm³, Estimated (BP): 14,681.07 mm³, Error: 12.37%</p>
+
+  <table border="1">
+    <tr><th>Method</th><th>Cylindrical Error</th><th>Spherical Error</th></tr>
+    <tr><td>Octree</td><td>7.2 cm³</td><td>N/A</td></tr>
+    <tr><td>Voxel</td><td>1.2 cm³</td><td>6.5 cm³</td></tr>
+    <tr><td>BP Method</td><td>0.6 cm³</td><td>2.1 cm³</td></tr>
+  </table>
+
+  <h2>Implementation</h2>
+  <p>
+    The BP method was integrated into the main anomaly detection script and the automated “move-and-capture” loop for real-time refinement. Future work includes on-site testing and calibration with solid reference objects to further improve accuracy.
+  </p>
+
+  <h2>Key Takeaways</h2>
+  <ul>
+    <li>BP surface mesh method offers the best trade-off between speed and accuracy.</li>
+    <li>Automated anomaly detection can significantly enhance safety and efficiency in construction monitoring.</li>
+    <li>Real-time implementation on embedded systems (Jetson) is feasible.</li>
+  </ul>
+
+<p>Write your post content here.</p>
