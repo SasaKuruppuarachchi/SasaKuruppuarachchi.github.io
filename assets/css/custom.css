@@ -59,6 +59,16 @@ img {
   margin-right: auto;
 }
 
+/* Utility: half-width content (e.g., figures) */
+.half-width {
+  max-width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media screen and (max-width: 736px) {
+  .half-width { max-width: 100%; }
+}
+
 /* Responsive 16:9 video embeds */
 .video-container {
   position: relative;
