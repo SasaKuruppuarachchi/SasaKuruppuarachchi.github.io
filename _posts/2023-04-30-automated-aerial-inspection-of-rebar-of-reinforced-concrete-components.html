@@ -7,10 +7,68 @@ tags: []
 status: Finished
 visibility: Published
 cover: "assets/media/2023/04/rebar_cover.png"
-abstract: "abssss"
+abstract: "Development of an automated aerial inspection system for reinforced concrete components using drones equipped with depth sensors and machine learning. The system enables accurate rebar detection, diameter estimation, and anomaly identification through optimized scan planning and 3D point cloud analysis."
 ---
 
-<!-- Cover image (optional) -->
-<!-- <div class="wp-block-image"><figure><img src="/assets/media/YYYY/MM/cover.jpg" alt="" data-cover class="wp-image-xxx" /></figure></div> -->
+<figure class="wp-block-image aligncenter size-large"><img src="/assets/media/2023/04/rebar_cover.png?w=1024" alt="" class="wp-image-443" /></figure>
+<p>
+    The inspection of reinforcement bars (rebar) in reinforced concrete structures is a critical task for ensuring structural integrity. Traditionally, this process is manual, labor-intensive, and prone to human error. Our ERC-funded research project aims to automate this inspection using aerial platforms equipped with depth sensors and machine learning algorithms.
+  </p>
 
-<p>Write your post content here.</p>
+  <h2>Challenges in Manual Rebar Inspection</h2>
+  <ul>
+    <li>Requires skilled labor and expert judgment</li>
+    <li>Time-consuming and error-prone</li>
+    <li>Risk of damaging the structure during inspection</li>
+    <li>Difficult to access and measure smaller rebar accurately</li>
+  </ul>
+
+  <h2>Proposed Automated Approach</h2>
+  <p>
+    Our methodology integrates drone-based laser scanning with simulation-driven scan planning and machine learning-based anomaly detection. The core idea is to optimize the scanner's position using a geometrical model that simulates scan coverage and density, ensuring high accuracy in rebar classification and diameter prediction.
+  </p>
+
+  <figure class="wp-block-image aligncenter size-large"><img src="/assets/media/2023/04/rebar_method.png?w=1024" alt="" class="wp-image-443" /></figure>
+  <figure class="wp-block-image aligncenter size-large"><img src="/assets/media/2023/04/rebar_method1.png?w=1024" alt="" class="wp-image-443" /></figure>
+  <h3>Key Components</h3>
+  <ul>
+    <li><strong>Geometrical Relationship Model:</strong> Simulates scan points on rebar surfaces to optimize scanner placement.</li>
+    <li><strong>Scan Planning:</strong> Determines optimal angles and positions for laser scanning to maximize coverage and accuracy.</li>
+    <li><strong>Validation:</strong> Real-world experiments with specimens of known dimensions confirm simulation accuracy up to 95.8%.</li>
+    <li><strong>Machine Learning:</strong> Predicts rebar diameter and spacing using published ML models and RANSAC-based fitting.</li>
+  </ul>
+
+  <h2>Hardware Selection</h2>
+  <p>
+    Depth sensing is achieved using Intel RealSense cameras (D455 and L515), chosen for their range, resolution, and compatibility with onboard processing units like NVIDIA Orin NX. ZED stereo vision is used for visual odometry, and RTK GPS ensures precise navigation.
+  </p>
+
+  <figure class="wp-block-image aligncenter size-large"><img src="/assets/media/2023/04/rebar_hardware.png?w=1024" alt="" class="wp-image-443" /></figure>
+
+  <h2>Drone Platform Development</h2>
+  <p>
+    The drone integrates VIO (Visual-Inertial Odometry) with PX4 flight control for stable hovering and accurate navigation. Depth data acquisition is synchronized with onboard processing to enable real-time scan planning and data reduction.
+  </p>
+
+  <h2>Point Cloud Processing Pipeline</h2>
+  <ol>
+    <li>Plane segmentation using RANSAC to identify floor and formwork surfaces</li>
+    <li>Noise removal and transformation to align point cloud with camera coordinates</li>
+    <li>Histogram and clustering (k-means, DBSCAN) to isolate rebar layers</li>
+    <li>Rebar center line estimation using circular RANSAC and least squares regression</li>
+    <li>Diameter and spacing estimation validated against ground truth</li>
+  </ol>
+
+  <h2>Limitations and Future Work</h2>
+  <ul>
+    <li>Current validation is limited to small-scale specimens</li>
+    <li>Occlusion in multi-layer rebar layouts remains a challenge</li>
+    <li>Field deployment requires scalable scan planning algorithms</li>
+  </ul>
+
+  <h2>Conclusion</h2>
+  <p>
+    This project demonstrates the feasibility of automating rebar inspection using aerial platforms and advanced data processing techniques. The integration of simulation, machine learning, and robotics offers a promising path toward safer, faster, and more accurate structural assessments in construction and civil engineering.
+  </p>
+
+  <p><em>Author: Sasanka Kuruppu Arachchige, Doctoral Researcher (Marie Curie), TAU</em></p>
