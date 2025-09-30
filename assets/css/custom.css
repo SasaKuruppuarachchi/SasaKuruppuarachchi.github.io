@@ -52,6 +52,31 @@ img {
   height: auto;
 }
 
+/* Responsive 16:9 video embeds */
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  overflow: hidden;
+  margin: 1em 0;
+  border-radius: 0.35em;
+  background: #000; /* fallback while loading */
+}
+.video-container iframe,
+.video-container object,
+.video-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  .video-container { background: #0b0d0f; }
+}
+
 /* Optional: nicer figure spacing */
 .post .content figure { margin: 0 0 1.25em; }
 
