@@ -66,7 +66,9 @@ All scripts live under `scripts/`. Use `python3` and a recent Python 3.x.
 - Usage:
 	- python3 scripts/new_post.py --title "My Post" --date 2025-09-27 --categories "Robotics, Research" --tags "tag1,tag2" --cover "/assets/media/2025/09/cover.jpg" --abstract "One-liner" --force
 	- Example used to create an actual post in this repo:
-		 ```python3 scripts/new_post.py --title "Korea Robot Aircraft Contest 2023" --date 2023-09-02 --categories "Projects: Robotic" --cover "assets/media/2023/09/IMG_20230722_080348.jpg" --abstract "One-liner" --force```
+		 ```bash
+		 python3 scripts/new_post.py --title "Korea Robot Aircraft Contest 2023" --date 2023-09-02 --categories "Projects: Robotic" --cover "assets/media/2023/09/IMG_20230722_080348.jpg" --abstract "One-liner" --force
+		 ```
 
 2) Auto-add cover images to posts
 - File: `scripts/add_covers.py`

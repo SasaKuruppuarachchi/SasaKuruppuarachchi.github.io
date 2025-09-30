@@ -1,0 +1,74 @@
+---
+layout: post
+title: "Autonomous Docking for mobile robots with BLE 5.1"
+date: 2021-11-30 12:00:00
+categories: ["Projects: Robotic", "ARRF"]
+tags: ["BLE", "SLAM", "Robotics", "ROS", "Lidar", "Navigation", "Docking"]
+status: Finished
+visibility: Published
+cover: "assets/media/2021/01/ble_overview.png"
+abstract: "This project focused on developing a docking platform for unmanned robots using **BLE 5.1 wireless communication** and **SLAM-based navigation**. The system integrated lidar-based mapping, path planning, and precision motion control with a docking protocol based on **Angle of Arrival (AoA)** and **RSSI** measurements. The outcome was a reliable, real-world docking solution where robots could autonomously navigate to a charging station, dock within ±10 cm accuracy, and recharge without human intervention."
+---
+
+<!-- Cover image (optional) -->
+<!-- <div class="wp-block-image"><figure><img src="/assets/media/YYYY/MM/cover.jpg" alt="" data-cover class="wp-image-xxx" /></figure></div> -->
+<p>
+ One of the biggest challenges in deploying unmanned ground robots is ensuring they can operate continuously without constant human oversight. This means not only navigating complex environments but also <strong>autonomously returning to a docking station</strong> to recharge. My project addressed this problem by developing a <strong>wireless communication–based docking platform</strong> using <strong>Bluetooth Low Energy (BLE) 5.1</strong>.
+</p>
+
+<figure class="wp-block-image aligncenter size-large"><img src="assets/media/2021/01/ble_Senario.png?w=1024" alt="" class="wp-image-443" /></figure>
+
+<h2>The Problem</h2>
+<p>
+Traditional docking solutions often rely on vision or physical markers, which can be unreliable in dynamic environments. A robust docking platform must handle:
+</p>
+<ul>
+<li><strong>Autonomous navigation</strong> in unknown spaces</li>
+<li><strong>Reliable docking</strong> under variable conditions</li>
+<li><strong>Continuous operation</strong> without external assistance</li>
+</ul>
+
+<h2>The Approach</h2>
+<figure class="wp-block-image aligncenter size-large"><img src="assets/media/2021/01/ble_overview.png?w=1024" alt="" class="wp-image-443" /></figure>
+<p>The system was designed around three core components:</p>
+
+<figure class="wp-block-image aligncenter size-large"><img src="assets/media/2021/01/ble_robot.png?w=1024" alt="" class="wp-image-443" /></figure>
+<figure class="wp-block-image aligncenter size-large"><img src="assets/media/2021/01/ble_dock.png?w=1024" alt="" class="wp-image-443" /></figure>
+
+<h3>1. SLAM &amp; Navigation</h3>
+<ul>
+<li>Implemented lidar-based SLAM with <strong>Cartographer</strong>, fusing pre-maps and real-time laser scan data.</li>
+<li>Combined <strong>A*</strong> (global path planning) with <strong>Dynamic Window Approach (DWA)</strong> (local obstacle avoidance).</li>
+<li>Enabled the robot to safely move across rooms, hallways, and docking zones.</li>
+</ul>
+<figure class="wp-block-image aligncenter size-large"><img src="assets/media/2021/01/ble_slam.png?w=1024" alt="" class="wp-image-443" /></figure>
+<h3>2. Motion Control &amp; Docking Zone Detection</h3>
+<ul>
+<li>A BLE transmitter (Tx) was mounted on the robot, while a receiver (Rx) was placed in the docking station.</li>
+<li>The system measured <strong>Angle of Arrival (AoA)</strong> and <strong>Received Signal Strength Indicator (RSSI)</strong> values to guide the robot.</li>
+<li>Docking was triggered when RSSI fell within a defined threshold, ensuring the robot transitioned smoothly into docking mode.</li>
+</ul>
+<figure class="wp-block-image aligncenter size-large"><img src="assets/media/2021/01/ble_senario1.png?w=1024" alt="" class="wp-image-443" /></figure>
+<h3>3. Docking Protocol &amp; Experimental Validation</h3>
+<ul>
+<li>Developed a BLE 5.1–based docking protocol with ROS integration.</li>
+<li>Verified docking accuracy through real experiments, achieving final alignment within <strong>&plusmn;10 cm</strong> lateral error and heading precision of <strong>&minus;5&deg; to +5&deg;</strong>.</li>
+<li>Evaluated older and newer BLE boards (TI CC2640 vs. CC26X2) and optimized for reliable AoA tracking without interference.</li>
+</ul>
+<figure class="wp-block-image aligncenter size-large"><img src="assets/media/2021/01/ble_results.png?w=1024" alt="" class="wp-image-443" /></figure>
+
+<h2>Key Results</h2>
+<ul>
+<li><strong>Autonomous navigation</strong> with robust obstacle avoidance.</li>
+<li><strong>Wireless docking protocol</strong> that leveraged BLE 5.1 for environmental robustness.</li>
+<li><strong>Reliable recharging</strong>—robot could detect low battery, navigate home, dock, and resume operation.</li>
+<li><strong>Experimental validation</strong> showed consistent performance despite signal variability.</li>
+</ul>
+
+<h2>Conclusion</h2>
+<p>
+This project demonstrated how <strong>wireless communication and SLAM-based navigation</strong> can enable reliable autonomous docking for unmanned robots. By integrating BLE 5.1 communication with motion control and docking protocols, the platform ensured accurate docking and continuous operation without human intervention.
+</p>
+<p>
+This solution is scalable to applications in <strong>facility robots, delivery systems, and industrial automation</strong>, where autonomy and uptime are critical.
+</p>
