@@ -26,17 +26,23 @@ abstract: "abssss"
   </ul>
 
   <h2>System Architecture</h2>
+  <figure class="wp-block-image aligncenter size-small"><img src="/assets/media/2023/08/system_pipeline.jpg?w=1024" alt="" class="wp-image-443" /></figure>
   <p>
     The control pipeline integrates SPA-based solar position calculation, inverse kinematics for the robotic arm, and fine steering using the sun sensor. Temperature feedback ensures safe operation.
   </p>
 
   <h2>Hardware Setup</h2>
+  <div class="two-up text-width">
+    <figure class="wp-block-image aligncenter size-small"><img src="/assets/media/2023/08/hardware_overview.jpg?w=1024" alt="" class="wp-image-443" /></figure>
+    <figure class="wp-block-image aligncenter size-small"><img src="/assets/media/2023/08/hardware_overview1.jpg?w=1024" alt="" class="wp-image-443" /></figure>
+  </div>
   
   <p>
     The hardware setup includes the Fresnel lens mounted on the robotic arm, a compact heat exchanger at the focal point, and an embedded controller (Raspberry Pi + Arduino).
   </p>
 
   <h2>Novel Sun Sensor Design</h2>
+    <figure class="wp-block-image aligncenter size-small"><img src="/assets/media/2023/08/sunsensor_housing.jpg?w=1024" alt="" class="wp-image-443" /></figure>
   
   <p>
     The sun sensor uses a 4×4 LDR array with a polarizer shroud and ultra-black coating to minimize glare. Calibration equalizes sensor response, and a threshold-based algorithm estimates tilt direction.
@@ -44,6 +50,24 @@ abstract: "abssss"
 
   <div class="highlight">
     <strong>Algorithm Highlight:</strong> The sensor logic runs at 100 Hz, applying dynamic thresholding and redundancy checks to compute (X,Y) tilt corrections for the robotic arm.
+  </div>
+
+  <h2>Results</h2>
+  <div class="video-container text-width">
+	<iframe
+		src="https://www.youtube.com/embed/ijN7mE5-AUs"
+		title="YouTube video player"
+		frameborder="0"
+		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+		allowfullscreen
+	></iframe>
+	<p class="small" style="margin-top:0.4em; opacity:0.85;">Solar Water Heating System Using Fresnel Lens with 6-DOF Tracking - Outdoor test</p>
+	<!-- To change the video, replace EMFauA1CU8M with the new YouTube ID. -->
+	<!-- If you prefer privacy-enhanced mode, use: https://www.youtube-nocookie.com/embed/VIDEO_ID -->
+</div>
+  <div class="two-up text-width">
+    <figure class="wp-block-image aligncenter size-small"><img src="/assets/media/2023/08/results_graph.png?w=1024" alt="" class="wp-image-443" /></figure>
+    <figure class="wp-block-image aligncenter size-small"><img src="/assets/media/2023/08/results_other.png?w=1024" alt="" class="wp-image-443" /></figure>
   </div>
 
   <h2>Thermal Safety</h2>
@@ -56,3 +80,16 @@ abstract: "abssss"
   <p>
     This system is ideal for temporary hot-water supply on construction sites, off-grid commissioning, and façade testing. Its modular design and low-cost sensor make it practical for field deployment.
   </p>
+
+  <div class="video-container text-width">
+	<iframe
+		src="https://www.youtube.com/embed/ABtGRIKqLjQ"
+		title="YouTube video player"
+		frameborder="0"
+		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+		allowfullscreen
+	></iframe>
+	<p class="small" style="margin-top:0.4em; opacity:0.85;">Solar Water Heating System Using Fresnel Lens with 6-DOF Tracking - Outdoor test</p>
+	<!-- To change the video, replace EMFauA1CU8M with the new YouTube ID. -->
+	<!-- If you prefer privacy-enhanced mode, use: https://www.youtube-nocookie.com/embed/VIDEO_ID -->
+</div>

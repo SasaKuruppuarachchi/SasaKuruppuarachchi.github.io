@@ -69,6 +69,19 @@ img {
   .half-width { max-width: 100%; }
 }
 
+/* Utility: two-up side-by-side layout */
+.two-up {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0.5em 0 1em;
+}
+.two-up > * { flex: 1 1 0; }
+.two-up img { width: 100%; height: auto; display: block; }
+@media screen and (max-width: 736px) {
+  .two-up { flex-direction: column; }
+}
+
 /* Responsive 16:9 video embeds */
 .video-container {
   position: relative;
