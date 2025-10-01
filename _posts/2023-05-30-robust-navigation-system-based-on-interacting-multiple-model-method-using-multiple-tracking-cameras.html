@@ -1,0 +1,61 @@
+---
+layout: post
+title: "Robust Navigation System Based on IMM Filtering Using Multiple Tracking Cameras"
+date: 2023-05-30 12:00:00
+categories: ["Projects: Robotic", "ARRF"]
+tags: ["Visual Inertial Odometry", "IMM Filter", "Robotics", "Navigation", "RealSense T265", "Jetson Xavier NX"]
+status: Finished
+visibility: Published
+cover: "assets\media\2023\05\imm_cover.png"
+abstract: "Developed a failure-aware visual–inertial navigation system that fuses multiple tracking cameras using an Interacting Multiple-Model (IMM) filter. Achieved real-time, robust pose estimation on embedded hardware, improving resilience to sensor failures and low-texture environments."
+---
+<div class="video-container text-width">
+	<iframe
+		src="https://www.youtube.com/embed/FyhICFswbEQ"
+		title="YouTube video player"
+		frameborder="0"
+		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+		allowfullscreen
+	></iframe>
+	<p class="small" style="margin-top:0.4em; opacity:0.85;">Robust Navigation System Based on IMM Filtering Using Multiple Tracking Cameras</p>
+	<!-- To change the video, replace EMFauA1CU8M with the new YouTube ID. -->
+	<!-- If you prefer privacy-enhanced mode, use: https://www.youtube-nocookie.com/embed/VIDEO_ID -->
+</div>
+<div class="section">
+        <h2>Introduction</h2>
+        <p>In the evolving landscape of autonomous robotics, robust navigation systems are essential for reliable operation in complex environments. This project explores a novel approach to visual inertial navigation using multiple tracking cameras, addressing the limitations of single-camera systems in texture-poor or poorly illuminated scenes.</p>
+    </div>
+
+    <div class="section">
+        <h2>Methodology</h2>
+        <p>The proposed system integrates multiple Intel RealSense T265 tracking cameras facing different directions. It employs an Interacting Multiple Model (IMM) filtering framework to dynamically weight and fuse odometry estimations from each camera based on their accuracy. An external sensor provides measurements to support the IMM filter, enhancing robustness against sensor failures.</p>
+        
+    </div>
+
+    <div class="section">
+        <h2>Results</h2>
+        <p>Real-world experiments were conducted using a handheld device equipped with two T265 cameras and an Nvidia Jetson Xavier NX. The system demonstrated reliable performance in both normal and failure-induced scenarios. When one camera was covered, the IMM filter successfully shifted reliance to the other camera, maintaining accurate navigation.</p>
+        
+    </div>
+
+    <div class="section">
+        <h2>Conclusion</h2>
+        <p>This project presents a robust and real-time navigation system that effectively integrates multiple tracking cameras using IMM filtering. It enhances the reliability of visual inertial navigation systems in challenging environments and demonstrates superior performance compared to single-camera setups. Future work will focus on extending this approach to open-source VINS algorithms for broader applicability.</p>
+    </div>
+    
+
+    <h2>Publication</h2>
+  <p>
+    Paper: <a href="https://arc.aiaa.org/doi/10.2514/6.2024-1175" target="_blank" rel="noopener">Robust Navigation Based on an Interacting Multiple-Model Filtering Framework Using Multiple Tracking Cameras</a>
+  </p>
+  <h3>Citation</h3>
+  <pre><code>@inproceedings{kuruppu2024robust,
+  title={Robust Navigation Based on an Interacting Multiple-Model Filtering Framework Using Multiple Tracking Cameras},
+  author={Kuruppu Arachchige, Sasanka and Lee, Kyuman},
+  booktitle={AIAA SCITECH 2024 Forum},
+  pages={1175},
+  year={2024}
+}</code></pre>
+
+
+
