@@ -7,7 +7,7 @@ tags: ["Visual-Inertial Odometry", "Semantic Segmentation", "Robotics", "Dynamic
 status: Finished
 visibility: Published
 cover: "/assets/media/2024/01/imm_cover2.gif"
-abstract: "abssss"
+abstract: "Developed a real-time semantic-aided Visual–Inertial Odometry (VIO) system for autonomous robots in dynamic indoor environments. Designed interaction-based dynamic object filtering, depth-guided mask extension, and integrated with OpenVINS, achieving up to 34% improvement in trajectory accuracy on edge hardware without degrading static-scene performance."
 ---
 <div class="video-container text-width">
 	<iframe
@@ -24,4 +24,90 @@ abstract: "abssss"
 <!-- Cover image (optional) -->
 <!-- <div class="wp-block-image"><figure><img src="/assets/media/YYYY/MM/cover.jpg" alt="" data-cover class="wp-image-xxx" /></figure></div> -->
 
-<p>Write your post content here.</p>
+
+<p><em>Improving navigation in dynamic indoor environments with real-time semantic reasoning</em></p>
+  </header>
+
+  <section id="abstract">
+    <h2>Abstract</h2>
+    <p>
+      This project presents a lightweight semantic front-end for Visual–Inertial Odometry (VIO) that suppresses features on independently moving objects before they corrupt state estimation. The approach segments potential dynamic objects, selectively promotes truly dynamic instances via interaction reasoning (mask overlap + depth proximity), and stabilizes coverage using depth-guided mask extension and short-term tracking. Integrated with OpenVINS, the system gates feature extraction and runs in real time on edge hardware. Across simulated warehouse scenes and real indoor experiments, it reduces Absolute Trajectory Error (ATE) in position by up to <strong>34.4%</strong> and orientation by <strong>16.8%</strong> versus standard VIO in dynamic environments, with no degradation in static scenes.
+    </p>
+  </section>
+  
+
+  <section>
+    <h2>Introduction</h2>
+    <p>
+      Autonomous robots often operate in GPS-denied indoor environments such as warehouses or industrial facilities. 
+      Traditional Visual–Inertial Odometry (VIO) systems like <strong>OpenVINS</strong> provide efficient pose estimation 
+      but suffer from drift when visual features lie on independently moving objects. This challenge is amplified in 
+      dynamic scenes with humans, forklifts, and movable equipment.
+    </p>
+  </section>
+
+  <section>
+    <h2>Approach Overview</h2>
+    <p>
+      The solution is a real-time VIO front-end that integrates <strong>semantic understanding</strong> to 
+      suppress dynamic outlier features before they affect the filter. The system introduces:
+    </p>
+    <ul>
+      <li>A <strong>potential dynamic object segmenter</strong> using instance segmentation (YolactEdge).</li>
+      <li>A <strong>hierarchical heuristic classifier</strong> that promotes only interaction-linked objects to dynamic status.</li>
+      <li>A <strong>depth-guided mask extension</strong> and short-term tracking module to handle segmentation gaps.</li>
+    </ul>
+    <p>
+      Unlike methods that mask all movable classes, this approach selectively retains static-but-movable objects 
+      (e.g., parked forklifts) to preserve feature richness and tracking stability.
+    </p>
+  </section>
+
+  <section>
+    <h2>Methodology</h2>
+    <p>
+      The pipeline operates on a continuous camera stream and consists of:
+    </p>
+    <ol>
+      <li><strong>Instance Segmentation:</strong> Fine-tuned YolactEdge on a synthetic warehouse dataset generated in NVIDIA Isaac Sim; exported to ONNX and optimized with TensorRT for edge latency.</li>
+      <li><strong>Dynamic Outlier Classification:</strong> Interaction reasoning based on 2D mask overlap and depth proximity; recursive association chains propagate dynamic status (e.g., human → forklift → box).</li>
+      <li><strong>Mask Post-Processing:</strong> Depth-based mask extension (stereo) to cover thin/reflective boundaries and a lightweight tracker to recover transient segmentation loss.</li>
+      <li><strong>Integration with VIO:</strong> Dynamic masks gate feature extraction before optical flow and MSCKF updates in OpenVINS, so dynamic features never enter the state.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Experiments & Results</h2>
+    <p>
+      Evaluation covered simulated warehouse environments (Gazebo) and real indoor scenes using an Intel RealSense T265 camera.
+      Key findings:
+    </p>
+    <ul>
+      <li><strong>Dynamic scenes:</strong> ATE position improved by <strong>34.4%</strong> and ATE orientation by <strong>16.8%</strong> versus OpenVINS.</li>
+      <li><strong>Static scenes:</strong> Performance parity with standard VIO—no degradation.</li>
+      <li><strong>Edge real-time:</strong> Jetson Orin NX achieved ~<strong>18 FPS</strong>; desktop reached ~<strong>52 FPS</strong> for the semantic module.</li>
+      <li><strong>Motion direction sensitivity:</strong> Standard VIO is more affected by parallel-moving objects than perpendicular ones; the proposed method mitigates this gap.</li>
+    </ul>
+    <figure>
+      your-image-link-here
+      <figcaption>Simulation environment and trajectory evaluation for dynamic scenes.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Comparison with Existing Methods</h2>
+    <p>
+      Against DynaSLAM, this approach maintained tracking in texture-sparse segments and achieved edge real-time performance,
+      whereas DynaSLAM showed high latency and frequent tracking failure in dynamic scenes on similar trajectories.
+    </p>
+  </section>
+
+  <section>
+    <h2>Conclusion & Future Work</h2>
+    <p>
+      Integrating semantic reasoning into VIO significantly improves robustness in dynamic indoor environments.
+      Future directions include optical flow consistency for residual false negatives, learned motion saliency to replace hand-tuned thresholds, 
+      and extensions to optimization-based VIO frameworks with loop closure.
+    </p>
+  </section>
+
