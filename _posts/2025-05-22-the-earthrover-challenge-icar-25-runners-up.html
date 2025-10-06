@@ -1,0 +1,70 @@
+---
+layout: post
+title: "The EarthRover Challenge - ICAR 25 - Runners-up"
+date: 2025-05-22 12:00:00
+categories: ["Projects: Robotic"]
+tags: ["Autonomous Systems", "Rover", "Robotics", "ICRA"]
+status: Finished
+visibility: Published
+cover: "assets/media/2025/05/Earth_rover_cover.gif"
+abstract: "Co-developed a data driven model capable of in-the-wild navigation for mobile robots. The method is put to test at the ICRA 2025."
+---
+
+<!-- Cover image (optional) -->
+<!-- <div class="wp-block-image"><figure><img src="/assets/media/YYYY/MM/cover.jpg" alt="" data-cover class="wp-image-xxx" /></figure></div> -->
+
+<figure class="wp-block-image aligncenter size-small"><img src="assets/media/2025/05/Earth_rover_cover.gif?w=1024" alt="" class="wp-image-443" /></figure>
+
+<h2>Navigating the Wild: Remote Robot Control in the EarthRover Challenge</h2>
+
+<p>While robotics labs are full of polished systems relying on clean data and controlled environments, real world “in the wild” navigation is messier—sensor data is noisy, delayed, inconsistent, and environments unpredictable. At the EarthRover Challenge, we tested exactly this kind of problem—and our team from Tampere University came away 2nd place by building a system that can handle it.</p>
+
+<h2>What Was the Challenge?</h2>
+
+<p>EarthRover is a remote urban navigation competition: robots located in cities across the world are given GPS checkpoints. Teams must control them remotely, often using delayed and unreliable streams of camera, IMU, GPS, and other sensors. Environments vary, mission difficulty varies (crowds, roads, sidewalks, obstacles). The goal is to be robust, safe, and generalize across seen and unseen conditions. 
+[earth-rover-challenge.github.io](https://earth-rover-challenge.github.io)
+</p>
+
+<h2>Our Approach</h2>
+
+<p>We took a two-pronged strategy:</p>
+
+<h3>Heading Reference System (Filter-based)</h3>
+<p>To cope with inconsistent orientation and heading data, we built a filter (e.g., combining IMU and when available magnetometer/GPS) to produce a more stable and reliable heading reference. This acts as our “compass,” so the system knows which way is forward/turning.</p>
+
+<h3>Data-Driven Steering Model</h3>
+<p>Relying only on the heading reference isn’t enough in complex or delayed visual situations. We trained a steering policy (neural network or other regression/learning approach) that takes input from the available sensor streams (e.g., camera, delayed GPS, IMU) and outputs control commands such as turn left/right and go forward/back. The model is robust to noise, delays, and inconsistent data.</p>
+
+<p>By combining the filter-based heading with the learned steering, the system adapts: when sensor data is bad, we depend more on the heading system; when visual cues or other data are good, the steering model takes more control.</p>
+
+<h2>Gallery</h2>
+      <div class="masonry-gallery text-width">
+        <a href="/assets/media/2025/05/mission.jpg" target="_blank" rel="noopener">
+          <img src="/assets/media/2025/05/mission.jpg" alt="Mission overview" loading="lazy" />
+        </a>
+        <a href="/assets/media/2025/05/mission2.jpg" target="_blank" rel="noopener">
+          <img src="/assets/media/2025/05/mission2.jpg" alt="Mission overview" loading="lazy" />
+        </a>
+        <a href="/assets/media/2025/05/robot.jpg" target="_blank" rel="noopener">
+          <img src="/assets/media/2025/05/robot.jpg" alt="Robot overview" loading="lazy" />
+        </a>
+        <a href="/assets/media/2025/05/results.jpg" target="_blank" rel="noopener">
+          <img src="/assets/media/2025/05/results.jpg" alt="Results overview" loading="lazy" />
+        </a>
+        
+      </div>
+
+<h2>Results &amp; What We Learned</h2>
+
+<p>Our system successfully navigated in several “in-the-wild” urban locations under varying lighting, traffic, pedestrian density, weather, and sensor conditions. We placed 2nd overall in EarthRover among competing AI teams.</p>
+
+<h3>Key lessons</h3>
+<ul>
+	<li>Robustness to sensor noise and delay is non-negotiable in real deployments.</li>
+	<li>Hybrid systems (filter + learned model) outperform pure learning or pure classical methods when conditions degrade.</li>
+	<li>Generalization to unseen environments is harder than it looks; overfitting to “nice” scenes hurts performance in the wild.</li>
+	</ul>
+
+<h2>Why It Matters</h2>
+
+<p>Robot navigation under messy, delayed, and partial data is closer to how deployed systems in cities, disaster zones, or remote sites must work. Winning 2nd place shows that you can build systems that generalize across “unseen” environments, not just labs. For applications like delivery robots, autonomous inspection, and remote monitoring, this kind of robustness is essential.</p>
