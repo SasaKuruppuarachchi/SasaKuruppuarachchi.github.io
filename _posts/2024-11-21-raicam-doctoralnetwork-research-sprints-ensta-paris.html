@@ -1,0 +1,88 @@
+---
+layout: post
+title: "RAICAM Doctoral Network Research Sprints, ENSTA, Paris"
+date: 2024-11-21 12:00:00
+categories: ["Projects: Robotic", "RAICAM"]
+tags: ["Aerial Robotics", "Ground Robotics", "Autonomous Systems", "Industrial Inspection", "Multi-Robot Systems", "ROS 2", "SLAM", "Computer Vision", "RAICAM"]
+status: Finished
+visibility: Published
+cover: "assets/media/2024/11/ensta_cover.gif"
+abstract: "Co-developed a data driven model capable of in-the-wild navigation for mobile robots. The method is put to test at the ICRA 2025."
+---
+
+<h2>Real-Time Air–Ground Collaboration for Industrial Robotics</h2>
+
+<div class="video-container text-width">
+	<iframe
+		src="https://www.youtube.com/embed/clg4_2iWDi0"
+		title="YouTube video player"
+		frameborder="0"
+		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+		allowfullscreen
+	></iframe>
+	<p class="small" style="margin-top:0.4em; opacity:0.85;">RAICAM - ENSTA, Paris Demonstration</p>
+	<!-- To change the video, replace EMFauA1CU8M with the new YouTube ID. -->
+	<!-- If you prefer privacy-enhanced mode, use: https://www.youtube-nocookie.com/embed/VIDEO_ID -->
+</div>
+<!-- Cover image (optional) -->
+<!-- <div class="wp-block-image"><figure><img src="/assets/media/YYYY/MM/cover.jpg" alt="" data-cover class="wp-image-xxx" /></figure></div> -->
+
+<p>In industrial environments like factories, warehouses, or power plants, inspection and maintenance are still largely human‑operated—time‑consuming, repetitive, and often risky. Our project, <strong><a href="https://raicam.eu/" target="_blank" rel="noopener">RAICAM</a></strong> (Robotics and Artificial Intelligence for Critical Asset Monitoring), aims to change that by creating a framework that lets aerial and ground robots work together autonomously to perform inspection and mapping tasks.</p>
+
+<p>This work was carried out at ENSTA, Paris and presented at <strong>TAROS 2025</strong> (Towards Autonomous Robotic Systems), where we demonstrated the full system in a realistic facility‑management scenario.</p>
+
+<h2>The Idea: Robots That Complement Each Other</h2>
+
+<p>Drones are agile and can quickly scan large areas or hard‑to‑reach places, but they have limited endurance and payload capacity. Ground robots, on the other hand, can carry heavier sensors and operate longer but are constrained by terrain. <strong>RAICAM bridges these strengths</strong> by enabling tight coordination between the two.</p>
+
+<p>We designed a <strong>ROS 2‑based architecture</strong> that allows both robots to share real‑time state, semantic information, and task goals. The drone performs aerial visual inspection and mapping, while the UGV handles close‑up exploration, data collection, and relay networking. The system dynamically assigns tasks depending on robot capability, energy level, and visibility.</p>
+
+<h2>Method</h2>
+
+<ul>
+	<li><strong>Shared Semantic Map:</strong> A unified map that merges LiDAR, visual, and inertial data from both robots for joint situational awareness.</li>
+	<li><strong>Collaborative Planning:</strong> Decentralized trajectory generation ensures both robots plan around each other, avoiding collisions and maximizing coverage.</li>
+	<li><strong>Human‑in‑the‑Loop Supervision:</strong> A web‑based control interface allows an operator to oversee missions, trigger reassignments, or pause tasks when needed—<em>all in real time</em>.</li>
+	</ul>
+
+<p>This hybrid autonomy approach balances robot independence with human oversight—crucial for deploying robots safely in operational facilities.</p>
+
+<h2>Field Deployment</h2>
+
+<p>We validated the method in an indoor mock industrial environment equipped with stairs, corridors, and elevated pipelines. The air–ground pair collaboratively performed inspection and mapping while maintaining a shared localization frame. The demo showed robust communication, real‑time visualization, and reliable mission continuity even when the aerial link briefly dropped.</p>
+
+<h2>Gallery</h2>
+      <div class="masonry-gallery text-width">
+        <a href="/assets/media/2024/11/paris_demo2.jpg" target="_blank" rel="noopener">
+          <img src="/assets/media/2024/11/paris_demo2.jpg" alt="Mission overview" loading="lazy" />
+        </a>
+        <a href="/assets/media/2024/11/raicam.jpg" target="_blank" rel="noopener">
+          <img src="/assets/media/2024/11/raicam.jpg" alt="Mission overview" loading="lazy" />
+        </a>
+        <a href="/assets/media/2024/11/raicam2.jpg" target="_blank" rel="noopener">
+          <img src="/assets/media/2024/11/raicam2.jpg" alt="Robot overview" loading="lazy" />
+        </a>
+        <a href="/assets/media/2024/11/raicam3.jpg" target="_blank" rel="noopener">
+          <img src="/assets/media/2024/11/raicam3.jpg" alt="Results overview" loading="lazy" />
+        </a>
+        
+      </div>
+
+<h2>Looking Ahead</h2>
+
+<p>RAICAM paves the way for scalable robotic teams that can handle routine maintenance, environmental monitoring, and asset inspection in large industrial sites. By combining the complementary strengths of aerial and ground robots, the project moves us a step closer to fully autonomous, cooperative robotic ecosystems.</p>
+
+
+    <h2>Publication</h2>
+  <p>
+    Paper: <a href="https://doi.org/10.1007/978-3-032-01486-3_40" target="_blank" rel="noopener">Lessons Learned from the RAICAM Doctoral Network Research Sprints</a>
+  </p>
+  <h3>Citation</h3>
+  <pre><code>@inproceedings{kenan2025lessons,
+  title={Lessons Learned from the RAICAM Doctoral Network Research Sprints},
+  author={Kuruppu Arachchige, Sasanka and Kenan, Alperen and Kordkheili, Sahar Sadeghi and Cardenas, Juan Jose Garcia and Melone, Alessandro and Tian, Changda and Li, Haichuan and Raei, Hamidreza and Tang, Yifeng and Tapus, Adriana and others},
+  booktitle={Annual Conference Towards Autonomous Robotic Systems},
+  pages={526--539},
+  year={2025},
+  organization={Springer}
+}</code></pre>
