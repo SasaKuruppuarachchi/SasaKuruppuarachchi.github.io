@@ -1,0 +1,48 @@
+---
+layout: post
+title: "The European Robotics Hackathon: ENRICH 2025"
+date: 2025-07-04 12:00:00
+categories: ["Projects: Robotic", "RAICAM"]
+tags: []
+status: Finished
+visibility: Published
+cover: "assets/media/2025/07/enrich-cover.jpg"
+abstract: "Low-Cost Rapid-Development Air-Ground Robotic Solution for Nuclear Power Plant Inspection"
+---
+
+<!-- Cover image (optional) -->
+<!-- <div class="wp-block-image"><figure><img src="/assets/media/YYYY/MM/cover.jpg" alt="" data-cover class="wp-image-xxx" /></figure></div> -->
+
+<h2>Building a Low-Cost Air-Ground Robotic System for Nuclear Plant Inspection</h2>
+
+<figure class="wp-block-image aligncenter size-small half-width"><img src="/assets/media/2025/07/enrich-cover.jpg?w=1024" alt="" class="wp-image-443" /></figure>
+
+<p>In June 2025, our team participated in the EnRicH 2025 Robotics Hackathon held at the decommissioned Zwentendorf Nuclear Power Plant in Austria — one of the most unique and challenging testbeds for field robotics. The goal: to design a robotic system capable of mapping, radiation detection, and inspection inside an environment where GPS is unavailable, communication is unreliable, and radiation levels can be hazardous for humans.
+</p>
+<h2>From Idea to Field-Ready Robot in 3 Weeks</h2>
+
+<p>We had just three weeks to design, build, and deploy a heterogeneous robotic system combining a drone and a ground vehicle. Using off-the-shelf parts, 3D-printed components, and open-source frameworks like ROS2 and PX4, we created:
+
+ - A quadrotor equipped with LiDAR, IMU, and a Geiger counter for aerial radiation mapping.
+
+ - An Ackermann-steering ground robot (UGV) for 3D mapping and navigation in tight corridors.
+
+</p>
+<p>Both platforms shared the same onboard computer — an NVIDIA Orin NX — running ROS2 for perception, SLAM, and navigation. This unified design allowed faster integration, debugging, and modular scalability.
+</p>
+<h2>Navigating Inside a Nuclear Plant</h2>
+
+<p>Operating inside thick concrete walls meant no GPS and poor communication. We tackled this by deploying a mesh Wi-Fi network with repeaters and dynamic reconnection routines. Our robots relied on LiDAR-inertial odometry (DLIO) and LIO-SAM for robust mapping, even in visually and magnetically challenging conditions.
+</p>
+<p>The UGV performed autonomous exploration using frontier-based mapping, while the UAV executed trajectory-based flight planning with RRT* and minimum-snap trajectory generation — ensuring smooth, collision-free navigation even with limited range and time.
+</p>
+<h2>Field Trials and Lessons Learned</h2>
+
+During live trials, both robots successfully completed mapping and radiation detection tasks inside the NPP. However, we encountered real-world surprises — including sudden network interference when another team powered up a large communication station, which temporarily froze our drone mid-task. These experiences reinforced critical lessons in redundant communication, autonomy fallback, and energy-aware planning for time-critical missions.
+</p>
+<h2>Open Science and Future Work</h2>
+
+<p>All our mechanical designs, schematics, and ROS2 packages are open-sourced, supporting other researchers and practitioners who want to build adaptable robotic solutions for nuclear or hazardous environments.
+This project demonstrated that high-impact field robotics doesn’t require high budgets — just the right mix of collaboration, open-source tools, and creativity under pressure.
+
+</p>
