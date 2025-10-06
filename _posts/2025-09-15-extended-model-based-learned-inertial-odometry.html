@@ -7,10 +7,46 @@ tags: []
 status: Ongoing
 visibility: Published
 cover: "assets/media/2025/09/emblio.gif"
-abstract: "abssss"
+abstract: "We propose a learning-based inertial odometry algorithm that integrates the full quadrotor dynamics, including body-frame torques, as model inputs. The proposed method outperforms prior state-of-the-art inertial odometry approaches in pose estimation on unseen trajectories."
 ---
 
 <!-- Cover image (optional) -->
 <!-- <div class="wp-block-image"><figure><img src="/assets/media/YYYY/MM/cover.jpg" alt="" data-cover class="wp-image-xxx" /></figure></div> -->
+ <div class="video-container text-width">
+	<iframe
+		src="https://www.youtube.com/embed/IsjZ-TeqXPM"
+		title="YouTube video player"
+		frameborder="0"
+		allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+		allowfullscreen
+	></iframe>
+	<p class="small" style="margin-top:0.4em; opacity:0.85;">Extended Model-Based Learned Inertial Odometry - ICRA 26</p>
+	<!-- To change the video, replace EMFauA1CU8M with the new YouTube ID. -->
+	<!-- If you prefer privacy-enhanced mode, use: https://www.youtube-nocookie.com/embed/VIDEO_ID -->
+</div>
 
-<p>Write your post content here.</p>
+<h2>Publication</h2>
+  <p>
+    This project is under Peer-review at the IEEE Conference on Robotics and Automation (ICRA) <!-- Paper: <a href="https://doi.org/10.5302/j.icros.2024.24.0087" target="_blank" rel="noopener">Search operations with geolocation estimation of missing persons based on real-time drone images</a> -->
+  </p>
+ <!--  <h3>Citation</h3>
+  <pre><code>@article{lee2024search,
+  title={Search operations with geolocation estimation of missing persons based on real-time drone images},
+  author={Kuruppu Arachchige, Sasanka and Lee, Joo-hyuk and Lee, Ho-jun and Kim, Nam-young and Heo, Hyeon-jeong and Lee, Kyuman},
+  journal={Journal of Institute of Control, Robotics and Systems},
+  volume={30},
+  number={8},
+  pages={890--896},
+  year={2024},
+  publisher={Institute of Control, Robotics and Systems}
+}</code></pre> -->
+
+<p>Accurate state estimation is at the heart of agile drone flight. While cameras are commonly used for localization, they fail in low light, high-speed motion, or textureless environments. Inertial odometry — using only IMU (Inertial Measurement Unit) data — offers a lightweight and robust alternative, but it often suffers from drift over time due to sensor noise and bias.
+
+In this project, I explored how far we can push IMU-only odometry by extending a recent learning-based inertial odometry (IMO) framework for autonomous drone racing. The core idea was to make the learned model “aware” of the drone’s underlying physics — not just what it feels through accelerations and rotations, but also the forces and torques acting on its body.
+
+By incorporating the full quadrotor dynamics model, including body-frame torques, into the learning pipeline, our system achieves significantly better generalization to flight trajectories not seen during training. The model predicts short-term positional displacements from IMU and thrust data using a Temporal Convolutional Network (TCN), which are then fused through an Extended Kalman Filter (EKF) for continuous pose estimation.
+
+We validated our approach on the Blackbird and DIDO drone flight datasets and deployed it on a real racing quadrotor. The results show up to 61% improvement in relative error compared to the original IMO on unseen trajectories — demonstrating that embedding physical insight into learning models enhances robustness and transferability.
+
+This work contributes to the ongoing effort to make autonomous drones faster, smaller, and more resilient — capable of navigating even when vision fails.</p>
