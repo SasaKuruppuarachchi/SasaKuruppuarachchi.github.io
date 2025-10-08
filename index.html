@@ -175,8 +175,8 @@ layout: null
 						      var db=+(b.getAttribute('data-date')||0);
 						      return sort==='oldest' ? da-db : db-da;
 						    });
-																			// Show only top N after sort/filter (mini list of 6)
-																			var maxCount = 6;
+																			// Show only top N after sort/filter (mini list of 8)
+																			var maxCount = 8;
 														// hide all first (ensures stale items are hidden)
 														cards.forEach(function(card){ card.style.display = 'none'; });
 														var shown = visible.slice(0, maxCount);
