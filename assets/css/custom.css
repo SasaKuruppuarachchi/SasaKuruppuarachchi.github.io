@@ -471,3 +471,28 @@ article.post-card[id^="year-"] {
 @media (prefers-color-scheme: dark) {
   .masonry-gallery a { background: #0f172a; border-color: #1f2937; }
 }
+
+/* -----------------------------------------------------------
+   Height-aware fluid typography
+   - Makes body text and the site header scale with viewport height as well as width
+   - Uses vmin (the smaller of vw and vh) so text adapts when height is constrained
+   - clamp() keeps sizes within comfortable, readable bounds
+------------------------------------------------------------ */
+
+/* Base body copy: scale a bit with the smaller viewport edge */
+body, input, select, textarea {
+  font-size: clamp(14px, calc(13px + 0.7vmin), 18px);
+}
+
+/* Site header title on all breakpoints: allow subtle scaling with height */
+#header h1 {
+  /* Keep roughly the theme's intended range across breakpoints,
+     but let height influence sizing via vmin */
+  font-size: clamp(1.2em, calc(1.0em + 1.1vmin), 1.85em);
+  line-height: 1.4;
+}
+
+/* When the header shows post titles, keep them in step too */
+#header .post-title {
+  font-size: clamp(1.6em, calc(1.2em + 1.4vmin), 2.4em);
+}
