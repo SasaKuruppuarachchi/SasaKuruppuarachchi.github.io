@@ -1,17 +1,17 @@
 [
   {
-    "title": "Lessons Learned from the RAICAM Doctoral Network Research Sprints",
-    "url": "https://doi.org/10.1007/978-3-032-01486-3_40",
-    "doi": "https://doi.org/10.1007/978-3-032-01486-3_40",
-    "authors": "Alperen Kenan, Sahar Sadeghi Kordkheili, Juan Jose Garcia Cardenas, Alessandro Melone, Changda Tian, Haichuan Li, Hamidreza Raei, Sasanka Kuruppu Arachchige, Yifeng Tang, Adriana Tapus, Anibal Ollero, Arash Ajudani, Begoña C. Arrue, Dimitrios Papageorgiou, Joni-Kristian Kämäräinen, Jukka Heikkonen, Luis Figueredo, Manuel Giuliani, Panos Trahanias, Paul Bremner, Saeed Rafee Nekoo, Simon Watson, Tomi Westerlund",
-    "venue": "Lecture Notes in Computer Science",
-    "year": "2026"
-  },
-  {
     "title": "Synthetic vs. Real Training Data for Visual Navigation",
     "url": "https://orcid.org/0000-0002-4530-8725/work/192870641",
     "authors": "Suomela, Lauri, Arachchige, Sasanka Kuruppu, Torres, German F, Edelman, Harry, Kämäräinen, Joni-Kristian",
     "venue": "arXiv preprint arXiv:2509.11791",
+    "year": "2025"
+  },
+  {
+    "title": "Lessons Learned from the RAICAM Doctoral Network Research Sprints",
+    "url": "https://doi.org/10.1007/978-3-032-01486-3_40",
+    "doi": "https://doi.org/10.1007/978-3-032-01486-3_40",
+    "authors": "Alperen Kenan, Sahar Sadeghi Kordkheili, Juan Jose Garcia Cardenas, Alessandro Melone, Changda Tian, Haichuan Li, Hamidreza Raei, Sasanka Kuruppu Arachchige, Yifeng Tang, Adriana Tapus, Anibal Ollero, Arash Ajudani, Begoña C. Arrue, Dimitrios Papageorgiou, Joni-Kristian Kämäräinen, Jukka Heikkonen, Luis Figueredo, Manuel Giuliani, Panos Trahanias, Paul Bremner, Saeed Rafee Nekoo, Simon Watson, Tomi Westerlund",
+    "venue": "Towards Autonomous Robotic Systems",
     "year": "2025"
   },
   {
