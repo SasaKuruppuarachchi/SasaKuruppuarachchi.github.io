@@ -1,0 +1,358 @@
+<!DOCTYPE HTML>
+<!--
+	Strata by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+
+<html>
+	<head>
+		<title>Photography – Sasanka Kuruppu Arachchige</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-J5VYH61SR2"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-J5VYH61SR2');
+		</script>
+<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/custom.css" />
+		<!-- Site icon / favicon -->
+		<link rel="icon" href="images/avatar.jpg" type="image/jpeg" />
+		<link rel="shortcut icon" href="images/avatar.jpg" type="image/jpeg" />
+		<link rel="apple-touch-icon" href="images/avatar.jpg" />
+<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<style>
+			/* Photography page: individual post/album cards */
+			.photo-post {
+				margin-bottom: 2.5em;
+				padding-bottom: 2em;
+				border-bottom: 1px solid rgba(0,0,0,0.1);
+			}
+			.photo-post:last-child { border-bottom: none; padding-bottom: 0; }
+
+			.photo-post .post-meta { margin-bottom: 0.6em; }
+			.photo-post .post-title {
+				font-size: 1.1em;
+				font-weight: 600;
+				margin: 0 0 0.2em 0;
+			}
+			.photo-post .post-date {
+				font-size: 0.85em;
+				opacity: 0.65;
+			}
+
+			/* Constrain Facebook widget width on large screens */
+			.photo-post .fb-embed-wrapper {
+				max-width: 500px;
+			}
+
+			@media (prefers-color-scheme: dark) {
+				.photo-post { border-bottom-color: rgba(255,255,255,0.08); }
+			}
+		</style>
+	</head>
+	<body class="is-preload" id="top">
+
+		<!-- Header -->
+			<header id="header">
+				<a href="https://www.linkedin.com/in/sasanka-kuruppuarachchi/" class="image avatar"><img src="images/avatar.jpg" alt="" /></a>
+				<h1>
+					<strong>Hello, my name is <br />Sasanka Kuruppu Arachchige.</strong>
+				</h1>
+				<p class="sidebar-tagline">I am an Engineer and a researcher in <br />Agile Aerial robotics, Edge computing,<br />Robust odometry and navigation.</p>
+				<nav id="sidebar-sections" aria-label="Page sections">
+					<ul>
+						<li><a href="#photography">Photography</a></li>
+						<li><a href="#posts">Posts &amp; Albums</a></li>
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Facebook SDK (loaded asynchronously; XFBML parsed after posts are injected) -->
+		<div id="fb-root"></div>
+		<script async defer crossorigin="anonymous"
+			src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v18.0">
+		</script>
+
+		<!-- Main -->
+			<div id="main">
+
+				<!-- Intro / nav buttons -->
+				<section id="one">
+					<header class="major">
+						<h2 id="photography">Photography<br /><br /></h2>
+					</header>
+
+					<ul class="actions">
+						<li><a href="index.html" class="button">Home</a></li>
+						<li><a href="publications.html" class="button">Publications</a></li>
+						<li><a href="contact.html" class="button">Contact</a></li>
+						<li><a href="https://sasakuruppuarachchi.github.io/curriculum-vitae" target="_blank" class="button">CV</a></li>
+						<li><a href="photography.html" class="button primary">Photography</a></li>
+					</ul>
+				</section>
+
+				<!-- Posts & Albums section -->
+				<section id="two">
+					<div class="section-header">
+						<h2 id="posts">Posts &amp; Albums</h2>
+						<div class="controls-inline">
+							<label class="small" for="sort-order">Sort:</label>
+							<select id="sort-order">
+								<option value="newest" selected>Newest first</option>
+								<option value="oldest">Oldest first</option>
+							</select>
+						</div>
+					</div>
+
+					<div id="photo-posts-list">
+						<!-- Posts are rendered dynamically by the script below -->
+					</div>
+				</section>
+
+			</div>
+		</div>
+
+		<!-- Footer -->
+			<footer id="footer">
+				<ul class="icons">
+					<!--li><a href="https://twitter.com/paulobaniqued" class="icon fa-twitter"><span class="label">Twitter</span></a></li-->
+					<li><a href="https://github.com/sasakuruppuarachchi" class="icon fa-github"><span class="label">Github</span></a></li>
+					<li><a href="https://www.linkedin.com/in/sasanka-kuruppuarachchi/" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
+					<li><a href="mailto:sasa.kuruppuarachchi@gmail.com" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+				</ul>
+				<ul class="copyright">
+					<li>&copy; SasaKuruppuarachchi 2024</li><li>Last update on: <span id="last-updated"></span></li>
+				</ul>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+		<script>
+		/*
+		 * Photography posts data.
+		 *
+		 * Each entry accepts:
+		 *   url   {string}  – Public Facebook post or album URL to embed (required).
+		 *   title {string}  – Optional human-readable title shown above the embed.
+		 *   date  {string}  – Optional forced date ("YYYY-MM-DD").
+		 *                     When omitted the Facebook widget's own date is shown
+		 *                     inside the embed; for sorting those posts fall to the end.
+		 *
+		 * Posts are sorted newest-first by default.
+		 */
+		var PHOTO_POSTS = [
+			{
+				url:   'https://www.facebook.com/permalink.php?story_fbid=pfbid0uZiC1gRiLoMzNBk9Vo3Fse8nFm59VEmLhT1Hy4ZZBw8b5hLiqUK3oqSvL4BL7J7dl&id=100063470189116',
+				title: 'Aerial view – test post 1',
+				date:  '2024-08-15'
+			},
+			{
+				url:   'https://www.facebook.com/permalink.php?story_fbid=pfbid0wfZJwt7U55LhSmEjZYqE5RgjTuRVdV5VbHdxZoKgb4aKBVKPM5DzTijNGDGjApwhl&id=100063470189116',
+				title: 'Lab robotics showcase',
+				date:  '2024-05-20'
+			},
+			{
+				url:   'https://www.facebook.com/permalink.php?story_fbid=pfbid026sSqgwjZ4LPicEQAchLqPz18R5DV5ZHT99vPFTjKjuLUmFKi4TJeGYPxVfWb3vukl&id=100063470189116',
+				/* No forced date – the Facebook embed's date is used for display;
+				   this post sorts to the end when date is unknown. */
+				title: 'Conference highlights'
+			}
+		];
+
+		/* ── helpers ── */
+
+		function escapeHtml(str) {
+			return String(str)
+				.replace(/&/g, '&amp;')
+				.replace(/</g, '&lt;')
+				.replace(/>/g, '&gt;')
+				.replace(/"/g, '&quot;');
+		}
+
+		function formatDate(iso) {
+			if (!iso) return '';
+			var d = new Date(iso);
+			if (isNaN(d.getTime())) return iso;
+			return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+		}
+
+		/* ── render ── */
+
+		function renderPosts(order) {
+			var posts = PHOTO_POSTS.slice();
+
+			/* Sort: posts with an explicit date come first (or last for oldest),
+			   posts without a date always go to the end of the list. */
+			posts.sort(function(a, b) {
+				var hasA = !!a.date, hasB = !!b.date;
+				if (!hasA && !hasB) return 0;
+				if (!hasA) return 1;   // undated always sinks to bottom
+				if (!hasB) return -1;
+				var da = new Date(a.date), db = new Date(b.date);
+				return order === 'oldest' ? da - db : db - da;
+			});
+
+			var html = '';
+			posts.forEach(function(post, idx) {
+				html += '<article class="photo-post" id="photo-post-' + idx + '">';
+
+				if (post.title || post.date) {
+					html += '<div class="post-meta">';
+					if (post.title) {
+						html += '<h3 class="post-title">' + escapeHtml(post.title) + '</h3>';
+					}
+					if (post.date) {
+						html += '<span class="post-date">' + escapeHtml(formatDate(post.date)) + '</span>';
+					}
+					html += '</div>';
+				}
+
+				html += '<div class="fb-embed-wrapper">';
+				html += '<div class="fb-post"'
+					+ ' data-href="' + escapeHtml(post.url) + '"'
+					+ ' data-width="500"'
+					+ ' data-show-text="true">'
+					+ '</div>';
+				html += '</div>';
+
+				html += '</article>';
+			});
+
+			var container = document.getElementById('photo-posts-list');
+			container.innerHTML = html;
+
+			/* Ask the Facebook SDK to parse and render the newly inserted widgets. */
+			if (window.FB && window.FB.XFBML) {
+				window.FB.XFBML.parse(container);
+			}
+		}
+
+		/* ── init ── */
+
+		document.addEventListener('DOMContentLoaded', function() {
+			renderPosts('newest');
+
+			document.getElementById('sort-order').addEventListener('change', function() {
+				renderPosts(this.value);
+			});
+
+			/* If the FB SDK loads after DOMContentLoaded, re-parse when it's ready. */
+			window.fbAsyncInit = (function(prev) {
+				return function() {
+					if (prev) prev();
+					if (window.FB) {
+						window.FB.init({ xfbml: true, version: 'v18.0' });
+						var container = document.getElementById('photo-posts-list');
+						if (container && container.children.length) {
+							window.FB.XFBML.parse(container);
+						}
+					}
+				};
+			}(window.fbAsyncInit));
+		});
+
+		/* ── Sidebar scrollspy (mirrors other pages) ── */
+		(function(){
+			var mq = window.matchMedia('(min-width: 981px)');
+			if (!mq.matches) return;
+			var header  = document.getElementById('header');
+			var tagline = header && header.querySelector('.sidebar-tagline');
+			var toc     = document.getElementById('sidebar-sections');
+			var start = 60, end = 240;
+
+			function onScroll() {
+				if (!tagline) return;
+				var y = window.pageYOffset || document.documentElement.scrollTop || 0;
+				var t = y <= start ? 0 : y >= end ? 1 : (y - start) / (end - start);
+				tagline.style.transform = 'translateY(' + (-12 * t) + 'px)';
+				tagline.style.opacity   = String(1 - t);
+				tagline.classList.toggle('is-hidden', t >= 0.999);
+				if (toc) {
+					toc.style.transform = 'translateY(' + (16 * (1 - t)) + 'px)';
+					toc.style.opacity   = String(0.2 + 0.8 * t);
+				}
+			}
+			onScroll();
+			window.addEventListener('scroll', onScroll, { passive: true });
+
+			var ids   = ['photography', 'posts'];
+			var links = ids.reduce(function(acc, id) {
+				var a = document.querySelector('#sidebar-sections a[href="#' + id + '"]');
+				if (a) acc[id] = a;
+				return acc;
+			}, {});
+
+			Object.keys(links).forEach(function(id) {
+				links[id].addEventListener('click', function(ev) {
+					ev.preventDefault();
+					var target = document.querySelector(this.getAttribute('href'));
+					if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+				});
+			});
+
+			function setActive(id) {
+				ids.forEach(function(k) {
+					var link = links[k];
+					if (!link) return;
+					var on = (k === id);
+					link.classList.toggle('active', on);
+					link.style.opacity = on ? '1' : '0.4';
+				});
+			}
+
+			if ('IntersectionObserver' in window) {
+				var obs = new IntersectionObserver(function(entries) {
+					entries.forEach(function(e) {
+						if (e.isIntersecting && e.target.id) setActive(e.target.id);
+					});
+				}, { rootMargin: '0px 0px -85% 0px', threshold: [0, 0.01, 0.1] });
+				ids.forEach(function(id) {
+					var el = document.getElementById(id);
+					if (el) obs.observe(el);
+				});
+			} else {
+				function compute() {
+					var vh = window.innerHeight || document.documentElement.clientHeight;
+					var trigger = vh * 0.85, best = null, bestDist = 1e9;
+					ids.forEach(function(id) {
+						var el = document.getElementById(id);
+						if (!el) return;
+						var d = Math.abs(el.getBoundingClientRect().top - trigger);
+						if (d < bestDist) { bestDist = d; best = id; }
+					});
+					if (best) setActive(best);
+				}
+				compute();
+				window.addEventListener('scroll', compute, { passive: true });
+				window.addEventListener('resize', compute);
+			}
+
+			function checkBottom() {
+				var doc = document.documentElement, body = document.body;
+				var y    = window.pageYOffset || doc.scrollTop || 0;
+				var vh   = window.innerHeight  || doc.clientHeight || 0;
+				var full = Math.max(doc.scrollHeight, body.scrollHeight,
+				                    doc.offsetHeight,  body.offsetHeight);
+				if (y + vh >= full - 2) setActive('posts');
+			}
+			checkBottom();
+			window.addEventListener('scroll',  checkBottom, { passive: true });
+			window.addEventListener('resize',  checkBottom);
+		}());
+		</script>
+
+	</body>
+</html>
