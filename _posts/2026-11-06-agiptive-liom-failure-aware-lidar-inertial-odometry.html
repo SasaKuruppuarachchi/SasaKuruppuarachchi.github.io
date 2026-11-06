@@ -1,0 +1,43 @@
+---
+layout: post
+title: "AGIptive-LIOM: Failure-Aware LiDAR-Inertial Odometry for Quadrotors (Tentative)"
+date: 2026-11-06 12:00:00
+categories: ["Projects: Robotic", "RAICAM"]
+tags: ["Aerial Robotics", "LiDAR Inertial Odometry", "State Estimation", "Robot Safety", "Drone", "PX4"]
+status: Ongoing
+visibility: Published
+cover: "assets/media/2026/11/agiptive_liom.gif"
+abstract: "LiDAR-inertial odometry for quadrotors that fails rarely and visibly, and tells the flight controller when it is degraded."
+---
+
+<!-- Cover image (optional) -->
+<!-- <div class="wp-block-image"><figure><img src="/assets/media/YYYY/MM/cover.jpg" alt="" data-cover class="wp-image-xxx" /></figure></div> -->
+
+<div class="text-width">
+  <video autoplay muted loop playsinline controls preload="metadata" poster="/assets/media/2026/11/agiptive_liom_forest_poster.jpg" style="width:100%; height:auto;"
+         aria-label="Point-cloud map of a forest growing as our quadrotor flies through it and returns to its take-off point, then an overview of the whole loop.">
+    <source src="/assets/media/2026/11/agiptive_liom_forest.mp4" type="video/mp4">
+  </video>
+  <p class="small" style="margin-top:0.4em; opacity:0.85;">A real forest flight of our quadrotor, mapped by AGIptive-LIOM: from take-off through the forest and back to the take-off point, then the whole loop from above (offline replay, 10&times; speed, points coloured by height).</p>
+</div>
+
+<p>
+A quadrotor that flies on LiDAR-inertial odometry closes its control loop on the estimate, so a divergence that nobody notices can cost the vehicle. Many of the failures we met came from the sensors rather than the scene: clock steps, a blocked view, starting while moving, an IMU that clips at impacts.
+AGIptive-LIOM is a flight-safe, failure-aware LiDAR-inertial odometry for quadrotors: it guards against these faults, knows when its estimate is degraded, and tells the flight controller.
+</p>
+
+<h2>Highlights</h2>
+<ul>
+  <li><strong>Guards against real sensor faults.</strong> A timing layer tells a clock step from a data dropout using the other sensor's timestamps and repairs the step; further guards handle a blocked view, a moving start and merged scans.</li>
+  <li><strong>Knows when it is degraded.</strong> An onboard health monitor that needs no ground truth reports OK, DEGRADED or FAILED with every scan, including a drift indicator for directions the LiDAR cannot see.</li>
+  <li><strong>Tells the flight controller.</strong> The monitor sets the quality of the vision message to PX4, so PX4's own filter stops fusing a failed estimate. In simulated closed-loop flights this kept PX4's filter on the truth while the odometry failed.</li>
+  <li><strong>Judged by how it fails.</strong> Eight methods on identical public recordings, fault injection and closed-loop simulated flights, with failures counted by cause. It is not the most accurate method, and real flights in the loop are still to come.</li>
+</ul>
+
+<div class="text-width">
+  <img src="/assets/media/2026/11/agiptive_liom_hopper.png" style="width:100%; height:auto;" loading="lazy"
+       alt="Position error over 70 seconds on a log scale, on a hopping robot whose IMU clips at every landing. FAST-LIO2 diverges to thousands of metres, Point-LIO drifts to metres, AGIptive-LIOM and RESPLE2 stay at centimetres." />
+  <p class="small" style="margin-top:0.4em; opacity:0.85;">A hopping robot whose internal IMU clips at every landing (public HOPPER data, one run per method). FAST-LIO2 diverges and Point-LIO drifts; AGIptive-LIOM and RESPLE2 stay at a few centimetres.</p>
+</div>
+
+<p>Code will be released once the paper is submitted.</p>

@@ -1,0 +1,183 @@
+---
+layout: post
+title: "EDGE-IO: Calibrated Learned Inertial Odometry Across Quadrotor Platforms"
+date: 2026-11-06 12:00:00
+categories: ["Projects: Robotic", "RAICAM"]
+tags: ["Inertial Odometry", "Drone", "Uncertainty Estimation", "State Estimation", "Machine Learning", "Robotics"]
+status: Ongoing
+visibility: Published
+cover: "/assets/media/2026/11/edge-io/edgeio_cover.gif"
+abstract: "Ongoing work: learned inertial odometry for quadrotors that predicts a calibrated velocity distribution from IMU and rotor signals, fuses it in an EKF, and is being extended to one encoder shared across drones. Benchmarked on four public datasets with 8 seeds per model."
+---
+
+<!-- Cover image (optional) -->
+<!-- <div class="wp-block-image"><figure><img src="/assets/media/YYYY/MM/cover.jpg" alt="" data-cover class="wp-image-xxx" /></figure></div> -->
+<div class="text-width">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="/assets/media/2026/11/edge-io/edgeio_overview_dark.png">
+    <img src="/assets/media/2026/11/edge-io/edgeio_overview_light.png" style="width:100%; height:auto;" loading="lazy"
+         alt="EDGE-IO pipeline. Accelerometer and gyroscope (100 Hz) and four rotor actuation signals enter over a 1 s window. The actuation passes through a per-platform thrust map into m/s squared per rotor. Three Conv1d layers (accelerometer, gyroscope, rotor) feed a 2-layer Transformer; together they form the shared encoder of 69.8k parameters. A per-platform VeloBins bin decoder (512 bins per axis, 6.8k parameters) outputs a velocity distribution with mean and covariance, which updates an EKF at 10–20 Hz while the raw IMU drives its propagation at 100 Hz." />
+  </picture>
+  <p class="small" style="margin-top:0.4em; opacity:0.85;">EDGE-IO in its cross-platform configuration (in progress). Blue parts are shared by every drone, orange parts are fitted per drone. The benchmark results below train one model per dataset.</p>
+</div>
+
+<h2>Status</h2>
+<p>
+  Ongoing work. A paper is in preparation (target venue tentative); there is no preprint or public code yet.
+  Authors: Sasanka Kuruppu Arachchige and Joni-Kristian Kämäräinen.
+  This page summarises the method and the results so far, and will be updated as the cross-platform experiments finish.
+</p>
+
+<h2>Publication</h2>
+<p>
+  Sasanka Kuruppu Arachchige and Joni-Kristian Kämäräinen, <em>EDGE-IO: Calibrated Learned Inertial Odometry Across Quadrotor Platforms</em>, in preparation (venue tentative).
+</p>
+<pre><code>@unpublished{KuruppuArachchige2026EDGEIO,
+  author = {Kuruppu Arachchige, Sasanka and Kämäräinen, Joni-Kristian},
+  title  = {{EDGE-IO}: Calibrated Learned Inertial Odometry Across Quadrotor Platforms},
+  note   = {In preparation},
+  year   = {2026}
+}</code></pre>
+
+<h2>Introduction</h2>
+<p>
+  A drone's IMU works in the dark, in fog and through motion blur, but integrating it directly drifts within seconds.
+  Learned inertial odometry fixes much of this: a network looks at a short window of IMU data, plus the rotor
+  signals on a quadrotor, and predicts the vehicle's velocity, which an Extended Kalman Filter (EKF) then fuses with the IMU.
+  For that fusion to work, the network also has to say <em>how sure it is</em>. An over-confident prediction pulls the filter off course;
+  an under-confident one is wasted.
+</p>
+<p>
+  EDGE-IO is my framework for building, testing and eventually deploying such estimators on small flight computers. It has three goals:
+</p>
+<ul>
+  <li><strong>Calibrated velocity.</strong> Predict a velocity <em>distribution</em>, not just a value, and check that the filter stays statistically consistent.</li>
+  <li><strong>A benchmark that can tell real gains from noise.</strong> Four public quadrotor datasets, cleaned, with 8 training seeds per model and significance tests.</li>
+  <li><strong>One model for many drones.</strong> Every dataset logs rotor activity differently (rpm, rad/s, PWM, thrust command), so today each drone gets its own network. EDGE-IO is moving towards one shared encoder that adapts to a new drone from a few minutes of flight.</li>
+</ul>
+
+<h2>Built on AI-IO and VeloBins</h2>
+<p>EDGE-IO builds on two published methods by other groups:</p>
+<ul>
+  <li><strong>AI-IO</strong> (Cui et al., <a href="https://arxiv.org/abs/2603.00597" target="_blank" rel="noopener">arXiv 2603.00597</a>, <a href="https://github.com/SJTU-ViSYS-team/AI-IO" target="_blank" rel="noopener">code</a>): a Transformer that regresses body velocity from IMU and rotor speeds, fused in an EKF. EDGE-IO starts from its open-source code and encoder.</li>
+  <li><strong>VeloBins</strong> (Azhari et al., <a href="https://arxiv.org/abs/2608.29720" target="_blank" rel="noopener">arXiv 2608.29720</a>): replaces the regression head with a decoder that predicts a probability over 512 velocity bins per axis, trained on error-conditioned Gaussian labels. The mean and variance of that distribution become the filter's measurement and its covariance.</li>
+</ul>
+<p>
+  I re-implemented VeloBins on top of the AI-IO encoder in one PyTorch package, matching the paper's parameter counts exactly
+  (69.8k encoder + 6.8k decoder), and fixed several upstream issues on the way, for example an input normaliser that kept updating its statistics during testing and filtering.
+</p>
+
+<h2>Method</h2>
+<ul>
+  <li><strong>Encoder (shared).</strong> A 1 s window at 100 Hz. Separate 1-D convolutions for the accelerometer, the gyroscope and the four rotor signals, followed by a 2-layer, 8-head Transformer.</li>
+  <li><strong>Decoder (per platform).</strong> The VeloBins bin decoder gives a full velocity distribution per axis. Its mean and variance go to the filter as they are, with no hand-set scaling.</li>
+  <li><strong>Filter.</strong> The EKF propagates with the raw IMU at 100 Hz and takes a velocity update at 10–20 Hz. Its noise settings are tuned per dataset on validation flights only, and its consistency is measured with the normalised estimation error squared (NEES).</li>
+  <li><strong>Thrust map (per platform, in progress).</strong> A fitted per-rotor model turns each drone's actuation signal into the same physical unit, mass-normalised thrust in m/s² per rotor, so a shared encoder sees inputs that mean the same thing on every drone.</li>
+  <li><strong>Small by design.</strong> The full network has 76.7k parameters. A JAX and ROS 2 port for on-board deployment is the next engineering step.</li>
+</ul>
+
+<h2>A benchmark that can tell the difference</h2>
+<ul>
+  <li><strong>Four public datasets:</strong> AI-IO, NanoBench, TII-RATM and NeuroBEM, from four different quadrotors and four actuation signals.</li>
+  <li><strong>Cleaned data.</strong> The cleaning only removes data, and every decision is logged: 20 duplicate NanoBench flights, AI-IO files whose ground truth is 18–51% interpolated, extrapolated tails and ground-truth gaps.</li>
+  <li><strong>8 seeds per model.</strong> On the AI-IO data, seed-to-seed spread alone was 6% in velocity error and 22% in trajectory error, the same size as the improvements reported for VeloBins on that dataset. Every comparison below is a mean over 8 seeds with a significance test.</li>
+  <li><strong>Fair filtering.</strong> The filter for each dataset is chosen on validation data, then frozen for the test flights.</li>
+</ul>
+<p>
+  Because the datasets are cleaned, the numbers on this page are not directly comparable with numbers published on the original files.
+  As a check, AI-IO's released model on the cleaned AI-IO data matches the published EKF velocity error to within 0.01 m/s on average, on the test groups the cleaning left intact.
+</p>
+
+<h2>Results so far</h2>
+
+<h3>The network: VeloBins is better calibrated everywhere</h3>
+<div class="text-width">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="/assets/media/2026/11/edge-io/edgeio_network_dark.png">
+    <img src="/assets/media/2026/11/edge-io/edgeio_network_light.png" style="width:100%; height:auto;" loading="lazy"
+         alt="Network velocity RMSE, AI-IO vs VeloBins: TII-RATM 0.530 vs 0.486, NanoBench 0.161 vs 0.167, NeuroBEM 0.694 vs 0.798 m/s. Negative log-likelihood, AI-IO vs VeloBins: TII-RATM -0.75 vs -1.15, NanoBench -0.12 vs -1.34, NeuroBEM +0.48 vs +0.37." />
+  </picture>
+  <p class="small" style="margin-top:0.4em; opacity:0.85;">Network alone on the test flights, best-validation checkpoint, mean of 8 seeds per model. NLL scores the predicted distribution against the true velocity; lower means more accurate and better-calibrated uncertainty.</p>
+</div>
+<ul>
+  <li><strong>Uncertainty:</strong> VeloBins' predicted distributions fit the true velocity better on all three datasets (NLL lower by 0.40, 1.22 and 0.10; p &lt; 0.001).</li>
+  <li><strong>Accuracy depends on the dataset:</strong> VeloBins is 8% better in RMSE on TII-RATM, 4% worse on NanoBench, and 15% worse on NeuroBEM at its best-validation checkpoint (2% at its final one).</li>
+  <li>On the AI-IO dataset, the same picture holds at 8 seeds: the calibration gain is clear (p &lt; 0.001), while the accuracy difference is within seed-to-seed noise on our cleaned copy.</li>
+</ul>
+
+<h3>The filter: tuning matters more than the network</h3>
+<div class="text-width">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="/assets/media/2026/11/edge-io/edgeio_filter_dark.png">
+    <img src="/assets/media/2026/11/edge-io/edgeio_filter_light.png" style="width:100%; height:auto;" loading="lazy"
+         alt="Velocity RMSE for network alone, default EKF and tuned EKF, AI-IO vs VeloBins. TII-RATM: 0.530/0.486, 1.002/1.048, 0.589/0.517. NanoBench: 0.161/0.167, 0.265/0.347, 0.176/0.175. NeuroBEM: 0.694/0.798, 1.585/2.182, 0.700/0.632 m/s." />
+  </picture>
+  <p class="small" style="margin-top:0.4em; opacity:0.85;">Velocity RMSE of the network alone, with AI-IO's default EKF, and with the EKF tuned per dataset on validation flights. Mean ± std of 8 seeds. Each panel has its own scale.</p>
+</div>
+<ul>
+  <li><strong>The default filter fails on all three datasets.</strong> It is strongly over-confident (median NEES 53–150, against 2.37 for a consistent filter) and doubles or triples the network's error.</li>
+  <li><strong>Tuning on validation cuts the filter's error by 34–71%.</strong> With it, VeloBins + EKF is as good as AI-IO + EKF or better everywhere: 0.517 vs 0.589 m/s on TII-RATM, 0.175 vs 0.176 on NanoBench, 0.632 vs 0.700 on NeuroBEM.</li>
+  <li><strong>Check the grid edges.</strong> On NeuroBEM the first tuning grid picked its smallest measurement-noise scale. Widening the grid found a better setting between two old grid points, which cut VeloBins' fused error by a further 8% (0.685 → 0.632 m/s) and brought its NEES median from 4.7 to 2.9.</li>
+  <li><strong>The filter does not yet beat the network on TII-RATM and NanoBench</strong> (5–10% worse). On TII-RATM the accelerometer itself is the limit: integrated with the true attitude, it drifts 0.7 m/s within one second.</li>
+</ul>
+
+<h3>Finding: NeuroBEM's gyroscope reads 2.5% high</h3>
+<div class="text-width">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="/assets/media/2026/11/edge-io/edgeio_neurobem_gyro_dark.png">
+    <img src="/assets/media/2026/11/edge-io/edgeio_neurobem_gyro_light.png" style="width:100%; height:auto;" loading="lazy"
+         alt="Per test segment of NeuroBEM, VeloBins with the tuned EKF before and after the gyro scale correction. The worst segment drops from about 5.1 to 2.0 m/s, two others from about 1.8 and 1.6 to 0.7 and 0.4 m/s. The mean drops from 1.165 to 0.685 m/s." />
+  </picture>
+  <p class="small" style="margin-top:0.4em; opacity:0.85;">NeuroBEM test segments, VeloBins with the tuned EKF, mean of 8 seeds. Scale factors are fitted on the training flights only.</p>
+</div>
+<p>
+  Even with a tuned filter, three NeuroBEM test segments diverged. The cause was not the network: on those segments the heading drifted by 20–59° during
+  highly tilted manoeuvres with 6–9 full turns. Regressing the ground-truth heading change on each gyro axis over the training flights shows the x-axis gyro reading
+  2.5% high (scale 1.0249, 95% CI 1.0238–1.0265). Correcting only the filter's gyro input, with the network unchanged, lowers the filter's test error by 41%,
+  from 1.165 to 0.685 m/s (at the first tuned filter setting), and the three diverging segments drop from 1.5–5.1 to 0.4–2.0 m/s.
+</p>
+
+<h3>A spectral-norm bound fixes late over-confidence on NanoBench</h3>
+<div class="text-width">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="/assets/media/2026/11/edge-io/edgeio_specnorm_dark.png">
+    <img src="/assets/media/2026/11/edge-io/edgeio_specnorm_light.png" style="width:100%; height:auto;" loading="lazy"
+         alt="NanoBench, AI-IO vs VeloBins vs VeloBins with a spectral-norm bound. Network RMSE at the final checkpoint: 0.162, 0.167, 0.150 m/s. Network NLL at the final checkpoint: +0.01, -0.63, -1.46. Filter NEES median with the tuned EKF: 5.93, 4.76, 2.45, against an ideal of 2.37." />
+  </picture>
+  <p class="small" style="margin-top:0.4em; opacity:0.85;">NanoBench test flights, 8 seeds per model. Left and middle: network alone at both checkpoints. Right: tuned EKF with the final checkpoints.</p>
+</div>
+<p>
+  Without regularisation, VeloBins becomes over-confident on NanoBench by the end of training (NLL rises from −1.34 to −0.63).
+  Keeping every encoder weight matrix at spectral norm ≤ 2, as Neural-Fly does, prevents this and makes the model more accurate:
+</p>
+<ul>
+  <li><strong>Network:</strong> 10.5% lower RMSE than VeloBins at the final checkpoint (0.150 vs 0.167 m/s, p &lt; 10⁻⁴) and 7.5% lower than AI-IO.</li>
+  <li><strong>Filter:</strong> 9–11% lower fused velocity error than either baseline, and a NEES median of 2.45, close to the 2.37 of a consistent filter.</li>
+  <li><strong>But it is dataset-dependent:</strong> in a 3-seed screen the same bound made TII-RATM and NeuroBEM up to about 10% worse. A looser bound of 3 is roughly neutral there and is the candidate setting for the cross-platform work.</li>
+</ul>
+
+<h3>What did not work</h3>
+<ul>
+  <li><strong>Battery voltage as an input.</strong> Motivated by command-based platforms, where the same command gives less thrust as the battery drains. All effects stayed within ±4% with no consistent direction; the accelerometer likely already tells the network how much thrust a command produces.</li>
+  <li><strong>A rotor-drag physics loss.</strong> At low weight it changed nothing; at higher weight it pulled predictions towards the drag model, whose velocity is 1.3–1.9 m/s off, and the error doubled or worse.</li>
+  <li><strong>Physics as a second velocity sensor.</strong> Inverting a hybrid aerodynamic model gives velocity 2.5–5× less accurate than the networks, and fusing the two gained nothing measurable.</li>
+</ul>
+
+<h2>Ongoing: one encoder for every drone</h2>
+<p>
+  The four datasets come from four different drones, each trained separately so far. The current experiments train one shared encoder on all of them,
+  with a separate actuation normaliser and bin decoder per drone, and then test transfer to a drone left out of training using only 0.5, 2 or 8 minutes of its flight data.
+  The aim is a pretrained encoder that a new platform can adopt with minutes of flight logs instead of hours.
+</p>
+<p>
+  To make the rotor input mean the same thing on every drone, I fit a per-rotor thrust map, f = a·u² + b·u, from each drone's actuation signal to mass-normalised thrust.
+  It is fitted on the training flights against the thrust implied by the ground-truth motion, and checked on validation flights:
+</p>
+<ul>
+  <li>R² of 0.84 (AI-IO, rpm), 0.90 (TII-RATM, thrust command) and 0.95 (NeuroBEM, rad/s).</li>
+  <li>An independent check against the accelerometer, which the fit never sees, agrees in scale to within 2%.</li>
+  <li>NanoBench is the exception (R² 0.15): its flights hold nearly constant thrust, so there is little variation to explain.</li>
+</ul>
+<p>
+  There are no cross-platform results yet; they will be added here. After that comes the JAX and ROS 2 port, to run EDGE-IO on board.
+</p>
