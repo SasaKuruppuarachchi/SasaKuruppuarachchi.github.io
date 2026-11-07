@@ -1,3 +1,54 @@
-theme: jekyll-theme-minimal
-title: I'm Sasa.
-description: Bookmark this to keep an eye on my project updates!
+title: Sasanka Kuruppu Arachchige
+short_name: Sasa
+description: >-
+  Doctoral researcher in agile aerial robotics, robust state estimation and
+  learned inertial odometry. MSCA fellow at Tampere University, Finland.
+url: https://sasakuruppuarachchi.github.io
+baseurl: ""
+lang: en
+author:
+  name: Sasanka Kuruppu Arachchige
+  email: sasa.kuruppuarachchi@gmail.com
+  work_email: sasanka.kuruppuarachchige@tuni.fi
+  image: /images/avatar-640.jpg
+
+# Profiles shown in the sidebar, footer and contact page
+social:
+  github: https://github.com/SasaKuruppuarachchi
+  linkedin: https://www.linkedin.com/in/sasanka-kuruppuarachchi/
+  scholar: https://scholar.google.com/citations?user=4hBNIx8AAAAJ&hl=en
+  orcid: https://orcid.org/0000-0002-4530-8725
+  youtube: https://www.youtube.com/@sasakuruppuarachchi
+  cv: https://sasakuruppuarachchi.github.io/curriculum-vitae/
+
+google_analytics: G-J5VYH61SR2
+
+# Keep existing post URLs stable (Jekyll's default "date" permalink).
+permalink: date
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-feed
+
+feed:
+  path: feed.xml
+
+defaults:
+  - scope: { path: "", type: posts }
+    values: { layout: post }
+
+exclude:
+  - README.md
+  - CONTRIBUTING.md
+  - CHANGELOG
+  - LICENSE.txt
+  - Gemfile
+  - Gemfile.lock
+  - "*.gemspec"
+  - .gitlab-ci.yml
+  - .vscode
+  - scripts
+  - data/scholar_raw.html
+  - lagacy
+  - vendor

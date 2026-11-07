@@ -1,32 +1,21 @@
----
-layout: nil
----
-<!DOCTYPE html>
+<!doctype html>
+{%- assign target = page.redirect_to | relative_url -%}
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J5VYH61SR2"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-J5VYH61SR2');
-    </script>
-    <meta http-equiv="refresh" content="0;url={{ page.redirect_to }}" />
-    <link rel="canonical" href="{{ page.redirect_to }}" />
-    <meta name="robots" content="noindex" />
-    <title>Redirecting…</title>
-    <style>
-      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; padding: 2rem; }
-      a { color: #2563eb; }
-    </style>
-  </head>
-  <body>
-    <p>Redirecting to <a href="{{ page.redirect_to }}">{{ page.redirect_to }}</a>…</p>
-    <noscript>
-      <meta http-equiv="refresh" content="0;url={{ page.redirect_to }}" />
-    </noscript>
-  </body>
-  </html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page.title | default: "Redirecting…" | strip_html }}</title>
+  <link rel="canonical" href="{{ target }}">
+  <meta name="robots" content="noindex">
+  <meta http-equiv="refresh" content="0; url={{ target }}">
+  <script>location.replace({{ target | jsonify }});</script>
+  <style>
+    :root { color-scheme: light dark; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; font: 17px/1.5 -apple-system, BlinkMacSystemFont, Inter, "Segoe UI", Roboto, sans-serif; }
+    a { color: #0a84ff; }
+  </style>
+</head>
+<body>
+  <p>Opening <a href="{{ target }}">{{ page.title | default: target | strip_html }}</a>…</p>
+</body>
+</html>

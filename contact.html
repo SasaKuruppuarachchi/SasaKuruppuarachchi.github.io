@@ -1,149 +1,72 @@
-<!DOCTYPE HTML>
-<!--
-	Strata by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
+---
+layout: default
+title: Contact
+description: Get in touch with Sasanka Kuruppu Arachchige, doctoral researcher in aerial robotics at Tampere University, Finland.
+greeting: "Say hello to"
+tagline: "Happy to talk about research, collaborations, aerial robotics, or anything else that's interesting."
+---
+<section class="section" id="contact" data-toc="Contact">
+  <h2 class="section__title">Contact</h2>
+  <p class="section__sub" style="max-width:58ch">I'd be happy to discuss my work, or anything else, with anyone who's interested. Email is the fastest way to reach me; LinkedIn works too.</p>
+</section>
 
-<html>
-	<head>
-		<title>Sasanka Kuruppu Arachchige</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-J5VYH61SR2"></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments);}
-			gtag('js', new Date());
+<section class="section" id="email" data-toc="Email" style="padding-top:32px">
+  <div class="tiles">
+    <div class="tile reveal">
+      <span class="tile__icon" style="--tile-color:#0a84ff">{% include icon.html name="mail" %}</span>
+      <p class="tile__k">University email</p>
+      <a class="tile__v" href="mailto:{{ site.author.work_email }}">{{ site.author.work_email }}</a>
+      <button class="pill tile__copy" type="button" data-copy="{{ site.author.work_email }}" aria-label="Copy university email">{% include icon.html name="copy" %} Copy</button>
+    </div>
+    <div class="tile reveal">
+      <span class="tile__icon" style="--tile-color:#ea4335">{% include icon.html name="mail" %}</span>
+      <p class="tile__k">Personal email</p>
+      <a class="tile__v" href="mailto:{{ site.author.email }}">{{ site.author.email }}</a>
+      <button class="pill tile__copy" type="button" data-copy="{{ site.author.email }}" aria-label="Copy personal email">{% include icon.html name="copy" %} Copy</button>
+    </div>
+  </div>
+</section>
 
-			gtag('config', 'G-J5VYH61SR2');
-		</script>
-<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="stylesheet" href="assets/css/custom.css" />
-		<!-- Site icon / favicon -->
-		<link rel="icon" href="images/avatar.jpg" type="image/jpeg" />
-		<link rel="shortcut icon" href="images/avatar.jpg" type="image/jpeg" />
-		<link rel="apple-touch-icon" href="images/avatar.jpg" />
-<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-	</head>
-	<body class="is-preload" id="top">
+<section class="section" id="profiles" data-toc="Profiles">
+  <h2 class="section__title" style="margin-bottom:22px">Profiles</h2>
+  <div class="tiles">
+    <a class="tile reveal" href="{{ site.social.linkedin }}" target="_blank" rel="noopener">
+      <span class="tile__icon" style="--tile-color:#0a66c2">{% include icon.html name="linkedin" %}</span>
+      <p class="tile__k">LinkedIn</p><p class="tile__v">sasanka-kuruppuarachchi</p>
+    </a>
+    <a class="tile reveal" href="{{ site.social.github }}" target="_blank" rel="noopener">
+      <span class="tile__icon" style="--tile-color:#24292f">{% include icon.html name="github" %}</span>
+      <p class="tile__k">GitHub</p><p class="tile__v">SasaKuruppuarachchi</p>
+    </a>
+    <a class="tile reveal" href="{{ site.social.scholar }}" target="_blank" rel="noopener">
+      <span class="tile__icon" style="--tile-color:#4285f4">{% include icon.html name="scholar" %}</span>
+      <p class="tile__k">Google Scholar</p><p class="tile__v">Citations &amp; papers</p>
+    </a>
+    <a class="tile reveal" href="{{ site.social.orcid }}" target="_blank" rel="noopener">
+      <span class="tile__icon" style="--tile-color:#a6ce39">{% include icon.html name="orcid" %}</span>
+      <p class="tile__k">ORCID</p><p class="tile__v">0000-0002-4530-8725</p>
+    </a>
+    <a class="tile reveal" href="{{ site.social.youtube }}" target="_blank" rel="noopener">
+      <span class="tile__icon" style="--tile-color:#ff0033">{% include icon.html name="youtube" %}</span>
+      <p class="tile__k">YouTube</p><p class="tile__v">@sasakuruppuarachchi</p>
+    </a>
+    <a class="tile reveal" href="{{ site.social.cv }}" target="_blank" rel="noopener">
+      <span class="tile__icon" style="--tile-color:#8e8e93">{% include icon.html name="doc" %}</span>
+      <p class="tile__k">Curriculum vitae</p><p class="tile__v">Download PDF</p>
+    </a>
+  </div>
+</section>
 
-		<!-- Header -->
-			<header id="header">
-				<a href="https://www.linkedin.com/in/sasanka-kuruppuarachchi/" class="image avatar"><img src="images/avatar.jpg" alt="" /></a>
-				<h1>
-					<strong>Hello, my name is <br />Sasanka Kuruppu Arachchige.</strong>
-				</h1>
-				<p class="sidebar-tagline">I am an Engineer and a researcher in <br />Agile Aerial robotics, Edge computing,<br />Robust odometry and navigation.</p>
-				<nav id="sidebar-sections" aria-label="Page sections">
-					<ul>
-						<li><a href="#contact">Contact</a></li>
-						<li><a href="#email">Email</a></li>
-						<li><a href="#profiles">Profiles</a></li>
-						<li><a href="#address">Address</a></li>
-					</ul>
-				</nav>
-			</header>
-
-		<!-- Main -->
-			<div id="main">
-
-				<!-- One -->
-					<section id="one">
-						<header class="major">
-							<h2 id="contact">Contact<br /><br /></h2>
-						</header>
-
-						<ul class="actions">
-							<li><a href="index.html" class="button">Home</a></li>
-							<li><a href="publications.html" class="button">Publications</a></li>
-							<li><a href="contact.html" class="button primary">Contact</a></li>
-                            <li><a href="https://sasakuruppuarachchi.github.io/curriculum-vitae" target="_blank" class="button">CV</a></li>
-						</ul>
-					</section>
-
-                <p>I'd be very happy to discuss my work, or anything else, with anyone that's interested. I am most responsive via email, but I can also be reached by post or via LinkedIn.</p>
-
-				<h2 id="email">Email</h2>
-                <p>Email Address: <a href="mailto:sasanka.kuruppuarachchige@tuni.fi">sasanka.kuruppuarachchige@tuni.fi</a>><br />
-				Gmail Address: <a href="mailto:sasa.kuruppuarachchi@gmail.com">sasa.kuruppuarachchi@gmail.com</a></p>
-                
-				<h2 id="profiles">Professional Profiles</h2>
-                <ul class="social-icons">
-                    <li><a href="https://www.linkedin.com/in/sasanka-kuruppuarachchi/" class="icon brands fa-linkedin "><span class="label">Linkedin</span> LinkedIn Profile</a></li>
-                    <li><a href="https://github.com/sasakuruppuarachchi?tab=repositories" class="icon brands fa-github"><span class="label">Github</span> GitHub Repositories</a></li>
-                </ul>
-
-				<h2 id="address">Postal Address</h2>
-                    Sasanka Kuruppu Arachchige<br>
-                    Room 412, 4th floor<br>
-                    Tiatalo<br>
-                    University of Tampere<br>
-                    Korkeakoulunkatu 7 Kampusareena, <br>
-                    33720<br>
-                    Tampere, Finland</p>
-
-            </div>
-        </div>
-		<!-- Footer -->
-			<footer id="footer">
-									<ul class="icons">
-						<!--li><a href="https://twitter.com/paulobaniqued" class="icon fa-twitter"><span class="label">Twitter</span></a></li-->
-						<li><a href="https://github.com/sasakuruppuarachchi" class="icon fa-github"><span class="label">Github</span></a></li>
-						<li><a href="https://www.linkedin.com/in/sasanka-kuruppuarachchi/" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
-						<li><a href="mailto:sasa.kuruppuarachchi@gmail.com" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
-					</ul>
-					<ul class="copyright">
-						<li>&copy; SasaKuruppuarachchi 2024</li><li>Last update on: <span id="last-updated"></span></li>
-					</ul>
-							</footer>
-
-		<!-- Scripts -->
-						<script src="assets/js/jquery.min.js"></script>
-						<script src="assets/js/jquery.poptrox.min.js"></script>
-						<script src="assets/js/browser.min.js"></script>
-						<script src="assets/js/breakpoints.min.js"></script>
-						<script src="assets/js/util.js"></script>
-<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-						<script src="assets/js/main.js"></script>
-						<script>
-						// Desktop-only sidebar motion + scrollspy
-						(function(){
-							var mq = window.matchMedia('(min-width: 981px)');
-							if (!mq.matches) return;
-							var header=document.getElementById('header');
-							var tagline=header && header.querySelector('.sidebar-tagline');
-							var toc=document.getElementById('sidebar-sections');
-							var start=60, end=240;
-							function onScroll(){
-								if(!tagline) return;
-								var y=window.pageYOffset||document.documentElement.scrollTop||0;
-								var t=y<=start?0:y>=end?1:(y-start)/(end-start);
-								tagline.style.transform='translateY(' + (-12*t) + 'px)';
-								tagline.style.opacity=String(1-t);
-								tagline.classList.toggle('is-hidden', t>=0.999);
-								if(toc){ var tocTranslate=16*(1-t); var tocOpacity=0.2+0.8*t; toc.style.transform='translateY(' + tocTranslate + 'px)'; toc.style.opacity=String(tocOpacity); }
-							}
-							onScroll();
-							window.addEventListener('scroll', onScroll, {passive:true});
-
-							var ids=['contact','email','profiles','address'];
-							var links=ids.reduce(function(acc,id){ var a=document.querySelector('#sidebar-sections a[href="#'+id+'"]'); if(a) acc[id]=a; return acc; },{});
-							Object.values(links).forEach(function(a){ a.addEventListener('click', function(ev){ ev.preventDefault(); var target=document.querySelector(this.getAttribute('href')); if(target) target.scrollIntoView({behavior:'smooth', block:'start'}); }); });
-							function setActive(id){ ids.forEach(function(k){ var link=links[k]; if(!link) return; var on=(k===id); link.classList.toggle('active', on); link.style.opacity=on?'1':'0.4'; }); }
-							if('IntersectionObserver' in window){
-								var obs=new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting){ var id=e.target.id; if(id) setActive(id); }}); },{ rootMargin:'0px 0px -85% 0px', threshold:[0,0.01,0.1]});
-								ids.forEach(function(id){ var el=document.getElementById(id); if(el) obs.observe(el); });
-							} else {
-								function compute(){ var vh=window.innerHeight||document.documentElement.clientHeight; var trigger=vh*0.85; var best=null, bestDist=1e9; ids.forEach(function(id){ var el=document.getElementById(id); if(!el) return; var r=el.getBoundingClientRect(); var d=Math.abs(r.top-trigger); if(d<bestDist){ bestDist=d; best=id; } }); if(best) setActive(best); }
-								compute(); window.addEventListener('scroll', compute, {passive:true}); window.addEventListener('resize', compute);
-							}
-							function checkBottom(){ var doc=document.documentElement, body=document.body; var y=window.pageYOffset||doc.scrollTop||0; var vh=window.innerHeight||doc.clientHeight||0; var full=Math.max(doc.scrollHeight, body.scrollHeight, doc.offsetHeight, body.offsetHeight); if(y+vh>=full-2){ setActive('address'); } }
-							checkBottom(); window.addEventListener('scroll', checkBottom, {passive:true}); window.addEventListener('resize', checkBottom);
-						})();
-						</script>
-
-	</body>
-</html>
+<section class="section" id="address" data-toc="Address">
+  <h2 class="section__title" style="margin-bottom:22px">Postal address</h2>
+  <div class="tile reveal" style="max-width:420px">
+    <span class="tile__icon" style="--tile-color:#34c759">{% include icon.html name="pin" %}</span>
+    <address class="address">
+      Sasanka Kuruppu Arachchige<br>
+      Room 412, 4th floor, Tietotalo<br>
+      Tampere University, Hervanta Campus<br>
+      Korkeakoulunkatu 7<br>
+      33720 Tampere, Finland
+    </address>
+  </div>
+</section>

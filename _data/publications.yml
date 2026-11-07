@@ -1,0 +1,177 @@
+# Curated publication list (source of truth for publications.html and the home page).
+# Verified against ORCID, Crossref, arXiv and the project pages on 2026-11-07.
+#
+# Fields: title, authors, venue, year, status (published | accepted | review | preprint | prep),
+#         type (journal | conference | abstract), optional: doi, url, arxiv, project, code, video,
+#         award, note, bibtex (key; generated from the fields).
+# Works that appear on ORCID but not here are shown automatically under
+# "Also indexed on ORCID" (see _data/orcid.json, refreshed daily by GitHub Actions).
+
+published:
+  - title: "Data Scaling for Navigation in Unknown Environments"
+    authors: "Lauri Suomela, Naoki Takahata, Sasanka Kuruppu Arachchige, Harry Edelman, Joni-Kristian Kämäräinen"
+    venue: "IEEE Robotics and Automation Letters (RA-L)"
+    venue_detail: "vol. 11, no. 5, pp. 6114–6121"
+    year: 2026
+    type: journal
+    status: published
+    doi: "10.1109/LRA.2026.3677718"
+    arxiv: "2601.09444"
+    project: "https://lasuomela.github.io/navigation_scaling/"
+    code: "https://github.com/lasuomela/NavigationScaling"
+
+  - title: "Synthetic vs. Real Training Data for Visual Navigation"
+    authors: "Lauri Suomela, Sasanka Kuruppu Arachchige, German F. Torres, Harry Edelman, Joni-Kristian Kämäräinen"
+    venue: "IEEE International Conference on Robotics and Automation (ICRA)"
+    venue_detail: "pp. 8558–8565"
+    year: 2026
+    type: conference
+    status: published
+    doi: "10.1109/ICRA57385.2026.11696703"
+    arxiv: "2509.11791"
+    project: "https://lasuomela.github.io/faint/"
+    code: "https://github.com/lasuomela/faint"
+
+  - title: "AgiPIX: Bridging Simulation and Reality in Indoor Aerial Inspection"
+    authors: "Sasanka Kuruppu Arachchige, Juan Jose Garcia, Changda Tian, Lauri Suomela, Panos Trahanias, Adriana Tapus, Joni-Kristian Kämäräinen"
+    venue: "International Conference on Unmanned Aircraft Systems (ICUAS)"
+    venue_detail: "pp. 844–852"
+    year: 2026
+    type: conference
+    status: published
+    doi: "10.1109/ICUAS69441.2026.11598625"
+    arxiv: "2604.08009"
+    project: "https://sasakuruppuarachchi.github.io/agipix/"
+    code: "https://github.com/SasaKuruppuarachchi/agipix_autonomy"
+
+  - title: "Extended Model-Based Learned Inertial Odometry"
+    authors: "Sasanka Kuruppu Arachchige, Joni-Kristian Kämäräinen"
+    venue: "International Conference on Unmanned Aircraft Systems (ICUAS)"
+    venue_detail: "pp. 207–212"
+    year: 2026
+    type: conference
+    status: published
+    doi: "10.1109/ICUAS69441.2026.11598619"
+    code: "https://github.com/SasaKuruppuarachchi/Ex-IMO"
+    video: "https://www.youtube.com/watch?v=IsjZ-TeqXPM"
+    post: "extended-model-based-learned-inertial-odometry"
+
+  - title: "Lessons Learned from the RAICAM Doctoral Network Research Sprints and Field Demonstrations"
+    authors: "Alperen Kenan, Sahar Sadeghi Kordkheili, Juan Jose Garcia Cardenas, Valentina Guidali, Alessandro Melone, Changda Tian, Enes Ulas Dincer, Haichuan Li, Hamidreza Raei, Sasanka Kuruppu Arachchige, Yifeng Tang, Adriana Tapus, Anibal Ollero, Antonio Gonzalez-Morgado, Arash Ajoudani, Begoña C. Arrue, Cristina Piazza, Dimitrios Papageorgiou, Gerhard Neumann, Joni-Kristian Kämäräinen, Jukka Heikkonen, Luis Figueredo, Manuel Giuliani, Panos Trahanias, Paul Bremner, Saeed Rafee Nekoo, Simon Watson, Tomi Westerlund"
+    venue: "Robotics and Autonomous Systems"
+    venue_detail: "vol. 203, art. 105523"
+    year: 2026
+    type: journal
+    status: published
+    doi: "10.1016/j.robot.2026.105523"
+
+  - title: "Low-Cost Rapid-Development Air-Ground Robotic Solution for Nuclear Power Plant Inspection"
+    authors: "Changda Tian, Sasanka Kuruppu Arachchige, Haichuan Li, Juan José García Cárdenas, Hamidreza Raei, Enes Dincer, Alperen Kenan, Paul Bremner, Manuel Giuliani, Gerhard Neumann, Arash Ajoudani, Adriana Tapus, Tomi Westerlund, Joni-Kristian Kämäräinen, Luis Figueredo, Simon Watson, Panos Trahanias"
+    venue: "IEEE International Symposium on Safety, Security, and Rescue Robotics (SSRR)"
+    venue_detail: "pp. 84–89"
+    year: 2025
+    type: conference
+    status: published
+    doi: "10.1109/SSRR68451.2025.11391258"
+    url: "https://doi.org/10.5281/zenodo.17602465"
+    url_label: "Open access"
+    post: "the-european-robotics-hackathon-enrich-2025"
+
+  - title: "Lessons Learned from the RAICAM Doctoral Network Research Sprints"
+    authors: "Alperen Kenan, Sahar Sadeghi Kordkheili, Juan Jose Garcia Cardenas, Alessandro Melone, Changda Tian, Haichuan Li, Hamidreza Raei, Sasanka Kuruppu Arachchige, Yifeng Tang, Adriana Tapus, Anibal Ollero, Arash Ajoudani, Begoña C. Arrue, Dimitrios Papageorgiou, Joni-Kristian Kämäräinen, Jukka Heikkonen, Luis Figueredo, Manuel Giuliani, Panos Trahanias, Paul Bremner, Saeed Rafee Nekoo, Simon Watson, Tomi Westerlund"
+    venue: "Towards Autonomous Robotic Systems (TAROS), LNCS, Springer"
+    venue_detail: "pp. 526–539"
+    year: 2025
+    type: conference
+    status: published
+    doi: "10.1007/978-3-032-01486-3_40"
+
+  - title: "Last-mile Delivery by an Autonomous Drone Through a Balcony in Urban Environments"
+    authors: "Joohyuk Lee, Sasanka Kuruppu Arachchige, Hojun Lee, Hyeonjeong Heo, Kyuman Lee"
+    venue: "Journal of Institute of Control, Robotics and Systems (JICROS)"
+    venue_detail: "vol. 31, no. 9, pp. 1006–1013"
+    year: 2025
+    type: journal
+    status: published
+    doi: "10.5302/J.ICROS.2025.25.0097"
+
+  - title: "Search Operations With Geolocation Estimation of Missing Persons Based on Real-time Drone Images"
+    authors: "Joohyuk Lee, Ho-Jun Lee, Sasanka Kuruppu Arachchige, Namyoung Kim, Hyeonjeong Heo, Kyuman Lee"
+    venue: "Journal of Institute of Control, Robotics and Systems (JICROS)"
+    venue_detail: "vol. 30, no. 8, pp. 890–896"
+    year: 2024
+    type: journal
+    status: published
+    doi: "10.5302/j.icros.2024.24.0087"
+
+  - title: "Robust Navigation Based on an Interacting Multiple-Model Filtering Framework Using Multiple Tracking Cameras"
+    authors: "Sasanka Kuruppu Arachchige, Kyuman Lee"
+    venue: "AIAA SciTech 2024 Forum"
+    year: 2024
+    type: conference
+    status: published
+    doi: "10.2514/6.2024-1175"
+    post: "robust-navigation-system-based-on-interacting-multiple-model-method-using-multiple-tracking-cameras"
+
+  - title: "Custom Marker Detection and Pose Estimation for Last-Mile Delivery Problems"
+    authors: "Sasanka Kuruppu Arachchige, Kyuman Lee"
+    venue: "KSAS Fall Conference (한국항공우주학회 학술발표회 초록집)"
+    venue_detail: "pp. 1384–1385"
+    year: 2022
+    type: abstract
+    status: published
+    url: "https://www.dbpia.co.kr/Journal/articleDetail?nodeId=NODE11181197"
+    url_label: "DBpia"
+
+  - title: "Robust Integration of Multiple Visual-Inertial Navigation Systems"
+    authors: "Sasanka Kuruppu Arachchige, Kyuman Lee"
+    venue: "ICROS Domestic Conference (제어로봇시스템학회 국내학술대회 논문집)"
+    venue_detail: "pp. 637–638"
+    year: 2022
+    type: abstract
+    status: published
+    url: "https://www.dbpia.co.kr/Journal/articleDetail?nodeId=NODE11103759"
+    url_label: "DBpia"
+
+review:
+  - title: "When Does Semantic Masking Help Visual-Inertial Odometry? A Controlled Study in Simulated Warehouse Scenes"
+    authors: "Sasanka Kuruppu Arachchige, Kyuman Lee"
+    venue: "Under review"
+    year: 2026
+    type: journal
+    status: review
+    project: "https://sasakuruppuarachchi.github.io/SAVIOR/"
+    code: "https://github.com/SasaKuruppuarachchi/SAVIOR"
+
+prep:
+  - title: "EDGE-IO: Calibrated Learned Inertial Odometry Across Quadrotor Platforms"
+    authors: "Sasanka Kuruppu Arachchige, Joni-Kristian Kämäräinen"
+    venue: "In preparation"
+    year: 2026
+    type: conference
+    status: prep
+    post: "edge-io-calibrated-learned-inertial-odometry-across-quadrotor-platforms"
+
+  - title: "AGIptive-LIOM: Failure-Aware LiDAR-Inertial Odometry for Quadrotors"
+    authors: "Sasanka Kuruppu Arachchige"
+    venue: "In preparation"
+    year: 2026
+    type: conference
+    status: prep
+    post: "agiptive-liom-failure-aware-lidar-inertial-odometry"
+
+  - title: "Neural System Identification"
+    authors: "Sasanka Kuruppu Arachchige"
+    venue: "In preparation (target: IEEE RA-L)"
+    year: 2026
+    type: journal
+    status: prep
+
+  - title: "Solar Water Heating System Using Fresnel Lens with 6-DOF Tracking"
+    authors: "Sasanka Kuruppu Arachchige"
+    venue: "In preparation (target: Automation in Construction)"
+    year: 2026
+    type: journal
+    status: prep
+    note: "Korean patent application 10-2023-0027486"
+    post: "solar-water-heating-system-using-fresnel-lens-with-6-dof-tracking"

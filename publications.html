@@ -1,389 +1,79 @@
+---
+layout: default
+title: Publications
+description: Peer-reviewed publications, papers under review and work in preparation by Sasanka Kuruppu Arachchige — visual-inertial odometry, learned inertial navigation and aerial robotics.
+greeting: "Publications by"
+tagline: "Journal and conference papers on visual-inertial and learned inertial odometry, visual navigation and aerial robotics."
+---
+{%- assign pubs = site.data.publications -%}
 
-<!DOCTYPE HTML>
-<!--
-	Strata by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
+<section class="section" id="overview">
+  <h2 class="section__title">Publications <span class="count">{{ pubs.published.size }}</span></h2>
+  <p class="section__sub">Peer-reviewed work, newest first, plus papers under review and in preparation. My name is in bold.</p>
+  <div class="profiles">
+    <a class="btn btn--plain btn--sm" href="{{ site.social.scholar }}" target="_blank" rel="noopener">{% include icon.html name="scholar" %} Google Scholar</a>
+    <a class="btn btn--plain btn--sm" href="{{ site.social.orcid }}" target="_blank" rel="noopener">{% include icon.html name="orcid" %} ORCID</a>
+    <a class="btn btn--plain btn--sm" href="{{ site.social.github }}" target="_blank" rel="noopener">{% include icon.html name="github" %} Code</a>
+  </div>
+</section>
 
-<html>
-	<head>
-		<title>Sasanka Kuruppu Arachchige</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-J5VYH61SR2"></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments);}
-			gtag('js', new Date());
+<section class="section" id="published" data-toc="Published">
+  <div class="toolbar">
+    <h2 class="section__title">Peer-reviewed</h2>
+    <div class="segmented segmented--small" role="group" aria-label="Filter by type" data-pub-filter="#pub-list">
+      <button type="button" aria-pressed="true" data-type="all"><span class="segmented__pill" aria-hidden="true"></span>All</button>
+      <button type="button" aria-pressed="false" data-type="journal">Journal</button>
+      <button type="button" aria-pressed="false" data-type="conference">Conference</button>
+      <button type="button" aria-pressed="false" data-type="abstract">Abstracts</button>
+    </div>
+  </div>
+  <ol class="list pubs" id="pub-list">
+    {%- for p in pubs.published -%}
+      {% include pub.html pub=p bibtex=true %}
+    {%- endfor %}
+  </ol>
+</section>
 
-			gtag('config', 'G-J5VYH61SR2');
-		</script>
-<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="stylesheet" href="assets/css/custom.css" />
-		<!-- Site icon / favicon -->
-		<link rel="icon" href="images/avatar.jpg" type="image/jpeg" />
-		<link rel="shortcut icon" href="images/avatar.jpg" type="image/jpeg" />
-		<link rel="apple-touch-icon" href="images/avatar.jpg" />
-<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-		<style>
-			.orcid-link { margin-top: 1.25em; }
-			.orcid-link a { margin-right: .5em; }
-			.orcid-badge { display:inline-flex; align-items:center; gap:.5em; text-decoration:none; background:#f4f4f4; border-radius:4px; padding:.4em .6em; font-size:.9em; font-weight:600; }
-			.orcid-badge svg { width:24px; height:24px; }
-			.orcid-badge:hover { background:#e8e8e8; }
-			.scholar-badge { display:inline-flex; align-items:center; gap:.5em; text-decoration:none; background:#f4f4f4; border-radius:4px; padding:.4em .6em; font-size:.9em; font-weight:600; }
-			.scholar-badge svg { width:22px; height:22px; }
-			.scholar-badge:hover { background:#e8e8e8; }
-		</style>
-	</head>
-	<body class="is-preload" id="top">
+{%- if pubs.review.size > 0 %}
+<section class="section" id="under-review" data-toc="Under review">
+  <h2 class="section__title" style="margin-bottom:22px">Under review</h2>
+  <ol class="list pubs">
+    {%- for p in pubs.review -%}{% include pub.html pub=p %}{%- endfor %}
+  </ol>
+</section>
+{%- endif %}
 
-		<!-- Header -->
-			<header id="header">
-				<a href="https://www.linkedin.com/in/sasanka-kuruppuarachchi/" class="image avatar"><img src="images/avatar.jpg" alt="" /></a>
-				<h1>
-					<strong>Hello, my name is <br />Sasanka Kuruppu Arachchige.</strong>
-				</h1>
-				<p class="sidebar-tagline">I am an Engineer and a researcher in <br />Agile Aerial robotics, Edge computing,<br />Robust odometry and navigation.</p>
-				<nav id="sidebar-sections" aria-label="Page sections">
-					<ul>
-						<li><a href="#publications">Publications</a></li>
-						<li><a href="#under-review">Under Peer-review</a></li>
-						<li><a href="#ongoing-research">Ongoing Research</a></li>
-					</ul>
-				</nav>
-			</header>
+{%- if pubs.prep.size > 0 %}
+<section class="section" id="in-preparation" data-toc="In preparation">
+  <h2 class="section__title" style="margin-bottom:22px">In preparation</h2>
+  <ol class="list pubs">
+    {%- for p in pubs.prep -%}{% include pub.html pub=p notes=true %}{%- endfor %}
+  </ol>
+</section>
+{%- endif %}
 
-		<!-- Main -->
-			<div id="main">
-
-				<!-- One -->
-					<section id="one">
-						<header class="major">
-							<h2 id="publications">Publications<br /><br /></h2>
-						</header>
-						
-						<ul class="actions">
-							<li><a href="index.html" class="button">Home</a></li>
-							<li><a href="publications.html" class="button primary">Publications</a></li>
-							<li><a href="contact.html" class="button">Contact</a></li>
-							<li><a href="https://sasakuruppuarachchi.github.io/curriculum-vitae" target="_blank" class="button">CV</a></li>
-						</ul>
-					</section>
-
-				<!-- Two -->
-				<section id="two">
-					<h2>Peer-reviewed extended abstracts</h2>
-						<ol>
-						<li>
-							<strong><u>Sasanka Kuruppu Arachchige</u></strong>,Kyuman lee. 
-							2024. 
-							“<i>Robust Navigation Based on an Interacting Multiple-Model Filtering Framework Using Multiple Tracking Cameras.</i>” 
-							AIAA SCITECH 2024 Forum, DOI: 10.2514/6.2024-1175
-							<a href="https://arc.aiaa.org/doi/abs/10.2514/6.2024-1175" target="_blank" rel="noopener noreferrer">read more</a>
-							
-							<!-- Note for the entry -->
-							<!--section class="note">
-								<strong><p>Note: This doccument was selected for the Best Abstract Award at TAROS2023.</p></strong>
-							</section-->
-						
-						</li>
-					
-						<li>
-							<strong><u>Sasanka Kuruppu Arachchige</u></strong>,Kyuman lee. 
-							2022. 
-							“<i>Robust Integration of Multiple Visual-Inertial Navigation Systems.</i>” 
-							Proceedings of the Conference of the Society of Control and Robotics Systems 2022,
-							한국항공우주학회 학술발표회 초록집
-							<a href="https://www.dbpia.co.kr/Journal/articleDetail?nodeId=NODE11103759" target="_blank" rel="noopener noreferrer">read more</a>
-
-							<!-- Note for the entry -->
-							<!-- <section class="note">
-								<strong><p>Note: This doccument was selected for the Best Abstract Award at TAROS2023.</p></strong>
-							</section> -->
-		
-						
-						</li>
-					
-						<li>
-							<strong><u>Sasanka Kuruppu Arachchige</u></strong>,Kyuman lee. 
-							2022. 
-							“<i>Custom Marker Detection and Pose Estimation for Last-Mile Delivery Problems.</i>” 
-							Proceedings of the Domestic Conference of the Society of Control and Robotics Systems 2022
-							제어로봇시스템학회 국내학술대회 논문집
-							<a href="https://www.dbpia.co.kr/Journal/articleDetail?nodeId=NODE11181197" target="_blank" rel="noopener noreferrer">read more</a>
-							
-							<!-- Note for the entry -->
-							<!-- <section class="note">
-								<strong><p>Note: This doccument was selected for the Best Abstract Award at TAROS2023.</p></strong>
-							</section> -->
-						
-						</li>
-					</ol>
-					<div class="orcid-link">
-						<a class="orcid-badge" href="https://orcid.org/0000-0002-4530-8725" target="_blank" rel="noopener noreferrer" aria-label="View full ORCID record">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-hidden="true">
-								<title>ORCID iD</title>
-								<circle cx="128" cy="128" r="128" fill="#A6CE39"/>
-								<g fill="#fff">
-									<path d="M86.3 186.2H70.9V70.1h15.4v116.1zM121.8 70.1h41.6c39.6 0 57.3 28.3 57.3 57.9 0 29.7-17.7 58.2-57.1 58.2h-41.8V70.1zm15.4 101h24.9c34.9 0 42.4-25.8 42.4-43.1 0-22.8-12.2-43.1-42.9-43.1h-24.4v86.2z"/>
-									<circle cx="78.6" cy="48.5" r="9.5"/>
-								</g>
-							</svg>
-							<span>ORCID Profile</span>
-						</a>
-						<a class="scholar-badge" href="https://scholar.google.com/citations?user=4hBNIx8AAAAJ&hl=en" target="_blank" rel="noopener noreferrer" aria-label="View Google Scholar profile">
-							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-hidden="true">
-								<title>Google Scholar</title>
-								<path fill="#4285F4" d="M12 10.2 3.4 4 12 0l8.6 4z"/>
-								<path fill="#34A853" d="M12 10.2 3.4 16 12 20l8.6-4z"/>
-								<circle cx="12" cy="10.2" r="3.2" fill="#EA4335"/>
-							</svg>
-							<span>Google Scholar</span>
-						</a>
-					</div>
-				</section>
-
-				<section id="three">
-					<h2 id="under-review">Under Peer-review</h2>
-					<ol>
-						<li>
-							<strong><u>Sasanka Kuruppu Arachchige</u></strong>, Joni-Kristian Kämäräinen.
-							2025
-							“<i>Extended Model based Learned Inertial Odometry</i>” <br />
-							ICRA 2026
-
-							<!-- Note for the entry -->
-							<!-- <section class="note">
-								<strong><p>Note: This doccument was selected for the Best Abstract Award at TAROS2023.</p></strong>
-							</section> -->
-						
-						</li>
-						<li>
-							<strong><u>Sasanka Kuruppu Arachchige</u></strong>,Kyuman lee. 
-							2024. 
-							“<i>Semantic Understanding-Aided Visual-Inertial Odometry for Autonomous Robots in a Dynamic Indoor Environment.</i>” 
-							Robotics and Automation Letters (RA-L) 
-							
-							<!-- Note for the entry -->
-							<!-- <section class="note">
-								<strong><p>Note: This doccument was selected for the Best Abstract Award at TAROS2023.</p></strong>
-							</section> -->
-						
-						</li>
-						<li>
-							<strong><u>Sasanka Kuruppu Arachchige</u></strong>,RAICAM cohort. 
-							2025. 
-							“<i>Low-Cost Rapid-Development Air-Ground Robotic Solution for Nuclear Power Plant Inspection*.</i>” 
-							IEEE International Symposium on Safety, Security, and Rescue Robotics (SSRR)
-							
-							<!-- Note for the entry -->
-							<!-- <section class="note">
-								<strong><p>Note: This doccument was selected for the Best Abstract Award at TAROS2023.</p></strong>
-							</section> -->
-						
-						</li>
-						<li>
-							Lauri Suomela,<strong><u>Sasanka Kuruppu Arachchige</u></strong>, German F. Torres, Harry Edelman, Joni-Kristian Kämäräinen. 
-							2025. 
-							“<i>Synthetic vs. Real Training Data for Visual Navigation*.</i>” 
-							CoRL 2025
-							
-							<!-- Note for the entry -->
-							<!-- <section class="note">
-								<strong><p>Note: This doccument was selected for the Best Abstract Award at TAROS2023.</p></strong>
-							</section> -->
-						
-						</li>
-						
-					</ol>
-				</section>
-
-				<section id="three">
-					<h2 id="ongoing-research">Ongoing Research</h2>
-					<ol>
-						
-						<li>
-							“<i>Neural System Identification*.</i>” <br />
-							RA-L 2026
-
-							<!-- Note for the entry -->
-							<!-- <section class="note">
-								<strong><p>Note: This doccument was selected for the Best Abstract Award at TAROS2023.</p></strong>
-							</section> -->
-						
-						</li>
-						<li>
-							“<i>Solar Water Heating System Using FRESNEL Lens with 6 DOF Tracking*.</i>” <br />
-							Autom. Constr.2025
-
-							<!-- Note for the entry -->
-							<!-- <section class="note">
-								<strong><p>Note: This doccument was selected for the Best Abstract Award at TAROS2023.</p></strong>
-							</section> -->
-						
-						</li>
-						<li>
-							“<i>Agipix: A Comprehensive Aerial Robotics Platform Bridging Simulation and Reality.</i>” <br />
-							ICRA 2026
-
-							<!-- Note for the entry -->
-							<!-- <section class="note">
-								<strong><p>Note: This doccument was selected for the Best Abstract Award at TAROS2023.</p></strong>
-							</section> -->
-						</li>
-					</ol>
-				</section>
-				<!-- Three
-					<section id="three">
-						<h2>Get In Touch</h2>
-						<p>I'd be very happy to discuss my work, or anything else, with anyone that's interested. You can reach me via linked in, or email me using the form below.</p>
-						<div class="row">
-							<div class="col-8 col-12-small">
-								<form method="POST" action="https://formspree.io/f/xgejkzbg">
-									<div class="row gtr-uniform gtr-50">
-										<div class="col-6 col-12-xsmall"><input type="text" name="name" id="name" placeholder="Name" /></div>
-										<div class="col-6 col-12-xsmall"><input type="email" name="email" id="email" placeholder="Email" /></div>
-										<div class="col-12"><textarea name="message" id="message" placeholder="Message" rows="4"></textarea></div>
-									</div>
-								</form>
-								<ul class="actions">
-									<li><input type="submit" value="Send Message" /></li>
-								</ul>
-							</div>
-							<div class="col-4 col-12-small">
-								<ul class="labeled-icons">
-									<li>
-										<h3 class="icon solid fa-building"><span class="label">Address</span></h3>
-										Core 1E, Floor 3<br />
-										Engineering Building A<br />
-										University of Manchester<br />
-										M13 9PL<br />
-										United Kingdom<br />
-									</li>
-									 <li>
-										<h3 class="icon solid fa-mobile-alt"><span class="label">Phone</span></h3>
-										000-000-0000
-									</li> 
-									<li>
-										<h3 class="icon solid fa-envelope"><span class="label">Email</span></h3>
-										<a href="daniel.johnson-5@student.manchester.ac.uk">daniel.johnson-5@student.manchester.ac.uk</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</section> -->
-
-				
-
-				<!-- Four -->
-				<!--
-					<section id="four">
-						<h2>Elements</h2>
-
-		<!-- Scripts -->
-		<script>
-		// Desktop-only sidebar motion + scrollspy, mirrored from homepage
-		(function(){
-		  var mq = window.matchMedia('(min-width: 981px)');
-		  if (!mq.matches) return;
-		  var header = document.getElementById('header');
-		  var tagline = header && header.querySelector('.sidebar-tagline');
-		  var toc = document.getElementById('sidebar-sections');
-		  var start = 60, end = 240;
-		  function onScroll(){
-		    if(!tagline) return;
-		    var y = window.pageYOffset || document.documentElement.scrollTop || 0;
-		    var t = y <= start? 0 : y >= end? 1 : (y-start)/(end-start);
-		    tagline.style.transform = 'translateY(' + (-12*t) + 'px)';
-		    tagline.style.opacity = String(1 - t);
-		    tagline.classList.toggle('is-hidden', t>=0.999);
-		    if (toc){
-		      var tocTranslate = 16 * (1 - t);
-		      var tocOpacity = 0.2 + 0.8 * t;
-		      toc.style.transform = 'translateY(' + tocTranslate + 'px)';
-		      toc.style.opacity = String(tocOpacity);
-		    }
-		  }
-		  onScroll();
-		  window.addEventListener('scroll', onScroll, {passive:true});
-
-		  var ids = ['publications','under-review','ongoing-research'];
-		  var links = ids.reduce(function(acc,id){
-		    var a = document.querySelector('#sidebar-sections a[href="#'+id+'"]');
-		    if(a) acc[id]=a; return acc;
-		  },{});
-		  Object.values(links).forEach(function(a){
-		    a.addEventListener('click', function(ev){
-		      ev.preventDefault();
-		      var target = document.querySelector(this.getAttribute('href'));
-		      if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
-		    });
-		  });
-
-		  function setActive(id){
-		    ids.forEach(function(k){ var link=links[k]; if(!link) return; var on=(k===id); link.classList.toggle('active', on); link.style.opacity = on? '1':'0.4'; });
-		  }
-
-		  if('IntersectionObserver' in window){
-		    var obs = new IntersectionObserver(function(entries){
-		      entries.forEach(function(e){ if(e.isIntersecting){ var id=e.target.id; if(id) setActive(id); }});
-		    },{ rootMargin:'0px 0px -85% 0px', threshold:[0,0.01,0.1]});
-		    ids.forEach(function(id){ var el=document.getElementById(id); if(el) obs.observe(el); });
-		  } else {
-		    function compute(){
-		      var vh = window.innerHeight || document.documentElement.clientHeight;
-		      var trigger = vh*0.85; var best=null, bestDist=1e9;
-		      ids.forEach(function(id){ var el=document.getElementById(id); if(!el) return; var r=el.getBoundingClientRect(); var d=Math.abs(r.top-trigger); if(d<bestDist){bestDist=d; best=id;} });
-		      if(best) setActive(best);
-		    }
-		    compute();
-		    window.addEventListener('scroll', compute, {passive:true});
-		    window.addEventListener('resize', compute);
-		  }
-
-		  function checkBottom(){
-		    var doc=document.documentElement, body=document.body;
-		    var y=window.pageYOffset||doc.scrollTop||0;
-		    var vh=window.innerHeight||doc.clientHeight||0;
-		    var full=Math.max(doc.scrollHeight, body.scrollHeight, doc.offsetHeight, body.offsetHeight);
-		    if(y+vh>=full-2){ setActive('ongoing-research'); }
-		  }
-		  checkBottom();
-		  window.addEventListener('scroll', checkBottom, {passive:true});
-		  window.addEventListener('resize', checkBottom);
-		})();
-		</script>
-						
-
-			</div>
-			</div>
-
-		<!-- Footer -->
-			<footer id="footer">
-									<ul class="icons">
-						<!--li><a href="https://twitter.com/paulobaniqued" class="icon fa-twitter"><span class="label">Twitter</span></a></li-->
-						<li><a href="https://github.com/sasakuruppuarachchi" class="icon fa-github"><span class="label">Github</span></a></li>
-						<li><a href="https://www.linkedin.com/in/sasanka-kuruppuarachchi/" class="icon fa-linkedin"><span class="label">Linkedin</span></a></li>
-						<li><a href="mailto:sasa.kuruppuarachchi@gmail.com" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
-					</ul>
-					<ul class="copyright">
-						<li>&copy; SasaKuruppuarachchi 2024</li><li>Last update on: <span id="last-updated"></span></li>
-					</ul>
-							</footer>
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.poptrox.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="assets/js/main.js"></script>
-			<script src="assets/js/publications.js"></script>
-
-	</body>
-</html>
+{%- comment -%} Anything ORCID knows about that the curated list doesn't (auto-updated daily). {%- endcomment -%}
+{%- capture known -%}{% for g in pubs %}{% for p in g[1] %}|{{ p.title | downcase | slice: 0, 40 }}{% endfor %}{% endfor %}{%- endcapture -%}
+{%- assign extra = "" | split: "" -%}
+{%- for o in site.data.orcid -%}
+  {%- assign key = o.title | downcase | slice: 0, 40 -%}
+  {%- unless known contains key -%}{%- assign extra = extra | push: o -%}{%- endunless -%}
+{%- endfor -%}
+{%- if extra.size > 0 %}
+<section class="section" id="orcid" data-toc="Also on ORCID">
+  <h2 class="section__title">Also indexed on ORCID</h2>
+  <p class="section__sub" style="margin-bottom:22px">Recently added to my ORCID record and not yet listed above.</p>
+  <ol class="list pubs">
+    {%- for o in extra -%}
+    <li class="pub">
+      <p class="pub__year">{{ o.year }}</p>
+      <div class="pub__body">
+        <h3 class="pub__title">{% if o.url %}<a href="{{ o.url }}" target="_blank" rel="noopener">{{ o.title }}</a>{% else %}{{ o.title }}{% endif %}</h3>
+        {%- if o.authors %}<p class="pub__authors">{{ o.authors }}</p>{% endif %}
+        {%- if o.venue %}<p class="pub__venue"><em>{{ o.venue }}</em></p>{% endif %}
+      </div>
+    </li>
+    {%- endfor %}
+  </ol>
+</section>
+{%- endif %}

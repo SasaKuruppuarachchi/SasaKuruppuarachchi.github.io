@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fetch publications from the public ORCID API and update data/publications.json.
+"""Fetch publications from the public ORCID API and update _data/orcid.json.
 
 The script is intentionally conservative:
  - It never overwrites the existing file with an empty list.
@@ -177,7 +177,7 @@ def dedupe(pubs: List[dict]) -> List[dict]:
 def main() -> None:
     orcid_id = os.environ.get("ORCID_ID", DEFAULT_ORCID).strip()
     fetch_details = os.environ.get("ORCID_FETCH_DETAILS") == "1"
-    out_path = Path(__file__).parent.parent / "data" / "publications.json"
+    out_path = Path(__file__).parent.parent / "_data" / "orcid.json"
     try:
         pubs = fetch_summary(orcid_id)
         if fetch_details:

@@ -1,0 +1,19 @@
+{%- comment -%} Topic filter chips. Params: posts (array), target (grid selector), sort (bool) {%- endcomment -%}
+<div class="toolbar">
+  <div class="chips" role="group" aria-label="Filter by topic" data-filter="{{ include.target }}">
+    <button class="chip" type="button" aria-pressed="true" data-cat="__all">All</button>
+    {%- for c in site.data.categories -%}
+      {%- assign n = 0 -%}
+      {%- for p in include.posts -%}{%- if p.categories contains c.key -%}{%- assign n = n | plus: 1 -%}{%- endif -%}{%- endfor -%}
+      {%- if n > 0 %}
+    <button class="chip" type="button" aria-pressed="false" data-cat="{{ c.key | downcase | escape }}" data-label="{{ c.label | slugify }}">{{ c.label }}</button>
+      {%- endif -%}
+    {%- endfor %}
+  </div>
+  {%- if include.sort %}
+  <div class="segmented segmented--small" role="group" aria-label="Sort order" data-sort="{{ include.target }}">
+    <button type="button" aria-pressed="true" data-order="newest"><span class="segmented__pill" aria-hidden="true"></span>Newest</button>
+    <button type="button" aria-pressed="false" data-order="oldest">Oldest</button>
+  </div>
+  {%- endif %}
+</div>

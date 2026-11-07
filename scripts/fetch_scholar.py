@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fetch publications from Google Scholar and write data/publications.json.
+"""Fetch publications from Google Scholar and write _data/orcid.json.
 
 Limitations: Direct scraping often triggers a CAPTCHA. If a CAPTCHA or block is
 detected we skip updating (keeping the previous file). This keeps the static
@@ -77,7 +77,7 @@ def fetch() -> List[Dict[str, str]]:
 
 
 def main():
-    out_path = Path(__file__).parent.parent / 'data' / 'publications.json'
+    out_path = Path(__file__).parent.parent / '_data' / 'orcid.json'
     try:
         pubs = fetch()
     except Exception as e:  # noqa: BLE001 keep broad to avoid overwrites

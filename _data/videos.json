@@ -1,0 +1,107 @@
+[
+  {
+    "id": "AE3DyyekjHI",
+    "title": "Pine Hlls Autonomous Aerial Agile Exploration with AGIPIX in IsaacSIM",
+    "published": "2026-10-20",
+    "description": "",
+    "shorts": false
+  },
+  {
+    "id": "__Awe89ndag",
+    "title": "Autonomous Dynamic Exploration with AGIPIX",
+    "published": "2026-07-13",
+    "description": "Agipix is an open, compact, actively sensed aerial robotics platform for indoor autonomy and critical-asset inspection. The same ROS 2 containerized autonomy stack runs in Isaac Sim and on real hardwa",
+    "shorts": false
+  },
+  {
+    "id": "Xq0U4Xig1S0",
+    "title": "Development of an Passive Aerial Manipulator",
+    "published": "2025-09-17",
+    "description": "My Final Year Undergraduate project.",
+    "shorts": false
+  },
+  {
+    "id": "clg4_2iWDi0",
+    "title": "RAICAM - ENSTA, Paris Demonstraton",
+    "published": "2025-09-17",
+    "description": "",
+    "shorts": false
+  },
+  {
+    "id": "FOcNvpEFjYA",
+    "title": "Agipix v2 - FAST_LIO SLAM mapping",
+    "published": "2025-09-17",
+    "description": "",
+    "shorts": false
+  },
+  {
+    "id": "xm8pgAhiBh4",
+    "title": "Sasanka Bio English",
+    "published": "2025-09-17",
+    "description": "",
+    "shorts": false
+  },
+  {
+    "id": "OkcCorexLIg",
+    "title": "අපි ඉගෙන ගත යුත්තේ ඇයි? Why should we learn?  Edu Talk: Sri Pa Central Collage",
+    "published": "2025-09-17",
+    "description": "",
+    "shorts": false
+  },
+  {
+    "id": "tTsIn8vay7c",
+    "title": "Quadrotor Simulation of 3D mapping of cluttered environment in IsaacSIM using PX4 and ROS2 - Agipix",
+    "published": "2025-02-11",
+    "description": "Agipix Aerial robotic platform is part of my PhD research conducted under the supervision of Prof. Joni Kämäräinen at the Vision Group of the University of Tampere, Finland. The research is funded by ",
+    "shorts": false
+  },
+  {
+    "id": "ZcyTVslO2NA",
+    "title": "SA-VINS - RAICAM Presenter workshop 1 - Sasanka",
+    "published": "2025-01-30",
+    "description": "",
+    "shorts": false
+  },
+  {
+    "id": "6FxH-UCSIuE",
+    "title": "Agipix V2 flight at ENSTA indoor Lidar SLAM",
+    "published": "2024-11-28",
+    "description": "",
+    "shorts": false
+  },
+  {
+    "id": "bVg0pEU3_Lg",
+    "title": "Test Lidar SLAM on IsaacSIM with PX4",
+    "published": "2024-10-07",
+    "description": "",
+    "shorts": false
+  },
+  {
+    "id": "KUdGrn7sX6c",
+    "title": "SA-VINS | Semantic Understanding-Aided VIO for Autonomous Robots in a DynamicIndoor Environment",
+    "published": "2024-08-28",
+    "description": "",
+    "shorts": false
+  },
+  {
+    "id": "qREUdtjbQzA",
+    "title": "DNA+ 2022 Competition – Grand Prize Winner",
+    "published": "2024-05-16",
+    "description": "",
+    "shorts": false
+  },
+  {
+    "id": "xb3-Xv9zCn0",
+    "title": "Indoor localisation V-SLAM | agipix test flight 4 | 10/04/24",
+    "published": "2024-04-11",
+    "description": "",
+    "shorts": false
+  },
+  {
+    "id": "pQX0SQhwK7g",
+    "title": "OpenVINS with Intel Realsense T265",
+    "published": "2021-10-14",
+    "description": "Hardware used : Intel T265",
+    "shorts": false
+  }
+]

@@ -1,35 +1,20 @@
-<!DOCTYPE HTML>
-<html>
-	{% include head.html %}
-	<body id="top">
-
-		<!-- Header -->
-		<header id="header">
-			<a href="https://www.linkedin.com/in/sasanka-kuruppuarachchi/" class="image avatar"><img src="{{ site.baseurl }}/images/avatar.jpg" alt="" /></a>
-			{% if page.layout == 'post' or page.collection == 'posts' %}
-			  <h1>
-			    <strong class="post-title">{{ page.title }}</strong><br />
-			    {% if page.date %}<br /><span class="post-date">{{ page.date | date: "%B %e, %Y" }}</span>{% endif %}
-			  </h1>
-			{% else %}
-			  <h1><strong>Hello, my name is <br />Sasanka Kuruppu Arachchige.</strong></h1>
-			  <p class="sidebar-tagline">I am an Engineer and a researcher in <br />Agile Aerial robotics, Edge computing,<br />Robust odometry and navigation.</p>
-			  <nav id="sidebar-sections" aria-label="Page sections"><ul></ul></nav>
-			{% endif %}
-		</header>
-
-		<!-- Main -->
-		<div id="main">
-			{{ content }}
-		</div>
-
-		{% include footer.html %}
-
-		<!-- Scripts (optional for theme behavior) -->
-		<script src="{{ site.baseurl }}/assets/js/jquery.min.js"></script>
-		<script src="{{ site.baseurl }}/assets/js/jquery.poptrox.min.js"></script>
-		<script src="{{ site.baseurl }}/assets/js/skel.min.js"></script>
-		<script src="{{ site.baseurl }}/assets/js/util.js"></script>
-		<script src="{{ site.baseurl }}/assets/js/main.js"></script>
-	</body>
+<!doctype html>
+<html lang="{{ site.lang | default: 'en' }}">
+{% include head.html %}
+<body class="layout-{{ page.layout | default: 'page' }}{% if page.body_class %} {{ page.body_class }}{% endif %}">
+  <a class="skip-link" href="#content">Skip to content</a>
+  {% include sidebar.html %}
+  <div class="main" id="main">
+    {% include nav.html %}
+    <main id="content" tabindex="-1">
+      {{ content }}
+    </main>
+    {% include footer.html %}
+  </div>
+  {% include lightbox.html %}
+  <script src="{{ '/assets/js/site.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+  {%- if page.scripts %}{% for s in page.scripts %}
+  <script src="{{ s | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
+  {%- endfor %}{% endif %}
+</body>
 </html>

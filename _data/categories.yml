@@ -1,0 +1,9 @@
+# Display labels for post categories (the raw names stay in post front matter,
+# so post URLs do not change). Order here = order of the filter chips.
+- { key: "Projects: Robotic",    label: "Robotics" }
+- { key: "Projects: Electronic", label: "Electronics" }
+- { key: "Events",               label: "Events & awards" }
+- { key: "RAICAM",               label: "RAICAM" }
+- { key: "ARRF",                 label: "ARRF · KNU" }
+- { key: "TeamSHARK",            label: "Team SHARK" }
+- { key: "Projects: Other",      label: "Builds" }

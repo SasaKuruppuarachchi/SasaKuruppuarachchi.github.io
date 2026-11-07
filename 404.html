@@ -1,0 +1,16 @@
+---
+layout: default
+title: Page not found
+permalink: /404.html
+sitemap: false
+greeting: "Lost? I'm"
+---
+<section class="section hero">
+  <p class="hero__kicker"><span class="dot" aria-hidden="true" style="background:var(--orange);box-shadow:0 0 0 3px var(--orange-tint)"></span>404</p>
+  <h2 class="hero__title">This page <span class="grad">drifted off course.</span></h2>
+  <p class="hero__lead">Even the best odometry loses track sometimes. The page you're looking for has moved or never existed.</p>
+  <div class="actions">
+    <a class="btn btn--primary" href="{{ '/' | relative_url }}">Back home</a>
+    <a class="btn btn--plain" href="{{ '/posts.html' | relative_url }}">Browse all work</a>
+  </div>
+</section>

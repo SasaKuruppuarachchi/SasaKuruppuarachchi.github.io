@@ -1,0 +1,12 @@
+<footer class="footer">
+  <div class="footer__row">
+    <p>© {{ site.time | date: '%Y' }} Sasanka Kuruppu Arachchige</p>
+    <ul class="footer__links">
+      <li><a href="{{ '/posts.html' | relative_url }}">Work</a></li>
+      <li><a href="{{ '/publications.html' | relative_url }}">Publications</a></li>
+      <li><a href="{{ '/contact.html' | relative_url }}">Contact</a></li>
+      <li><a href="{{ '/feed.xml' | relative_url }}">RSS</a></li>
+    </ul>
+  </div>
+  <p class="footer__meta">Last updated {{ site.time | date: '%B %-d, %Y' }}</p>
+</footer>

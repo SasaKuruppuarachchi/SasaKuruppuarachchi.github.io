@@ -1,0 +1,21 @@
+{%- assign u = page.url | default: '/' -%}
+{%- assign section = 'home' -%}
+{%- if page.layout == 'post' or u contains '/posts' or u contains '/work' -%}{%- assign section = 'work' -%}
+{%- elsif u contains '/publications' -%}{%- assign section = 'publications' -%}
+{%- elsif u contains '/contact' -%}{%- assign section = 'contact' -%}
+{%- elsif u contains '/photography' -%}{%- assign section = 'photography' -%}
+{%- elsif u contains '404' -%}{%- assign section = 'none' -%}
+{%- endif -%}
+<header class="topbar" id="topbar">
+  <a class="topbar__me" href="{{ '/' | relative_url }}" aria-label="Home">
+    <img src="{{ '/images/avatar-320.webp' | relative_url }}" width="28" height="28" alt="">
+    <span>Sasa</span>
+  </a>
+  <nav class="segmented" aria-label="Primary">
+    <a href="{{ '/' | relative_url }}"{% if section == 'home' %} aria-current="page"{% endif %}>{% if section == 'home' %}<span class="segmented__pill" aria-hidden="true"></span>{% endif %}Home</a>
+    <a href="{{ '/posts.html' | relative_url }}"{% if section == 'work' %} aria-current="page"{% endif %}>{% if section == 'work' %}<span class="segmented__pill" aria-hidden="true"></span>{% endif %}Work</a>
+    <a href="{{ '/publications.html' | relative_url }}"{% if section == 'publications' %} aria-current="page"{% endif %}>{% if section == 'publications' %}<span class="segmented__pill" aria-hidden="true"></span>{% endif %}Publications</a>
+    <a href="{{ '/contact.html' | relative_url }}"{% if section == 'contact' %} aria-current="page"{% endif %}>{% if section == 'contact' %}<span class="segmented__pill" aria-hidden="true"></span>{% endif %}Contact</a>
+    <a href="{{ site.social.cv }}" target="_blank" rel="noopener" class="segmented__ext">CV{% include icon.html name="external" %}</a>
+  </nav>
+</header>

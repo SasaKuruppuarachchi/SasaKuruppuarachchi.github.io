@@ -1,0 +1,27 @@
+{%- assign p = include.post -%}
+{%- assign href = p.url | relative_url -%}
+{%- assign ext = false -%}
+{%- if p.redirect_to -%}{%- assign href = p.redirect_to -%}{%- assign ext = true -%}{%- endif -%}
+{%- assign thumb = p.thumb | default: p.cover -%}
+{%- if thumb -%}{%- unless thumb contains '://' -%}{%- assign thumb = thumb | split: '?' | first | prepend: '/' | replace: '//', '/' | relative_url -%}{%- endunless -%}{%- endif -%}
+{%- capture cats -%}{% for c in p.categories %}{{ c | downcase }}|{% endfor %}{%- endcapture -%}
+{%- capture labels -%}{% for c in site.data.categories %}{% if p.categories contains c.key %}{{ c.label }}|{% endif %}{% endfor %}{%- endcapture -%}
+{%- assign labels = labels | split: '|' -%}
+<article class="card reveal" data-date="{{ p.date | date: '%s' }}" data-year="{{ p.date | date: '%Y' }}" data-cats="{{ cats | escape }}"{% if include.hidden %} hidden{% endif %}>
+  <a class="card__link" href="{{ href }}"{% if ext %} target="_blank" rel="noopener"{% endif %}>
+    <div class="card__media">
+      {%- if thumb %}
+      <img src="{{ thumb }}"{% if p.thumb_anim %} data-anim="{{ p.thumb_anim | relative_url }}"{% endif %} alt="" width="800" height="500" loading="{{ include.loading | default: 'lazy' }}" decoding="async">
+      {%- endif %}
+      {%- if p.status == 'Ongoing' %}<span class="badge badge--live">Ongoing</span>{% endif %}
+      {%- if p.thumb_anim %}<span class="card__play" aria-hidden="true"></span>{% endif %}
+    </div>
+    <div class="card__body">
+      <p class="card__meta"><time datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: '%Y' }}</time>{% for l in labels limit: 2 %} · {{ l }}{% endfor %}</p>
+      <h3 class="card__title">{{ p.title | strip_html }}{% if ext %}<span class="card__ext" aria-label="(opens project page)">{% include icon.html name="external" %}</span>{% endif %}</h3>
+      {%- if p.abstract %}
+      <p class="card__abstract">{{ p.abstract | strip_html | remove: '**' | truncate: 180 }}</p>
+      {%- endif %}
+    </div>
+  </a>
+</article>

@@ -1,28 +1,52 @@
 ---
 layout: default
 ---
-<section class="post">
-  {% if page.tags %}
-  <header class="major">
-    <p>
-      {% for tag in page.tags %}
-        <span class="label">#{{ tag }}</span>
-      {% endfor %}
+{%- capture labels -%}{% for c in site.data.categories %}{% if page.categories contains c.key %}{{ c.label }}|{% endif %}{% endfor %}{%- endcapture -%}
+{%- assign labels = labels | split: "|" -%}
+{%- assign visible = site.posts | where: "visibility", "Published" | sort: "date" -%}
+{%- assign prev_post = nil -%}{%- assign next_post = nil -%}
+{%- for p in visible -%}
+  {%- if p.url == page.url -%}
+    {%- assign i_prev = forloop.index0 | minus: 1 -%}
+    {%- assign i_next = forloop.index0 | plus: 1 -%}
+    {%- if i_prev >= 0 -%}{%- assign prev_post = visible[i_prev] -%}{%- endif -%}
+    {%- assign next_post = visible[i_next] -%}
+  {%- endif -%}
+{%- endfor -%}
+<article class="post">
+  <header class="post__head">
+    <a class="back" href="{{ '/posts.html' | relative_url }}">{% include icon.html name="back" %}Work</a>
+    <p class="post__meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
+      {%- for l in labels %}<span aria-hidden="true">·</span><span>{{ l }}</span>{% endfor %}
+      {%- if page.status == "Ongoing" %}<span class="pill pill--published">● Ongoing</span>{% endif %}
     </p>
+    <h1 class="post__title">{{ page.title }}</h1>
+    {%- if page.tags.size > 0 %}
+    <div class="post__tags">
+      {%- for t in page.tags %}{% unless t == "Sasanka Kuruppuarachchi" %}<span class="pill">{{ t }}</span>{% endunless %}{% endfor %}
+    </div>
+    {%- endif %}
   </header>
-  {% endif %}
 
-  <ul class="actions">
-  <li><a href="{{ site.baseurl }}/" class="button">← Back Home</a></li>
-  <li><a href="{{ site.baseurl }}/posts.html" class="button primary">All Posts</a></li>
-  </ul>
-
-  <div class="content">
-    {{ content }}
+  <div class="prose">
+    {{ content | replace: '<img ', '<img loading="lazy" decoding="async" ' | replace: '<iframe', '<iframe loading="lazy"' }}
   </div>
 
-  <ul class="actions">
-  <li><a href="{{ site.baseurl }}/" class="button">← Back Home</a></li>
-  <li><a href="{{ site.baseurl }}/posts.html" class="button primary">All Posts</a></li>
-  </ul>
-</section>
+  <nav class="pager" aria-label="More work">
+    {%- if prev_post %}
+    {%- assign href = prev_post.redirect_to | default: prev_post.url | relative_url -%}
+    <a href="{{ href }}">
+      <span class="pager__k">{% include icon.html name="back" %} Previous</span>
+      <span class="pager__t">{{ prev_post.title | strip_html }}</span>
+    </a>
+    {%- endif %}
+    {%- if next_post %}
+    {%- assign href = next_post.redirect_to | default: next_post.url | relative_url -%}
+    <a class="pager__next" href="{{ href }}">
+      <span class="pager__k">Next {% include icon.html name="next" %}</span>
+      <span class="pager__t">{{ next_post.title | strip_html }}</span>
+    </a>
+    {%- endif %}
+  </nav>
+</article>

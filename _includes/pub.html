@@ -1,0 +1,53 @@
+{%- assign p = include.pub -%}
+{%- assign me = "Sasanka Kuruppu Arachchige" -%}
+{%- assign names = p.authors | split: ", " -%}
+{%- assign href = nil -%}
+{%- if p.doi -%}{%- assign href = p.doi | prepend: "https://doi.org/" -%}{%- elsif p.arxiv -%}{%- assign href = p.arxiv | prepend: "https://arxiv.org/abs/" -%}{%- elsif p.url -%}{%- assign href = p.url -%}{%- elsif p.project -%}{%- assign href = p.project -%}{%- endif -%}
+{%- assign post = nil -%}{%- if p.post -%}{%- assign post = site.posts | where: "slug", p.post | first -%}{%- endif -%}
+{%- if href == nil and post -%}{%- assign href = post.url | relative_url -%}{%- endif -%}
+{%- capture uid -%}bib-{{ p.year }}-{{ p.title | slugify | truncate: 40, "" }}{%- endcapture -%}
+<li class="pub{% unless include.noreveal %} reveal{% endunless %}" data-type="{{ p.type }}">
+  <p class="pub__year">{{ p.year }}</p>
+  <div class="pub__body">
+    <h3 class="pub__title">{% if href %}<a href="{{ href }}"{% unless href contains site.url or href contains '/projects' %} target="_blank" rel="noopener"{% endunless %}>{{ p.title }}</a>{% else %}{{ p.title }}{% endif %}</h3>
+    <p class="pub__authors">
+      {%- if names.size > 8 -%}
+        {%- assign pos = 0 -%}{%- for n in names -%}{%- if n == me -%}{%- assign pos = forloop.index -%}{%- endif -%}{%- endfor -%}
+        {{ names[0] }}, {{ names[1] }}, {{ names[2] }}, …, <b>{{ me }}</b>, … <span title="{{ p.authors | escape }}">({{ names.size }} authors)</span>
+      {%- else -%}
+        {{ p.authors | replace: me, "<b>Sasanka Kuruppu Arachchige</b>" }}
+      {%- endif -%}
+    </p>
+    <p class="pub__venue"><em>{{ p.venue }}</em>{% if p.venue_detail %}, {{ p.venue_detail }}{% endif %}</p>
+    <div class="pub__foot">
+      {%- case p.status -%}
+        {%- when "review" -%}<span class="pill pill--review">Under review</span>
+        {%- when "prep" -%}<span class="pill pill--prep">In preparation</span>
+        {%- when "accepted" -%}<span class="pill pill--accepted">Accepted</span>
+        {%- when "preprint" -%}<span class="pill pill--preprint">Preprint</span>
+        {%- else -%}<span class="pill pill--published">{% case p.type %}{% when "journal" %}Journal{% when "abstract" %}Extended abstract{% else %}Conference{% endcase %}</span>
+      {%- endcase -%}
+      {%- if p.award %}<span class="pill pill--award">★ {{ p.award }}</span>{% endif -%}
+      {%- if p.doi %}<a class="pill" href="https://doi.org/{{ p.doi }}" target="_blank" rel="noopener">DOI{% include icon.html name="external" %}</a>{% endif -%}
+      {%- if p.arxiv %}<a class="pill" href="https://arxiv.org/abs/{{ p.arxiv }}" target="_blank" rel="noopener">arXiv{% include icon.html name="external" %}</a>{% endif -%}
+      {%- if p.url %}<a class="pill" href="{{ p.url }}" target="_blank" rel="noopener">{{ p.url_label | default: "Paper" }}{% include icon.html name="external" %}</a>{% endif -%}
+      {%- if p.project %}<a class="pill" href="{{ p.project }}" target="_blank" rel="noopener">Project page{% include icon.html name="external" %}</a>{% endif -%}
+      {%- if p.code %}<a class="pill" href="{{ p.code }}" target="_blank" rel="noopener">Code{% include icon.html name="external" %}</a>{% endif -%}
+      {%- if p.video %}<a class="pill" href="{{ p.video }}" target="_blank" rel="noopener">Video{% include icon.html name="external" %}</a>{% endif -%}
+      {%- if post %}<a class="pill" href="{{ post.url | relative_url }}">Read more</a>{% endif -%}
+      {%- if p.status == "published" and include.bibtex %}<button class="pill" type="button" aria-expanded="false" aria-controls="{{ uid }}" data-toggle-bib>BibTeX</button>{% endif -%}
+      {%- if p.note and include.notes %}<span class="pill pill--preprint">{{ p.note }}</span>{% endif -%}
+    </div>
+    {%- if p.status == "published" and include.bibtex %}
+    {%- assign last = names[0] | split: " " | last | downcase | remove: "ä" | remove: "-" -%}
+    {%- assign word = p.title | split: " " | first | downcase | remove: ":" | remove: "." | remove: "," -%}
+    <div class="bibtex" id="{{ uid }}"><pre><code>{% if p.type == "journal" %}@article{% else %}@inproceedings{% endif %}{ {{- last }}{{ p.year }}{{ word }},
+  title     = { {{- p.title -}} },
+  author    = { {{- p.authors | replace: ", ", " and " -}} },
+  {% if p.type == "journal" %}journal  {% else %}booktitle{% endif %} = { {{- p.venue -}} },
+  year      = { {{- p.year -}} }{% if p.doi %},
+  doi       = { {{- p.doi -}} }{% endif %}
+}</code></pre></div>
+    {%- endif %}
+  </div>
+</li>

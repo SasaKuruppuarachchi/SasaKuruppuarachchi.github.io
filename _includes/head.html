@@ -1,23 +1,49 @@
 <head>
-	<title>{{ site.title }}</title>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<meta name="last-build" content="{{ site.time | date: '%Y-%m-%d' }}" />
-	<!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-J5VYH61SR2"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+  <script>
+    /* Apply the saved theme before first paint (no flash). */
+    (function () {
+      try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+      document.documentElement.classList.add('js');
+    })();
+  </script>
+  {%- if page.title -%}
+    {%- capture seo_title -%}{{ page.title | strip_html }} · {{ site.short_name }}{%- endcapture -%}
+  {%- else -%}
+    {%- assign seo_title = site.title -%}
+  {%- endif -%}
+  {%- assign seo_image = page.thumb | default: page.cover | default: site.author.image -%}
+  {% seo title=false %}
+  <title>{{ seo_title }}</title>
+  {%- unless page.image %}
+  <meta property="og:image" content="{{ seo_image | absolute_url }}">
+  {%- endunless %}
+  {% feed_meta %}
 
-		gtag('config', 'G-J5VYH61SR2');
-	</script>
-	<!--[if lte IE 8]><script src="{{ site.url }}{{ site.baseurl }}/assets/js/ie/html5shiv.js"></script><![endif]-->
-	<link rel="stylesheet" href="{{ site.url }}{{ site.baseurl }}/assets/css/main.css" />
-	<link rel="stylesheet" href="{{ site.url }}{{ site.baseurl }}/assets/css/custom.css" />
-	<!-- Site icon / favicon -->
-	<link rel="icon" href="{{ site.url }}{{ site.baseurl }}/images/avatar.jpg" type="image/jpeg" />
-	<link rel="shortcut icon" href="{{ site.url }}{{ site.baseurl }}/images/avatar.jpg" type="image/jpeg" />
-	<link rel="apple-touch-icon" href="{{ site.url }}{{ site.baseurl }}/images/avatar.jpg" />
-	<!--[if lte IE 8]><link rel="stylesheet" href="{{ site.url }}{{ site.baseurl }}/assets/css/ie8.css" /><![endif]-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&display=swap">
+  <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}?v={{ site.time | date: '%s' }}">
+
+  <link rel="icon" href="{{ '/assets/icons/favicon.png' | relative_url }}" type="image/png">
+  <link rel="apple-touch-icon" href="{{ '/assets/icons/apple-touch-icon.png' | relative_url }}">
+
+  <!-- Instant navigation: prerender internal pages on hover (Chromium), view transitions everywhere supported. -->
+  <script type="speculationrules">
+    { "prerender": [{ "where": { "and": [ { "href_matches": "/*" }, { "not": { "selector_matches": "[target], [rel~=external]" } } ] }, "eagerness": "moderate" }] }
+  </script>
+
+  {%- if site.google_analytics and jekyll.environment == 'production' %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ site.google_analytics }}');
+  </script>
+  {%- endif %}
 </head>

@@ -1,176 +1,30 @@
 ---
 layout: default
-title: Posts
+title: Work
 permalink: /posts.html
+description: Research projects, engineering builds, competitions and events by Sasanka Kuruppu Arachchige, from Formula Student electronics to learned inertial odometry for drones.
+greeting: "Work by"
+tagline: "Research, engineering builds and competitions, from Formula Student electronics to learned odometry for drones."
 ---
-
-<section id="posts">
-  <header class="major">
-    <ul class="actions" style="margin-top:0.25em;">
-      <li><a href="{{ site.baseurl }}/" class="button small">← Back Home</a></li>
-    </ul>
-  </header>
-
-  <div class="row uniform" style="margin-bottom: 1em;">
-    <div class="6u 12u$(xsmall)">
-      <label for="post-category" class="small">Category</label>
-      <select id="post-category">
-        <option value="__all">All</option>
-        {% assign cats = site.categories | sort %}
-        {% for c in cats %}
-          <option value="{{ c[0] | escape }}">{{ c[0] }}</option>
-        {% endfor %}
-      </select>
-    </div>
-    <div class="6u$ 12u$(xsmall)">
-      <label for="post-sort" class="small">Sort</label>
-      <select id="post-sort">
-        <option value="newest" selected>Newest first</option>
-        <option value="oldest">Oldest first</option>
-      </select>
+{%- assign visible = site.posts | where: "visibility", "Published" -%}
+<section class="section">
+  <div class="section__head">
+    <div>
+      <h2 class="section__title">Work <span class="count" data-count>{{ visible.size }}</span></h2>
+      <p class="section__sub">Projects, papers and events since 2015. Filter by topic, or jump to a year from the sidebar.</p>
     </div>
   </div>
-
-  <div class="row uniform" id="posts-grid">
-    {% assign visible_posts = site.posts | where: 'visibility', 'Published' %}
-    {% assign sorted = visible_posts | sort: 'date' | reverse %}
-    {% for post in sorted %}
-      {% assign idx_mod = forloop.index | modulo: 2 %}
-      {% assign col_class = '6u 12u$(xsmall) post-card' %}
-      {% if idx_mod == 0 %}
-        {% assign col_class = '6u$ 12u$(xsmall) post-card' %}
-      {% endif %}
-      {% assign cover = post.cover %}
-      {%- comment -%}
-        Prefer an explicitly marked image in the post body:
-        <img src="..." data-cover> or <img src="..." data-thumb>
-      {%- endcomment -%}
-      {% if cover == nil or cover == '' %}
-        {% assign mark_parts = post.content | split: 'data-cover' %}
-        {% if mark_parts.size > 1 %}
-          {% assign after_mark = mark_parts[1] %}
-          {% assign src_parts = after_mark | split: 'src="' %}
-          {% if src_parts.size > 1 %}
-            {% assign cover = src_parts[1] | split: '"' | first %}
-          {% endif %}
-        {% endif %}
-      {% endif %}
-      {% if cover == nil or cover == '' %}
-        {% assign mark_parts = post.content | split: 'data-thumb' %}
-        {% if mark_parts.size > 1 %}
-          {% assign after_mark = mark_parts[1] %}
-          {% assign src_parts = after_mark | split: 'src="' %}
-          {% if src_parts.size > 1 %}
-            {% assign cover = src_parts[1] | split: '"' | first %}
-          {% endif %}
-        {% endif %}
-      {% endif %}
-      {% if cover == nil or cover == '' %}
-        {% assign parts = post.content | split: 'src="' %}
-        {% if parts.size > 1 %}
-          {% assign cover = parts[1] | split: '"' | first %}
-        {% endif %}
-      {% endif %}
-      <article class="{{ col_class }}" data-date="{{ post.date | date: '%s' }}" data-categories="{% if post.categories %}{{ post.categories | join: '|' | downcase }}{% endif %}">
-        {% if cover %}
-          <a class="image fit" href="{{ post.url }}">
-            {% if post.status == 'Ongoing' %}<span class="status-badge">Ongoing</span>{% endif %}
-            <img src="{{ cover }}" alt="{{ post.title }} cover" />
-          </a>
-        {% else %}
-          <a class="image fit" href="{{ post.url }}">
-            {% if post.status == 'Ongoing' %}<span class="status-badge">Ongoing</span>{% endif %}
-            <span class="thumb-placeholder" aria-hidden="true"></span>
-          </a>
-        {% endif %}
-        <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
-        <p class="small">{{ post.date | date: "%B %e, %Y" }}{% if post.categories %} · {{ post.categories | join: ", " }}{% endif %}</p>
-        {% if post.abstract %}
-          <p>{{ post.abstract | truncate: 140 }}</p>
-        {% elsif post.excerpt %}
-          <p>{{ post.excerpt | strip_html | truncate: 140 }}</p>
-        {% endif %}
-      </article>
-    {% endfor %}
+  {% include filter-chips.html posts=visible target="#posts-grid" sort=true %}
+  <div class="grid" id="posts-grid" data-years>
+    {%- assign sorted = visible | sort: "date" | reverse -%}
+    {%- assign last_year = "" -%}
+    {%- for p in sorted -%}
+      {%- assign y = p.date | date: "%Y" -%}
+      {%- if y != last_year %}
+    <h3 class="year-divider" id="y{{ y }}" data-toc="{{ y }}">{{ y }}</h3>
+        {%- assign last_year = y -%}
+      {%- endif %}
+      {% if forloop.index <= 4 %}{% include card.html post=p loading="eager" %}{% else %}{% include card.html post=p %}{% endif %}
+    {%- endfor %}
   </div>
 </section>
-
-<script>
-(function(){
-  var mq = window.matchMedia('(min-width: 981px)');
-  var sidebar = document.getElementById('sidebar-sections');
-  var grid = document.getElementById('posts-grid');
-  var spyObserver = null;
-  var headerMotionInit = false;
-
-  function setupHeaderMotion(){
-    if(headerMotionInit) return;
-    if(!(mq.matches && sidebar)) return;
-    var header=document.getElementById('header');
-    var tagline=header && header.querySelector('.sidebar-tagline');
-    var toc=sidebar; var start=60, end=240;
-    function onScroll(){ if(!tagline) return; var y=pageYOffset||document.documentElement.scrollTop||0; var t=y<=start?0:y>=end?1:(y-start)/(end-start); tagline.style.transform='translateY(' + (-12*t) + 'px)'; tagline.style.opacity=String(1-t); tagline.classList.toggle('is-hidden', t>=0.999); if(toc){ var tt=16*(1-t), to=0.2+0.8*t; toc.style.transform='translateY(' + tt + 'px)'; toc.style.opacity=String(to);} }
-    onScroll(); addEventListener('scroll', onScroll, {passive:true}); headerMotionInit=true;
-  }
-
-  function setActive(id){ if(!sidebar) return; [].slice.call(sidebar.querySelectorAll('a')).forEach(function(a){ var on=a.getAttribute('href')==='#'+id; a.classList.toggle('active', on); a.style.opacity=on?'1':'0.4'; }); }
-
-  function rebuildTimeline(){
-    if(!(mq.matches && sidebar && grid)) return;
-    // clear old anchors and observer
-    [].slice.call(document.querySelectorAll('.year-anchor')).forEach(function(n){ n.parentNode && n.parentNode.removeChild(n); });
-    // remove any previously assigned year ids on cards
-    [].slice.call(grid.querySelectorAll('article.post-card[id^="year-"]')).forEach(function(el){ el.removeAttribute('id'); });
-    if(spyObserver){ try{ spyObserver.disconnect(); }catch(e){} spyObserver=null; }
-    // collect visible cards in order
-    var cards=[].slice.call(grid.querySelectorAll('article.post-card')).filter(function(c){ return c.style.display !== 'none'; });
-    var seen={}; var years=[];
-    cards.forEach(function(card){
-      var epoch=+(card.getAttribute('data-date')||0); if(!epoch) return;
-      var y=new Date(epoch*1000).getFullYear();
-      if(!seen[y]){
-        seen[y]=true; years.push(String(y));
-        // assign the year id directly on the first card of that year
-        card.id = 'year-'+y;
-      }
-    });
-    // populate sidebar
-    var ul=document.createElement('ul'); years.forEach(function(y){ var li=document.createElement('li'); var a=document.createElement('a'); a.href='#year-'+y; a.textContent=y; li.appendChild(a); ul.appendChild(li); });
-    sidebar.innerHTML=''; sidebar.appendChild(ul); sidebar.style.display='';
-  // smooth scroll
-  sidebar.onclick=function(ev){ var a=ev.target.closest('a[href^="#year-"]'); if(!a) return; ev.preventDefault(); var t=document.querySelector(a.getAttribute('href')); if(t) t.scrollIntoView({behavior:'smooth', block:'start'}); };
-    // scrollspy
-    var ids=years.map(function(y){return 'year-'+y;});
-    if('IntersectionObserver' in window){
-      spyObserver=new IntersectionObserver(function(entries){ entries.forEach(function(e){ if(e.isIntersecting){ setActive(e.target.id); }}); }, {rootMargin:'0px 0px -85% 0px', threshold:[0,0.01,0.1]});
-      ids.forEach(function(id){ var el=document.getElementById(id); if(el) spyObserver.observe(el); });
-    }
-    else {
-      function compute(){ var vh=innerHeight||document.documentElement.clientHeight; var trigger=vh*0.85; var best=null, d0=1e9; ids.forEach(function(id){ var el=document.getElementById(id); if(!el) return; var r=el.getBoundingClientRect(); var d=Math.abs(r.top-trigger); if(d<d0){ d0=d; best=id; }}); if(best) setActive(best);} compute(); addEventListener('scroll', compute, {passive:true}); addEventListener('resize', compute);
-    }
-    function checkBottom(){ var doc=document.documentElement, body=document.body; var y=pageYOffset||doc.scrollTop||0; var vh=innerHeight||doc.clientHeight||0; var full=Math.max(doc.scrollHeight, body.scrollHeight, doc.offsetHeight, body.offsetHeight); if(y+vh>=full-2){ if(ids.length) setActive(ids[ids.length-1]); } } checkBottom(); addEventListener('scroll', checkBottom, {passive:true}); addEventListener('resize', checkBottom);
-  }
-
-  function parseCats(el){ var v=(el.getAttribute('data-categories')||'').toLowerCase(); return v? v.split('|'): []; }
-  function apply(){
-    var catSel=document.getElementById('post-category');
-    var sortSel=document.getElementById('post-sort');
-    var cat=catSel?catSel.value:'__all';
-    var sort=sortSel?sortSel.value:'newest';
-    var row=grid; if(!row) return;
-    var cards=[].slice.call(row.querySelectorAll('article.post-card'));
-    cards.forEach(function(card){ var cats=parseCats(card); var show=(cat==='__all')||(cats.indexOf(cat.toLowerCase())!==-1); card.style.display= show? '':'none'; });
-    var visible=cards.filter(function(card){return card.style.display!== 'none';});
-    visible.sort(function(a,b){ var da=+(a.getAttribute('data-date')||0); var db=+(b.getAttribute('data-date')||0); return sort==='oldest' ? da-db : db-da; });
-    visible.forEach(function(card,i){ card.classList.remove('6u$'); card.classList.add('6u'); if((i%2)===1){ card.classList.add('6u$'); card.classList.remove('6u'); } row.appendChild(card); });
-    rebuildTimeline();
-  }
-
-  var catSel=document.getElementById('post-category');
-  var sortSel=document.getElementById('post-sort');
-  if(catSel) catSel.addEventListener('change', apply);
-  if(sortSel) sortSel.addEventListener('change', apply);
-  setupHeaderMotion();
-  apply();
-})();
-</script>

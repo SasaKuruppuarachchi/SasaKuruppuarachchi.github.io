@@ -1,0 +1,41 @@
+{%- assign is_post = false -%}{%- if page.layout == 'post' -%}{%- assign is_post = true -%}{%- endif -%}
+<aside class="sidebar{% if is_post %} sidebar--post{% endif %}" id="sidebar">
+  <div class="sidebar__inner">
+    <a class="sidebar__avatar" href="{{ '/' | relative_url }}" aria-label="Home">
+      <img src="{{ '/images/avatar-320.webp' | relative_url }}" width="160" height="160" alt="Portrait of Sasanka Kuruppu Arachchige">
+    </a>
+
+    {%- if is_post %}
+    <a class="sidebar__name sidebar__name--small" href="{{ '/' | relative_url }}">Sasanka Kuruppu Arachchige</a>
+    <div class="sidebar__collapse">
+      <p class="sidebar__tagline">Aerial robotics · state estimation · learned odometry</p>
+    </div>
+    {%- else %}
+    <p class="sidebar__eyebrow">{{ page.greeting | default: "Hello, I'm" }}</p>
+    <h1 class="sidebar__name">Sasanka Kuruppu Arachchige</h1>
+    <div class="sidebar__collapse">
+      <p class="sidebar__tagline">{{ page.tagline | default: "Doctoral researcher building agile aerial robots that keep track of where they are: robust odometry, learned inertial navigation and edge&nbsp;AI." }}</p>
+    </div>
+    {%- endif %}
+
+    <nav class="toc" id="toc" aria-label="On this page" hidden>
+      <p class="toc__label">{% if is_post %}On this page{% else %}Sections{% endif %}</p>
+      <ol class="toc__list"></ol>
+    </nav>
+
+    <div class="sidebar__foot">
+      <ul class="socials" aria-label="Profiles">
+        <li><a href="{{ site.social.github }}" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">{% include icon.html name="github" %}</a></li>
+        <li><a href="{{ site.social.linkedin }}" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">{% include icon.html name="linkedin" %}</a></li>
+        <li><a href="{{ site.social.scholar }}" target="_blank" rel="noopener" aria-label="Google Scholar" title="Google Scholar">{% include icon.html name="scholar" %}</a></li>
+        <li><a href="{{ site.social.orcid }}" target="_blank" rel="noopener" aria-label="ORCID" title="ORCID">{% include icon.html name="orcid" %}</a></li>
+        <li><a href="{{ site.social.youtube }}" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube">{% include icon.html name="youtube" %}</a></li>
+        <li><a href="mailto:{{ site.author.email }}" aria-label="Email" title="Email">{% include icon.html name="mail" %}</a></li>
+      </ul>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle appearance">
+        <span class="theme-toggle__sun">{% include icon.html name="sun" %}</span>
+        <span class="theme-toggle__moon">{% include icon.html name="moon" %}</span>
+      </button>
+    </div>
+  </div>
+</aside>
