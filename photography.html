@@ -9,56 +9,89 @@ tagline: "A glimpse into the world through my eyes."
   <div class="section__head">
     <div>
       <h2 class="section__title">Gallery</h2>
-      <p class="section__sub">Selected shoots, shared on Facebook.</p>
+      <p class="section__sub">Selected shoots, shared on Facebook. Open an album to see every photo.</p>
     </div>
   </div>
-  <div class="photo-list" id="photo-posts-list" aria-live="polite"></div>
+  <div class="photo-list" id="photo-posts-list"></div>
+  <noscript><p class="section__sub">The albums are embedded from Facebook and need JavaScript.</p></noscript>
 </section>
 
 <script>
   /*
-   * Photography posts. Each entry: { url: 'public Facebook post/album URL', title?: '', date?: 'YYYY-MM-DD' }.
-   * Dated posts are shown newest first; undated ones follow in list order.
+   * Photography albums, embedded with Facebook's post plugin as plain lazy-loaded iframes (no Facebook SDK).
+   *
+   * Fields per entry:
+   *   href  Public Facebook post or album URL (required).
+   *   h500  Rendered height of the embed at 500 px wide (optional, default 700).
+   *   h350  Rendered height at 350 px wide (optional, default 600).
+   * The heights let each iframe be sized exactly without the SDK. For a new post, open
+   * https://www.facebook.com/plugins/post.php?href=<encoded URL>&show_text=true&width=500 and measure.
    */
   window.PHOTO_POSTS = [
-    { url: 'https://www.facebook.com/EmashaSeneviratneOfficial/posts/pfbid09RUHu6RymYJTV8vwgpKuV3qgYPJjR2ZiVrWWBHA8aEQySUFJ3752AvdshD9XynDvl' },
-    { url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0R3v1k16HPpaEZQPYX58WZXfmZCERSuKRJ5bGckHEfwdErYMeR2CSyeKTj9CfNpJSl&id=100008540473940' },
-    { url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02ZsteJ82fzxPNfC8XjAwuSGbXR2uVDHvx7nM9o44CAeE1BkhFMdXdf9Bew354peChl&id=100008540473940' },
-    { url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid04xeGemi7XkdoDA5RhXaeNHTjePBg4swjTA38CETCSTPtPoWXKaBBDXPXRomN1G4ml&id=100008540473940' },
-    { url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02h5HuNidJEK4G8xTa6dpof3zFoLknRnqDTTurNNGhkkmmbRnurC3QVstQG1urVK6Jl&id=100008540473940' },
-    { url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02ek6BTpGJuZNnc344p5VH6D2qDG3Sf4N9LPAqRruq9UEphoMy8pV5D3hnYV6W4X24l&id=100008540473940' },
-    { url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0wNCSLBxsz6nurZdfyT5puFeNWYN6rt9sPjSgoVQWx8YnM8HCC2a4beGDPcfgFuyNl&id=100008540473940' },
-    { url: 'https://www.facebook.com/permalink.php?story_fbid=pfbid027WJ1JKa9R95owaNF44E3vCUwoNSjaPJDr2HMXdWkZ12tDT14UVTnXUNbW2t9vba2l&id=100008540473940' },
-    { url: 'https://www.facebook.com/primalki.teshara/posts/pfbid021FVs4HywDBzoLkydGLNUQ6PuMiKSczdS9qa1vJB5PZ5LG2KdYn2MzUe5eFfM2qzkl' }
+    { href: 'https://www.facebook.com/EmashaSeneviratneOfficial/posts/pfbid09RUHu6RymYJTV8vwgpKuV3qgYPJjR2ZiVrWWBHA8aEQySUFJ3752AvdshD9XynDvl', h500: 647, h350: 541 },
+    { href: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0R3v1k16HPpaEZQPYX58WZXfmZCERSuKRJ5bGckHEfwdErYMeR2CSyeKTj9CfNpJSl&id=100008540473940', h500: 646, h350: 496 },
+    { href: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02ZsteJ82fzxPNfC8XjAwuSGbXR2uVDHvx7nM9o44CAeE1BkhFMdXdf9Bew354peChl&id=100008540473940', h500: 646, h350: 496 },
+    { href: 'https://www.facebook.com/permalink.php?story_fbid=pfbid04xeGemi7XkdoDA5RhXaeNHTjePBg4swjTA38CETCSTPtPoWXKaBBDXPXRomN1G4ml&id=100008540473940', h500: 646, h350: 496 },
+    { href: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02h5HuNidJEK4G8xTa6dpof3zFoLknRnqDTTurNNGhkkmmbRnurC3QVstQG1urVK6Jl&id=100008540473940', h500: 704, h350: 554 },
+    { href: 'https://www.facebook.com/permalink.php?story_fbid=pfbid02ek6BTpGJuZNnc344p5VH6D2qDG3Sf4N9LPAqRruq9UEphoMy8pV5D3hnYV6W4X24l&id=100008540473940', h500: 563, h350: 438 },
+    { href: 'https://www.facebook.com/permalink.php?story_fbid=pfbid0wNCSLBxsz6nurZdfyT5puFeNWYN6rt9sPjSgoVQWx8YnM8HCC2a4beGDPcfgFuyNl&id=100008540473940', h500: 563, h350: 458 },
+    { href: 'https://www.facebook.com/permalink.php?story_fbid=pfbid027WJ1JKa9R95owaNF44E3vCUwoNSjaPJDr2HMXdWkZ12tDT14UVTnXUNbW2t9vba2l&id=100008540473940', h500: 743, h350: 632 },
+    { href: 'https://www.facebook.com/primalki.teshara/posts/pfbid021FVs4HywDBzoLkydGLNUQ6PuMiKSczdS9qa1vJB5PZ5LG2KdYn2MzUe5eFfM2qzkl', h500: 743, h350: 632 }
   ];
 
   (function () {
     var list = document.getElementById('photo-posts-list');
-    var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
-    var posts = window.PHOTO_POSTS.slice().sort(function (a, b) {
-      if (!a.date && !b.date) return 0; if (!a.date) return 1; if (!b.date) return -1;
-      return new Date(b.date) - new Date(a.date);
+    var cards = window.PHOTO_POSTS.map(function (p) {
+      var card = document.createElement('article');
+      card.className = 'photo-post reveal';
+      var link = document.createElement('a');
+      link.className = 'photo-post__open';
+      link.href = p.href;
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.textContent = 'Open album ↗';
+      card.appendChild(link);
+      list.appendChild(card);
+      return { card: card, post: p, width: 0 };
     });
-    list.innerHTML = posts.map(function (p) {
-      return '<article class="photo-post reveal">' +
-        (p.title ? '<h3 class="card__title" style="margin:6px 8px 10px">' + esc(p.title) + '</h3>' : '') +
-        '<div class="fb-post" data-href="' + esc(p.url) + '" data-width="500" data-show-text="true">' +
-        '<a class="photo-post__fallback" href="' + esc(p.url) + '" target="_blank" rel="noopener">View on Facebook ↗</a></div>' +
-        '</article>';
-    }).join('');
 
-    /* Load the Facebook SDK only when the gallery is about to scroll into view. */
-    function loadSdk() {
-      if (document.getElementById('facebook-jssdk')) return;
-      var root = document.createElement('div'); root.id = 'fb-root'; document.body.appendChild(root);
-      var s = document.createElement('script');
-      s.id = 'facebook-jssdk'; s.async = true; s.defer = true; s.crossOrigin = 'anonymous';
-      s.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0';
-      document.body.appendChild(s);
+    function heightFor(p, w) {
+      var a = p.h350 || 600, b = p.h500 || 700;
+      return Math.ceil(a + (b - a) * (w - 350) / 150) + 4;
     }
-    if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function (es) { if (es.some(function (e) { return e.isIntersecting; })) { loadSdk(); io.disconnect(); } }, { rootMargin: '400px' });
-      io.observe(list);
-    } else { loadSdk(); }
+
+    function render() {
+      cards.forEach(function (c) {
+        var box = c.card.clientWidth;
+        var w = Math.max(350, Math.min(500, Math.floor(box)));
+        if (w === c.width) return;
+        c.width = w;
+        var h = heightFor(c.post, w);
+        var scale = box < 350 ? box / 350 : 1;
+        var f = c.card.querySelector('iframe');
+        if (!f) {
+          f = document.createElement('iframe');
+          f.title = 'Photo album on Facebook';
+          f.loading = 'lazy';
+          f.setAttribute('scrolling', 'no');
+          f.setAttribute('allow', 'encrypted-media; picture-in-picture; web-share');
+          f.addEventListener('load', function () { c.card.classList.add('is-loaded'); });
+          c.card.insertBefore(f, c.card.firstChild);
+        }
+        f.width = w;
+        f.height = h;
+        f.style.transform = scale < 1 ? 'scale(' + scale + ')' : '';
+        c.card.style.height = scale < 1 ? Math.ceil(h * scale) + 'px' : '';
+        f.src = 'https://www.facebook.com/plugins/post.php?href=' + encodeURIComponent(c.post.href) +
+          '&show_text=true&width=' + w;
+      });
+    }
+
+    /* Size from the live layout: re-render whenever the gallery's width changes (rotation, resize, late layout). */
+    var t;
+    var schedule = function () { clearTimeout(t); t = setTimeout(render, 120); };
+    if ('ResizeObserver' in window) { new ResizeObserver(schedule).observe(list); }
+    else { window.addEventListener('resize', schedule, { passive: true }); }
+    requestAnimationFrame(render);
   })();
 </script>
