@@ -1,0 +1,160 @@
+---
+layout: post
+title: "Earth Rover Challenge IROS 2026: First Place"
+date: 2026-09-30 16:00:00
+categories: ["Events", "Projects: Robotic"]
+tags: ["Earth Rover Challenge", "IROS 2026", "Visual Navigation", "Field Robotics", "Image-Goal Navigation", "Traversability", "Sim-to-Real"]
+status: Finished
+visibility: Published
+award: "1st place"
+cover: "/assets/media/2026/09/erc/erc_cover.gif"
+abstract: "Team ManseRobot from Tampere University won the Earth Rover Challenge at IROS 2026, finishing first overall out of 12 teams, ahead of NYU and Anna University, with one learned navigation stack across urban, indoor and marathon tracks."
+thumb: "/assets/thumbs/earth-rover-challenge-iros-2026-champions.webp"
+thumb_anim: "/assets/thumbs/earth-rover-challenge-iros-2026-champions.anim.webp"
+---
+{%- assign media = "/assets/media/2026/09/erc/" -%}
+
+<figure>
+  <video controls playsinline preload="none" poster="{{ media }}erc_champions_poster.jpg">
+    <source src="{{ media }}erc_iros2026_champions.mp4" type="video/mp4">
+  </video>
+  <figcaption>Our one-minute recap of the challenge: one fleet, four tracks, first place.</figcaption>
+</figure>
+
+<p>
+  Team <strong>ManseRobot</strong> from the Computer Vision Group at Tampere University won the
+  <a href="https://earth-rover-challenge.github.io/" target="_blank" rel="noopener">Earth Rover Challenge</a>
+  at <strong>IROS 2026</strong> in Pittsburgh (28–30 September 2026), finishing first overall out of 12 teams from around the world.
+  The challenge asks a simple question: <em>can an AI policy drive a sidewalk rover the way a human can?</em> Our answer
+  was a single learned navigation stack that drove robots in cities across the Americas and Africa, through indoor hallways
+  using nothing but a camera, and on the 50-mile marathon from UC Berkeley to Stanford.
+</p>
+<p>
+  The team was <strong>Sasanka Kuruppu Arachchige</strong>, <strong>Lauri Suomela</strong> and <strong>Abhimanyu Bhowmik</strong>,
+  supervised by Prof. <strong>Joni-Kristian Kämäräinen</strong>. This builds directly on our runner-up finish at
+  <a href="{{ site.baseurl }}{% post_url 2025-05-22-the-earthrover-challenge-icar-25-runners-up %}">the ICRA 2025 edition</a>.
+</p>
+
+<ul class="facts">
+  <li class="fact"><p class="fact__k">Overall</p><p class="fact__v">1st · 12.50</p><p class="fact__s">NYU 9.00 · Anna University 7.00</p></li>
+  <li class="fact"><p class="fact__k">Indoor</p><p class="fact__v">5 / 5</p><p class="fact__s">Checkpoints, zero interventions</p></li>
+  <li class="fact"><p class="fact__k">Marathon</p><p class="fact__v">Best score</p><p class="fact__s">UC Berkeley → Stanford</p></li>
+</ul>
+
+<h2>The challenge</h2>
+<p>
+  Every team drives the same standardised Earth Rover sidewalk robots, which are deployed in different cities and controlled
+  remotely over 4G. All computation runs off-board: camera, GPS and IMU data arrive at around 20&nbsp;Hz with roughly half
+  a second of latency, and velocity commands go back the same way. Missions are scored by difficulty, so the total rewards
+  both reach and consistency. The IROS 2026 edition had four tracks over three days:
+</p>
+<ul>
+  <li><strong>Urban:</strong> follow GPS checkpoints along sidewalks and street crossings in cities including Colón (Panama), La Plata (Argentina) and Selebi-Phikwe (Botswana), plus an unseen-environment mission.</li>
+  <li><strong>Off-road:</strong> reach image goals on trails, slopes and gravel, without GPS.</li>
+  <li><strong>Indoor:</strong> reach image goals through hallways, atriums and labs, again with camera only.</li>
+  <li><strong>Marathon:</strong> new this year. A cross-domain endurance run from UC Berkeley to Stanford, about 50 miles in seven legs, driven by a single policy.</li>
+</ul>
+
+<h2>Results</h2>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>#</th><th>Team</th><th>Urban</th><th>Off-road</th><th>Indoor</th><th>Marathon</th><th>Overall</th></tr></thead>
+    <tbody>
+      <tr class="is-us"><td>1</td><td>ManseRobot (Tampere University)</td><td>5.50</td><td>0.00</td><td>5.00</td><td>2.00</td><td>12.50</td></tr>
+      <tr><td>2</td><td>NYU Self Drive (NYU)</td><td>3.50</td><td>0.00</td><td>5.00</td><td>0.50</td><td>9.00</td></tr>
+      <tr><td>3</td><td>ReviewIsit (Anna University)</td><td>6.50</td><td>0.00</td><td>0.50</td><td>0.00</td><td>7.00</td></tr>
+    </tbody>
+  </table>
+</div>
+<p>
+  As the organisers put it, ManseRobot finished in the top two in the Urban, Indoor and Marathon tracks, and that
+  consistency is what won the overall title. Highlights include a complete 8/8-checkpoint urban run in Colón, Panama,
+  with no interventions, a perfect 5/5 indoor run, and the best marathon score of the event.
+</p>
+<figure>
+  <img src="{{ media }}erc_leaderboard.jpg" alt="Final Earth Rover Challenge IROS 2026 leaderboard, teams 1 to 11 of 12. Team ManseRobot (Tampere University) is first with 12.50 points overall, Team NYU Self Drive second with 9.00 and Team ReviewIsit (Anna University) third with 7.00." width="1919" height="878">
+  <figcaption>Official final leaderboard (teams 1–11 of 12 shown). Tap to zoom.</figcaption>
+</figure>
+
+<h2>How it works</h2>
+<p>
+  The whole system comes from two of our recent papers. Instead of hand-tuning a pipeline for each track, we used the same
+  learned policies everywhere and added a thin safety layer around them.
+</p>
+<ul>
+  <li>
+    <strong>A navigation policy trained on real data at scale.</strong> The driving policy comes from our study
+    <a href="https://lasuomela.github.io/navigation_scaling/" target="_blank" rel="noopener">Data Scaling for Navigation in Unknown Environments</a>
+    (RA-L 2026), trained on thousands of hours of crowd-sourced FrodoBots driving data. For this edition we retrained
+    it to take RGB images together with traversability maps, and to output actions through a diffusion head, using the LUMI supercomputer.
+  </li>
+  <li>
+    <strong>Traversability as a safety layer.</strong> SAM-TP, the pixel-wise traversability model from
+    <a href="https://arxiv.org/abs/2506.17960" target="_blank" rel="noopener">GeNIE</a>, is projected into a bird's-eye-view map
+    around the robot. A repulsive field pushes the commanded motion away from untraversable space, and a recovery
+    state gets the robot unstuck when it stalls.
+  </li>
+  <li>
+    <strong>GPS goals in the city.</strong> In the urban track the policy follows sub-goals derived from the GPS checkpoints,
+    with explicit heading control so the robot points at the next checkpoint before committing to a direction.
+  </li>
+  <li>
+    <strong>Image goals without GPS.</strong> Indoors we run
+    <a href="https://lasuomela.github.io/faint/" target="_blank" rel="noopener">FAINT</a> (ICRA 2026), our image-goal navigation
+    transformer trained largely in simulation, on a topological map: a sequence of images recorded along the route.
+    The robot localises itself in that map with EigenPlaces place-recognition features, and a cone detector and tracker
+    confirms each checkpoint.
+  </li>
+</ul>
+
+<h2>Urban: Colón, Panama</h2>
+<figure>
+  <video data-lazy data-autoplay muted loop playsinline preload="none" poster="{{ media }}erc_panama_poster.jpg">
+    <source data-src="{{ media }}erc_panama_urban_timelapse.mp4" type="video/mp4">
+  </video>
+  <figcaption>
+    Our operator view of the Colón run at 30× speed. Top: the front camera with upcoming GPS checkpoints (green).
+    Left: the map, the SAM-TP traversability mask and the control signals. Right: the bird's-eye-view planner, with
+    the route in green and the policy's predicted path.
+  </figcaption>
+</figure>
+
+<h2>Indoor: one-shot image-goal navigation</h2>
+<p>
+  The indoor track has no GPS and no prior map: the only information about the building is a short sequence of
+  images along the route. We built and tested the indoor pipeline on corridors in our own lab in Tampere, then deployed
+  it single-shot on the competition building at NYU, completing all five checkpoints with zero interventions.
+</p>
+<div class="media-pair">
+  <figure>
+    <video data-lazy data-autoplay muted loop playsinline preload="none" poster="{{ media }}erc_lab_corridor_poster.jpg">
+      <source data-src="{{ media }}erc_lab_corridor.mp4" type="video/mp4">
+    </video>
+    <figcaption>Testing in our lab: the 67-image topological map of a Tampere University corridor.</figcaption>
+  </figure>
+  <figure>
+    <video data-lazy data-autoplay muted loop playsinline preload="none" poster="{{ media }}erc_nyu_indoor_poster.jpg">
+      <source data-src="{{ media }}erc_nyu_indoor.mp4" type="video/mp4">
+    </video>
+    <figcaption>Competition: the 242-image topological map used for the single-shot run at NYU.</figcaption>
+  </figure>
+</div>
+
+<h2>What's next</h2>
+<p>
+  We are turning the system and the lessons from the competition into a paper,
+  <em>ManseRover: Cross-Domain Navigation from Scaled Real Data and Simulation</em> (tentative title), targeting <strong>IROS 2027</strong>.
+  It brings together our work on
+  <a href="https://lasuomela.github.io/navigation_scaling/" target="_blank" rel="noopener">data scaling for navigation</a> and
+  <a href="https://lasuomela.github.io/faint/" target="_blank" rel="noopener">FAINT</a>: large real-world datasets give a policy
+  that generalises across cities, and simulation-trained image-goal navigation handles the places GPS cannot reach.
+  This page will link to the paper when it is out.
+</p>
+
+<h2>Links</h2>
+<ul>
+  <li><a href="https://earth-rover-challenge.github.io/" target="_blank" rel="noopener">Earth Rover Challenge</a>: rules, tracks and past editions</li>
+  <li><a href="https://x.com/BitRobotNetwork/status/2108497969150578901" target="_blank" rel="noopener">Official podium announcement</a> by BitRobot, the challenge sponsor</li>
+  <li><a href="https://lasuomela.github.io/navigation_scaling/" target="_blank" rel="noopener">Data Scaling for Navigation in Unknown Environments</a> (RA-L 2026)</li>
+  <li><a href="https://lasuomela.github.io/faint/" target="_blank" rel="noopener">Synthetic vs. Real Training Data for Visual Navigation</a> (FAINT, ICRA 2026)</li>
+</ul>

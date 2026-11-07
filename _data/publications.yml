@@ -144,6 +144,14 @@ review:
     code: "https://github.com/SasaKuruppuarachchi/SAVIOR"
 
 prep:
+  - title: "ManseRover: Cross-Domain Navigation from Scaled Real Data and Simulation (Tentative)"
+    authors: "Sasanka Kuruppu Arachchige, Lauri Suomela, Abhimanyu Bhowmik, Joni-Kristian Kämäräinen"
+    venue: "In preparation (target: IROS 2027)"
+    year: 2026
+    type: conference
+    status: prep
+    post: "earth-rover-challenge-iros-2026-champions"
+
   - title: "EDGE-IO: Calibrated Learned Inertial Odometry Across Quadrotor Platforms"
     authors: "Sasanka Kuruppu Arachchige, Joni-Kristian Kämäräinen"
     venue: "In preparation"

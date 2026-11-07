@@ -457,6 +457,27 @@
     });
   }
 
+  /* ---------- Lazy, autoplaying loop videos (<video data-lazy> with <source data-src>) ---------- */
+  var lazyVideos = $$('video[data-lazy]');
+  if (lazyVideos.length) {
+    var loadVideo = function (v) {
+      $$('source[data-src]', v).forEach(function (s) { s.src = s.getAttribute('data-src'); s.removeAttribute('data-src'); });
+      v.load();
+    };
+    if ('IntersectionObserver' in window) {
+      var vio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          var v = e.target;
+          if (e.isIntersecting) {
+            if (v.querySelector('source[data-src]')) loadVideo(v);
+            if (v.hasAttribute('data-autoplay') && !reduceMotion) { var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }
+          } else if (v.hasAttribute('data-autoplay')) { v.pause(); }
+        });
+      }, { rootMargin: '200px 0px' });
+      lazyVideos.forEach(function (v) { vio.observe(v); });
+    } else { lazyVideos.forEach(loadVideo); }
+  }
+
   /* ---------- Init ---------- */
   buildToc();
   onScroll();

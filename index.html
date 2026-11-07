@@ -6,7 +6,12 @@ body_class: page-home
 {%- assign ongoing = visible | where: "status", "Ongoing" -%}
 
 <section class="section hero" id="about" data-toc="About">
+  {%- assign erc = site.posts | where: "slug", "earth-rover-challenge-iros-2026-champions" | first %}
+  {%- if erc %}
+  <a class="hero__kicker hero__kicker--link" href="{{ erc.url | relative_url }}"><span aria-hidden="true">🏆</span>New: we won the Earth Rover Challenge at IROS 2026 {% include icon.html name="next" %}</a>
+  {%- else %}
   <p class="hero__kicker"><span class="dot" aria-hidden="true"></span>MSCA Doctoral Fellow · Tampere University</p>
+  {%- endif %}
   <h2 class="hero__title">Building agile aerial robots that <span class="grad">know where they are.</span></h2>
   <p class="hero__lead">
     I'm a doctoral researcher and Marie Skłodowska-Curie fellow in the Computer Vision Group at
@@ -32,8 +37,8 @@ body_class: page-home
     </li>
     <li class="fact reveal">
       <p class="fact__k">Recognition</p>
-      <p class="fact__v">ICRA 2025 EarthRover runner-up</p>
-      <p class="fact__s">DNA+ 2022 Grand Prize · IMechE Project Award 2019</p>
+      <p class="fact__v">IROS 2026 Earth Rover Challenge winner</p>
+      <p class="fact__s">ICRA 2025 runner-up · DNA+ 2022 Grand Prize · IMechE Project Award 2019</p>
     </li>
   </ul>
 </section>

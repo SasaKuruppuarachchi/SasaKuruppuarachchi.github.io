@@ -13,6 +13,7 @@
       {%- if thumb %}
       <img src="{{ thumb }}"{% if p.thumb_anim %} data-anim="{{ p.thumb_anim | relative_url }}"{% endif %} alt="" width="800" height="500" loading="{{ include.loading | default: 'lazy' }}" decoding="async">
       {%- endif %}
+      {%- if p.award %}<span class="badge badge--award">🏆 {{ p.award }}</span>{% endif %}
       {%- if p.status == 'Ongoing' %}<span class="badge badge--live">Ongoing</span>{% endif %}
       {%- if p.thumb_anim %}<span class="card__play" aria-hidden="true"></span>{% endif %}
     </div>
